@@ -1,0 +1,5 @@
+C:/Users/mkalt/Nextcloud/Schule/Semester 2/IT Projektarbeit/Projekt-Github/EscapeRoom/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/mkalt/Nextcloud/Schule/Semester 2/IT Projektarbeit/Projekt-Github/EscapeRoom/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/mkalt/Nextcloud/Schule/Semester 2/IT Projektarbeit/Projekt-Github/EscapeRoom/out/build/x64-debug/EscapeRoom/CMakeFiles/EscapeRoom.dir
+C:/Users/mkalt/Nextcloud/Schule/Semester 2/IT Projektarbeit/Projekt-Github/EscapeRoom/out/build/x64-debug/EscapeRoom/CMakeFiles/edit_cache.dir
+C:/Users/mkalt/Nextcloud/Schule/Semester 2/IT Projektarbeit/Projekt-Github/EscapeRoom/out/build/x64-debug/EscapeRoom/CMakeFiles/rebuild_cache.dir
