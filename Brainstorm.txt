@@ -1,0 +1,35 @@
+Löst man alle Rätsel direkt in unserem Spiel? Oder muss/kann man vl andere Tools verwenden (IDE, Wörterbuch, ChatGPT etc), um zu einem Ergebnis zu kommen?
+	
+
+Ein Raum oder gehen wir vl von Raum zu Raum (ergäbe Möglichkeiten unterschiedl. Genres für Rätsel zu verwenden) - Nachteil: Mehr Layout Arbeit!
+
+
+
+Läuft eine Zeit ab, wenn ja wie lange? Bestimmte Anzahl an Fehlversuchen?
+
+
+
+Wie viele Rätsel?
+
+
+--> Informatik-Student im 1.Semester muss seine neu erlernten Skills anwenden, um rechtzeitig zum Spritzerstand zu kommen
+	- Rätsel aus dem Inhalt des 1. Semesters
+	- Timemanagement
+	- Entscheidung zwischen Freizeit und besseren Noten? Two Way Rätsel
+
+--> Alien auf der Erde sperrt dich ein, um menschliches Verhalten zu erlernen 
+	- Hier könnte man ganz normale Rätsel machen
+	- Kommentare des Aliens könnten sehr humorvoll sein ("Why do you celebrate your birth? Everyone who is alive has been born. It is 								not special")
+
+--> Ein Team muss ein IT Projekt erarbeiten und hat keine Ahnung wie
+	- Inhalt des 2. Semesters
+
+--> Nachts im Museum trifft Stranger Things: Gruppe hat sich im Museum versteckt, um in der Nacht zu feiern. Erste Hälfte des Spiels ist 	noch nett, hilfsbereite Skulpturen und Gemälde  etc. Wenn es durch den vermeintlichen Exit geht, kommt man in ein böses 	Spiegelbild des vorherigen Raumes
+	- Standard Rätsel
+	- Humorvoller erster Teil (klassische HighSchool Comedy)
+	- Beängstigender zweiter Teil (klassische Horror Movies)
+
+
+"Möchtest du noch einen Hinweis oder wirst du lieber Webdeveloper?"
+
+Lektoren einbauen: Richter als Judge?, Harald Wahl als Wal? Porchet als Porsche? 
