@@ -53,5 +53,3 @@ Welche Sounds werden benötigt?
 	-Ticken einer Uhr, wenn die Zeit knapp wird
 	-Für Interaktionen mit Inventargegenständen
 	-Für Interaktionen mit der Spielwelt (Rätselbasierend)
-	
- 
