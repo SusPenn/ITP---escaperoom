@@ -1,6 +1,6 @@
 -Fenstergröße: 			1280x720
 
--Maus und Tastaturausgabe
+-Maus und Tastatureingabe
 
 -Hauptmenü:
 	-Schaltflächen:
@@ -16,19 +16,19 @@
 
 
 Hauptmenü:
-	-Hintergrundbild (Change our Tomorrow + Spritzerstand + Wa(h)l?)
+	-Hintergrundbild (Change our Tomorrow + Spritzerstand)
 	-Schaltflächen
 	-Hintergrundmusik
 
 
 Klassen: 
-	-Hauptmenü
-	-Spieler
-	-Inventar
-	-Rätsel
-	-Raum
+	-MainMenu
+	-Player
+	-Inventory
+	-Riddle
+	-Room
 	-Sound
-	-Visuelles
+	-Visuals
 		-Intro (Funktion, die im GameLoop aufgerufen wird (Skip-Button)
 	-GameLoop
 		-Intro
@@ -36,8 +36,22 @@ Klassen:
 
 Sprint 3:
 	-Susi: Hintergrund fürs Hauptmenü, Schaltflächen, Rätselideen finden
-	-Max: Sounds und Musik zusammensuchen (Hauptmenü + letzter Raum), Sound Klasse erstellen, 
+	-Max: Sounds und Musik zusammensuchen (Hauptmenü + letzter Raum), Sound Klasse erstellen
 	-Jenny:	Klassen mal grob erstellen
 	-Lukas: Hauptmenü
-	-Johannes:  Intro Funktion implementierens
+	-Johannes:  Intro Funktion implementieren
+
+Welche Sounds werden benötigt?
+	-Hintegrundmusik für intro, main menu, rooms, outro(credits?)
+	-Click Sound für die Interaktion mit den Menüpunkten
+	-Success und fail für die Rätsel
+	-Erhalt eines Schlüsselteiles
+	-Komplettierung des Schlüssels
+	-Theme für erfolgreichen Abschluss eines Raums
+	-Theme bei Niederlage (Zeit läuft aus, Versuche aufgebraucht?)
+	-Stimmaufnahmen(bei gewissen Rätseln oder auch das Intro einsprechen?)
+	-Ticken einer Uhr, wenn die Zeit knapp wird
+	-Für Interaktionen mit Inventargegenständen
+	-Für Interaktionen mit der Spielwelt (Rätselbasierend)
+	
  
