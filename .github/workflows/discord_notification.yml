@@ -9,7 +9,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Send Commit Info to Discord
-      uses: Ilshidur/action-discord@v2
+      uses: Ilshidur/action-discord@master
       with:
         args: "${{ github.actor }} pushed to ${{ github.ref }}. Commit message: ${{ github.event.head_commit.message }}"
         webhook_url: https://discord.com/api/webhooks/1231190847417221190/VdXtmMVCMEqg5v9Qun07FGbWXWjQQtg1mtc9UegbDT2ZsA4lJaywGlg46_FoPCuPNXby
