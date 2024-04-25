@@ -12,7 +12,7 @@ add_executable(EscapeRoom "src/main.cpp") # Removed "include/EscapeRoom.hpp" sin
 set_property(TARGET EscapeRoom PROPERTY CXX_STANDARD 20)
 
 # Specify the path to the SFML CMake modules
-set(SFML_DIR "${PROJECT_SOURCE_DIR}/external/SFML/lib/cmake/SFML")
+set(SFML_DIR "${PROJECT_SOURCE_DIR}/external/SFML")
 
 # Find SFML components
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
@@ -29,7 +29,7 @@ target_link_libraries(EscapeRoom sfml-graphics sfml-audio)
 # Copy SFML DLLs to the output directory after building (only needed if using dynamic SFML libs on Windows)
 add_custom_command(TARGET EscapeRoom POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${PROJECT_SOURCE_DIR}/external/SFML/bin"
+    "${PROJECT_SOURCE_DIR}/external/SFML"
     $<TARGET_FILE_DIR:EscapeRoom>)
 
 # TODO: Add tests and install targets if needed.
