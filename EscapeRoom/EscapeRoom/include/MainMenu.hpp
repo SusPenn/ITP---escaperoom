@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Button.hpp"
-#include "SoundManager.hpp"
+//#include "SoundManager.hpp"
 #include "Scene.hpp"
 
 class MainMenu : public Scene {
@@ -18,7 +18,7 @@ public:
 private:
     std::vector<Button> buttons;
     sf::Sprite backgroundSprite;
-    SoundManager& soundManager;
+  //  SoundManager& soundManager;
 };
 
 #endif // MAINMENU_HPP
