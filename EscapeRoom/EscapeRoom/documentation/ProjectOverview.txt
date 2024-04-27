@@ -41,6 +41,9 @@ Spielablauf:
 	-Wurden alle Rätsel gelöst und somit alle Schllüsselteile gefunden, hat der Spieler gewonnen und kann nun endlich zum Spritzerstand
 	-Das Spiel endet mit einem Outro
 
+Steuerung:
+
+-Mittels Maus- und Tastaturinput
 
 Visueller Stil:
 
