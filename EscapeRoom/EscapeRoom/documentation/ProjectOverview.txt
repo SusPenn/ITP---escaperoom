@@ -1,0 +1,73 @@
+2D Escape-Room Projektübersicht:
+
+Mitglieder:
+	-Susanne Pennatzer
+	-Jennifer Posch
+	-Lukas Kalab
+	-Johannes Mantler
+	-Maximilian Kaltenreiner
+
+Thema:
+
+Der Spieler ist ein Student, der an der FH-Technikum im ersten Semester Informatik studiert. Er ist im FH Gebäude eingeschlossen und muss zum Spritzerstand vor der FH gelangen. Um aus dem FH Gebäude rauszukommen, muss er verschiedene Rätsel lösen um so an Teile des Schlüssels zu gelangen. Die Rätsel basieren auf dem Stoff des ersten Semesters (Datenmanagement, Infrastruktur Grundlagen, Prozedurale Sprachen, MACS, Web-Development). Der Spieler trifft dabei auf Personen, die ihn evtl. an einige Lehrpersonen erinnern können. Diese eventuellen Gemeinsamkeiten mit echten Personen sind rein zufällig ;)
+
+Tools und Technologie:
+
+	-Programmiersprache: C++
+	-Framework: SFML Library
+	-Versionskontrolle: GitHub
+	-Kommunikation: Discord
+	-Projektmanagement: Azure DevOps
+
+
+GameLoop:
+
+	-Intro
+	-Hauptmenü
+		-Auswahl von "Neues Spiel", "Highscore", "Beenden"
+	-Räume
+		-Bestehen aus verschiedenen Rätseln
+		-Werden alle Rätslen im Raum gelöst, bekommt der Spieler einen Teil des Schlüssels und gelangt in den nächsten Raum
+	-Outro
+
+
+Spielablauf:
+
+	-Das Spiel startet mit einem Intro, um dem Spieler die Situation zu erklären.
+	-Während dem Spiel läuft ein Timer, somit hat der Spieler eine limitierte Zeit, das Spiel abzuschließen.
+	-Der Spieler besitzt ein Inventar mit Gegenständen (kann die Gegenstände bei bestimmten Rätseln verwenden?)
+	-Der Raum besteht aus einem Foto (z.B. Computerraum der FH) auf dem sich gezeichnete Objekte befinden, mit denen der Spieler interagieren kann und Rätsel "starten" kann.
+	-Werden alle Rätsel im Raum erfolgreich gelöst, erhält der Spieler einen Teil des Schlüssels und kann im nächsten Raum fortfahren.
+	-Wurden alle Rätsel gelöst und somit alle Schllüsselteile gefunden, hat der Spieler gewonnen und kann nun endlich zum Spritzerstand
+	-Das Spiel endet mit einem Outro
+
+
+Visueller Stil:
+
+-Kombination aus echten Fotos und Comic-Artwork
+
+
+Übersicht über die Rätsel:
+
+-Kommt noch
+
+Klassenübersicht:
+
+	-AudioManager: Verwaltung von Spielsounds.
+	-Button: Interaktive Elemente im UI.
+	-GameLoop: Zentrale Spielsteuerung und -logik.
+	-Inventory: Verwaltung der vom Spieler gesammelten Gegenstände.
+	-Item: Darstellung der Objekte im Inventar.
+	-MainMenu: Initialisierung und Verwaltung des Hauptmenüs.
+	-Player: Repräsentation des Spielers und seiner Aktionen.
+	-Riddle: Rätsel-Logik und -darstellung.
+	-Room: Struktur und Logik der einzelnen Räume.
+	-Scene: Allgemeine Verwaltung der Spiel-Szenen.
+	-Timer: Überwachung der Spielzeit.
+	-Visuals: Verwaltung der grafischen Darstellung des Spiels.
+
+
+
+
+	
+
