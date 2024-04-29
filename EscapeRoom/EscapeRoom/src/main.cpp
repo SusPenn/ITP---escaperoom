@@ -24,6 +24,8 @@ int main() {
             }
         }
         MainMenu mainMenu = MainMenu();
+        window.clear(sf::Color::White);
+        mainMenu.draw(window);
 
         sf::Vector2i mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
         sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
@@ -33,9 +35,6 @@ int main() {
                 std::cout << "Left mouse button is pressed" << std::endl;
             }
         }
-
-        window.clear(sf::Color::White);
-        mainMenu.draw(window);
         window.display();
     }
     
