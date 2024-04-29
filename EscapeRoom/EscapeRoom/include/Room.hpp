@@ -13,7 +13,7 @@ public:
     void exit() override;
     void handleInput() override;
     void update(float dt) override;
-    void draw() override;
+    void draw(sf::RenderWindow &window) override;
 
 private:
     sf::Texture backgroundTexture;
