@@ -5,12 +5,14 @@
 #include <vector>
 #include "Button.hpp"
 #include "Scene.hpp"
+#include <iostream>
+#include "Intro.hpp"
 
 class MainMenu : public Scene {
 public:
     explicit MainMenu();
     //MainMenu(SoundManager& soundManager);
-    void handleInput() override;
+    void handleInput(sf::Vector2f translated_pos, sf::RenderWindow &window) override;
     void update(float dt) override;
     void draw(sf::RenderWindow &window) override;
     void activateButton();

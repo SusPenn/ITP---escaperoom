@@ -23,21 +23,17 @@ int main() {
                     break;
             }
         }
-        MainMenu mainMenu = MainMenu();
 
         sf::Vector2i mouse_pos = sf::Mouse::getPosition(window); // Mouse position relative to the window
         sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
-        if(mainMenu.getNewGameSprite().getGlobalBounds().contains(translated_pos)) { // Rectangle-contains-point check
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                mainMenu.handleInput();
-                std::cout << "Left mouse button is pressed" << std::endl;
-            }
-        }
+        MainMenu mainMenu = MainMenu();
+        mainMenu.handleInput(translated_pos, window);
+
 
         window.clear(sf::Color::White);
         mainMenu.draw(window);
         window.display();
+
     }
-    
     return 0;
 }

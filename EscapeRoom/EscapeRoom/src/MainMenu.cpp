@@ -11,8 +11,21 @@ MainMenu::MainMenu() {
     highScoreSprite.setTexture(highScoreTexture);
 }
 
-void MainMenu::handleInput() {
-
+void MainMenu::handleInput(sf::Vector2f translated_pos, sf::RenderWindow &window) {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        // Überprüfen Sie, ob die Maus innerhalb des angegebenen Bereichs geklickt wurde
+        if (translated_pos.x >= 36 && translated_pos.x <= 360 && translated_pos.y >= 466 && translated_pos.y <= 518) {
+            std::cout << "Neues Spiel" << std::endl;
+            Intro intro = Intro("assets/intro/intro.txt", window);
+            intro.play();
+        }
+        if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
+            std::cout << "Highscore" << std::endl;
+        }
+        if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
+            std::cout << "Beenden" << std::endl;
+        }
+    }
 }
 
 void MainMenu::update(float dt) {
