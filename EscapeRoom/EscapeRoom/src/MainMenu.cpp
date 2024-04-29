@@ -1,10 +1,6 @@
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu() {
-    sf::Texture menuTexture;
-    sf::Texture newGameTexture;
-    sf::Texture quidTexture;
-    sf::Texture highScoreTexture;
     menuTexture.loadFromFile("assets/textures/mainMenu.png");
     newGameTexture.loadFromFile("assets/textures/newGame.png");
     quidTexture.loadFromFile("assets/textures/exit.png");

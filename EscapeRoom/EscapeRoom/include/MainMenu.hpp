@@ -27,6 +27,10 @@ private:
     sf::Sprite newGameSprite;
     sf::Sprite quidSprite;
     sf::Sprite highScoreSprite;
+    sf::Texture menuTexture;
+    sf::Texture newGameTexture;
+    sf::Texture quidTexture;
+    sf::Texture highScoreTexture;
     //SoundManager& soundManager;
 };
 
