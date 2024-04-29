@@ -77,7 +77,7 @@ void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
             lineCount++;
             if (lineCount == 13) {
                 // When 10 lines are reached, wait for a moment before clearing
-                sleepMilliseconds(delay * 10);  // Longer pause at the end of the 10 lines
+                sleepMilliseconds(delay * 15);  // Longer pause at the end of the 10 lines
 
                 window.clear();
                 window.draw(backgroundSprite);
