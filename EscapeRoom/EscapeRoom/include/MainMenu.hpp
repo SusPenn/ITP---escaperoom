@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Button.hpp"
-#include "SoundManager.hpp"
 #include "Scene.hpp"
 
 class MainMenu : public Scene {
