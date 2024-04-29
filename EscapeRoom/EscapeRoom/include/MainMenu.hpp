@@ -17,7 +17,7 @@ public:
     void enter() override;
     void exit() override;
     sf::Sprite getNewGameSprite() const;
-    sf::Sprite getQuidSprite() const;
+    sf::Sprite getExitSprite() const;
     sf::Sprite getHighScoreSprite() const;
 
 
@@ -25,11 +25,11 @@ private:
     std::vector<Button> buttons;
     sf::Sprite menuSprite;
     sf::Sprite newGameSprite;
-    sf::Sprite quidSprite;
+    sf::Sprite exitSprite;
     sf::Sprite highScoreSprite;
     sf::Texture menuTexture;
     sf::Texture newGameTexture;
-    sf::Texture quidTexture;
+    sf::Texture exitTexture;
     sf::Texture highScoreTexture;
     //SoundManager& soundManager;
 };
