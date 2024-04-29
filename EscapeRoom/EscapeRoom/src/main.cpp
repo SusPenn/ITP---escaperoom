@@ -1,22 +1,17 @@
-﻿#include "EscapeRoom.hpp"
-#include <iostream>
-#include "SFML/Graphics.hpp"
+﻿#include "Intro.hpp"
+#include <SFML/Graphics.hpp>
+
+using namespace std;
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Es geht um nix!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Blue);
+    window.setFramerateLimit(60);  // Limit the frame rate for smoother animations
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-    
+    // Intro implementation
+    std::string introFileName = "assets/intro/intro.txt";
+    Intro intro(introFileName, window);
+    intro.play();  // Play the intro sequence
+
+
     return 0;
 }

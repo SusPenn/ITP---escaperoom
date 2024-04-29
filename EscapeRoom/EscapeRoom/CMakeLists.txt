@@ -2,7 +2,7 @@
 project("EscapeRoom")
 
 # Add source to this project's executable.
-add_executable(EscapeRoom "src/main.cpp" "src/AudioManager.cpp")
+add_executable(EscapeRoom "src/main.cpp" "src/AudioManager.cpp" "src/Intro.cpp")
 
 # Set C++20 as the standard for the project
 set_property(TARGET EscapeRoom PROPERTY CXX_STANDARD 20)
