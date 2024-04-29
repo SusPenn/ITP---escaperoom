@@ -15,7 +15,7 @@ class MainMenu : public Scene {
 public:
     explicit MainMenu();
     //MainMenu(SoundManager& soundManager);
-    void handleInput(sf::Vector2f translated_pos, sf::RenderWindow &window) override;
+    void handleInput(sf::Event& event, sf::RenderWindow& window) override;
     void update(float dt) override;
     void draw(sf::RenderWindow &window) override;
     void activateButton();

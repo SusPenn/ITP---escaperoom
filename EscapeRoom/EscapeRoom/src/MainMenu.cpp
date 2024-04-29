@@ -1,32 +1,44 @@
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu() {
-    menuTexture.loadFromFile("assets/textures/mainMenu.png");
-    newGameTexture.loadFromFile("assets/textures/newGame.png");
-    exitTexture.loadFromFile("assets/textures/exit.png");
-    highScoreTexture.loadFromFile("assets/textures/highscore.png");
+    if (!menuTexture.loadFromFile("assets/textures/mainMenu.png")) {
+        std::cerr << "Failed to load main menu texture." << std::endl;
+    }
+    if (!newGameTexture.loadFromFile("assets/textures/newGame.png")) {
+        std::cerr << "Failed to load new game texture." << std::endl;
+    }
+    if (!exitTexture.loadFromFile("assets/textures/exit.png")) {
+        std::cerr << "Failed to load exit texture." << std::endl;
+    }
+    if (!highScoreTexture.loadFromFile("assets/textures/highscore.png")) {
+        std::cerr << "Failed to load high score texture." << std::endl;
+    }
+
     menuSprite.setTexture(menuTexture);
     newGameSprite.setTexture(newGameTexture);
     exitSprite.setTexture(exitTexture);
     highScoreSprite.setTexture(highScoreTexture);
+    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
-void MainMenu::handleInput(sf::Vector2f translated_pos, sf::RenderWindow& window) {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (translated_pos.x >= 36 && translated_pos.x <= 360 && translated_pos.y >= 466 && translated_pos.y <= 518) {
-            std::cout << "Neues Spiel" << std::endl;
-            window.clear();  
-            window.display();  
+void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
+            sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
 
-            Intro intro = Intro("assets/intro/intro.txt", window);
-            intro.play();  
-        }
-        if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
-            std::cout << "Highscore" << std::endl;
-        }
-        if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
-            std::cout << "Beenden" << std::endl;
-            window.close();
+            if (translated_pos.x >= 36 && translated_pos.x <= 360 && translated_pos.y >= 466 && translated_pos.y <= 518) {
+                std::cout << "Neues Spiel" << std::endl;
+                Intro intro = Intro("assets/intro/intro.txt", window);
+                intro.play();
+            }
+            if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
+                std::cout << "Highscore" << std::endl;
+            }
+            if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
+                std::cout << "Beenden" << std::endl;
+                window.close();
+            }
         }
     }
 }
@@ -35,15 +47,11 @@ void MainMenu::update(float dt) {
 
 }
 
-void MainMenu::draw(sf::RenderWindow &window) {
+void MainMenu::draw(sf::RenderWindow& window) {
     window.draw(menuSprite);
     window.draw(newGameSprite);
     window.draw(exitSprite);
     window.draw(highScoreSprite);
-
-    newGameSprite.setPosition(35.0f, 460.0f);
-    highScoreSprite.setPosition(36.0f, 517.5f);
-    exitSprite.setPosition(50.5f, 575.5f);
 }
 
 void MainMenu::activateButton() {
@@ -69,5 +77,3 @@ sf::Sprite MainMenu::getExitSprite() const {
 sf::Sprite MainMenu::getHighScoreSprite() const {
     return highScoreSprite;
 }
-
-

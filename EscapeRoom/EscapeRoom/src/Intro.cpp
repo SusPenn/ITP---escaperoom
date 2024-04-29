@@ -9,7 +9,7 @@ Intro::Intro(const std::string& filename, sf::RenderWindow& window) :
 }
 
 void Intro::play() {
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
+    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
 
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("assets/intro/introBackground.png")) {
