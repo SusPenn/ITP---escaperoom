@@ -34,8 +34,6 @@ int main() {
             }
         }
 
-
-
         window.clear(sf::Color::White);
         mainMenu.draw(window);
         window.display();

@@ -5,10 +5,10 @@ MainMenu::MainMenu() {
     sf::Texture newGameTexture;
     sf::Texture quidTexture;
     sf::Texture highScoreTexture;
-    menuTexture.loadFromFile("../assets/Hauptmenü.png");
-    newGameTexture.loadFromFile("../assets/Neues Spiel1.png");
-    quidTexture.loadFromFile("../assets/Beenden1.png");
-    highScoreTexture.loadFromFile("../assets/Highscore1.png");
+    menuTexture.loadFromFile("assets/textures/mainMenu.png");
+    newGameTexture.loadFromFile("assets/textures/newGame.png");
+    quidTexture.loadFromFile("assets/textures/exit.png");
+    highScoreTexture.loadFromFile("assets/textures/highscore.png");
     menuSprite.setTexture(menuTexture);
     newGameSprite.setTexture(newGameTexture);
     quidSprite.setTexture(quidTexture);
