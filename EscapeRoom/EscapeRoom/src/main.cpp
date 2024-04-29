@@ -2,12 +2,12 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "MainMenu.hpp"
+#include "AudioManager.hpp"
 
 using namespace std;
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Spritzer through the looking glass", sf::Style::Close | sf::Style::Titlebar);
-
 
     while (window.isOpen()) {
         sf::Event evnt;
@@ -28,7 +28,6 @@ int main() {
         sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos); // Mouse position translated into world coordinates
         MainMenu mainMenu = MainMenu();
         mainMenu.handleInput(translated_pos, window);
-
 
         window.clear(sf::Color::White);
         mainMenu.draw(window);

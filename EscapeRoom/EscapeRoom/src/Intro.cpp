@@ -9,54 +9,98 @@ Intro::Intro(const std::string& filename, sf::RenderWindow& window) :
 }
 
 void Intro::play() {
+    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
+
+    sf::Texture backgroundTexture;
+    if (!backgroundTexture.loadFromFile("assets/intro/introBackground.png")) {
+        std::cerr << "Failed to load background image!" << std::endl;
+        return;
+    }
+
+    sf::Sprite backgroundSprite(backgroundTexture);
     std::ifstream inFile(filename);
     if (!inFile) {
         std::cerr << "Fehler beim Öffnen der Datei: " << filename << std::endl;
         return;
     }
 
-    sf::Text introText("", font, 24);
+    std::string entireText;
+    std::string line;
+    while (std::getline(inFile, line)) {
+        entireText += line + "\n";
+    }
+    inFile.close();
+
+    sf::Text introText;
+    introText.setFont(font);
+    introText.setCharacterSize(24);
     introText.setFillColor(sf::Color::Green);
     introText.setPosition(50.f, 50.f);
 
     skipButton.setPosition(window);
 
+    // Now call printSlowly instead of manually looping through the text here
+    printSlowly(entireText, 50, introText, backgroundSprite, window);
+}
+
+void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
+    std::string displayedText;
+    int lineCount = 0;
     sf::Event event;
-    while (window.isOpen() && !skipRequested) {
+    bool skipRequested = false;
+
+    for (size_t i = 0; i < text.length(); ++i) {
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 window.close();
-            else if (isSkipClicked(event) || isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                        skipRequested = true;
+                    }
+                }
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 skipRequested = true;
             }
         }
 
-        std::string line;
-        if (std::getline(inFile, line)) {
-            printSlowly(line + "\n", 50, introText); // Now passing introText
-            window.display();
+        if (skipRequested) {
+            break; // Exit the loop if skip is requested
         }
-        else {
-            break;
-        }
-    }
 
-    inFile.close();
-}
-
-void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText) {
-    std::string displayedText;
-    for (char c : text) {
+        char c = text[i];
         displayedText += c;
-        introText.setString(displayedText);
-        window.clear();
-        window.draw(introText);
-        skipButton.draw();
-        window.display();
-        sleepMilliseconds(delay);
-    }
-}
 
+        if (c == '\n') {
+            lineCount++;
+            if (lineCount == 13) {
+                // When 10 lines are reached, wait for a moment before clearing
+                sleepMilliseconds(delay * 10);  // Longer pause at the end of the 10 lines
+
+                window.clear();
+                window.draw(backgroundSprite);
+                window.display();  // Show the empty background briefly
+
+                displayedText.clear();  // Clear the current text
+                lineCount = 0;  // Reset line count
+                continue;
+            }
+        }
+
+        introText.setString(displayedText);
+
+        window.clear();  // Clear previous frame
+        window.draw(backgroundSprite);  // Draw the background
+        window.draw(introText);  // Draw the updated text
+        skipButton.draw();  // Draw the skip button
+        window.display();  // Display the current frame
+
+        sleepMilliseconds(delay);  // Pause for effect between characters
+    }
+    AudioManager::getInstance().stopMusic();
+}
 
 bool Intro::isSkipClicked(sf::Event& event) {
     return (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape);
@@ -85,9 +129,12 @@ void Intro::SkipButton::draw() {
 }
 
 void Intro::SkipButton::setPosition(sf::RenderWindow& window) {
-    sf::FloatRect textRect = buttonText.getLocalBounds();
     buttonShape.setPosition(window.getSize().x - buttonShape.getSize().x - 20.f, window.getSize().y - buttonShape.getSize().y - 20.f);
-    buttonText.setPosition(buttonShape.getPosition().x + (buttonShape.getSize().x - textRect.width) / 2.f, buttonShape.getPosition().y + (buttonShape.getSize().y - textRect.height) / 2.f);
+    sf::FloatRect textRect = buttonText.getLocalBounds();
+    buttonText.setPosition(
+        buttonShape.getPosition().x + (buttonShape.getSize().x - textRect.width) / 2.f - textRect.left,
+        buttonShape.getPosition().y + (buttonShape.getSize().y - textRect.height) / 2.f - textRect.top
+    );
 }
 
 bool Intro::SkipButton::isClicked(sf::Vector2f clickPosition) {

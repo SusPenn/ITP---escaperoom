@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "AudioManager.hpp"
 #include <iostream>
 #include <fstream>
 #include <chrono>
@@ -18,7 +19,7 @@ private:
     std::string filename;
     sf::RenderWindow& window;
     sf::Font font;
-    void printSlowly(const std::string& text, int delay, sf::Text& introText);
+    void printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
     bool isSkipClicked(sf::Event& event);
     bool isSkipButtonClicked(sf::Vector2f clickPosition);
     bool skipRequested = false;

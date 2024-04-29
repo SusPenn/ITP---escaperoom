@@ -5,7 +5,10 @@
 #include <vector>
 #include "Button.hpp"
 #include "Scene.hpp"
+#include "Intro.hpp"
+#include "AudioManager.hpp"
 #include <iostream>
+#include <vector>
 #include "Intro.hpp"
 
 class MainMenu : public Scene {

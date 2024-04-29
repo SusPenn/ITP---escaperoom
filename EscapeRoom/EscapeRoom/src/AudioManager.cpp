@@ -4,7 +4,6 @@ AudioManager::AudioManager(const std::string& soundEffectPath, const std::string
     : soundEffectPath(soundEffectPath), musicPath(musicPath) {}
 
 AudioManager::~AudioManager() {
-	music.stop();
 }
 
 void AudioManager::playSoundEffect(const std::string& filename) {
@@ -31,7 +30,7 @@ void AudioManager::playMusic(const std::string& filename, bool loop) {
 }
 
 void AudioManager::stopMusic() {
-    fadeOutMusic(2); // Fade out über 2 seconds
+    fadeOutMusic(1); // Fade out über 2 seconds
 }
 
 void AudioManager::pauseMusic() {
@@ -44,7 +43,7 @@ void AudioManager::pauseMusic() {
 void AudioManager::resumeMusic() {
     if (music.getStatus() == sf::Music::Paused) {
         if (!currentMusicFilename.empty() && music.openFromFile(musicPath + currentMusicFilename)) {
-            fadeInMusic(currentMusicFilename, music.getLoop(), 2);
+            fadeInMusic(currentMusicFilename, music.getLoop(), 1);
         }
         else {
             throw std::runtime_error("Failed to resume music: No music track is loaded or file is missing.");

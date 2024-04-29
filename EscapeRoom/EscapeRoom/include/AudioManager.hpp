@@ -9,26 +9,35 @@
 
 
 class AudioManager {
-    public:
-        AudioManager(const std::string& soundEffectPath, const std::string& musicPath);
-        ~AudioManager();
-        void playSoundEffect(const std::string& filename); // Sound-Effekt abspielen
-        void playMusic(const std::string& filename, bool loop); // Musik abspielen
-        void stopMusic();  // Musik stoppen
-        void pauseMusic(); // Musik pausieren
-        void resumeMusic(); // Pausierte Musik fortsetzen
-        void setMusicVolume(float volume); // Lautstärke der Musik einstellen
-        void setSoundEffectVolume(float volume); // Lautstärke der Sound-Effekte einstellen
-        void fadeOutMusic(float duration); // Musik fade-out
-        void fadeInMusic(const std::string& filename, bool loop, float duration); // Musik fade-in
+public:
+    static AudioManager& getInstance() {
+        static AudioManager instance("assets/sounds/", "assets/music/");
+        return instance;
+    }
 
-    private:
-        std::unordered_map<std::string, sf::SoundBuffer> soundBuffers;
-        sf::Sound sound;
-        sf::Music music;
-        std::string soundEffectPath;  
-        std::string musicPath;
-        std::string currentMusicFilename;
+    AudioManager(AudioManager const&) = delete;
+    void operator=(AudioManager const&) = delete;
+
+    void playSoundEffect(const std::string& filename);
+    void playMusic(const std::string& filename, bool loop);
+    void stopMusic();
+    void pauseMusic();
+    void resumeMusic();
+    void setMusicVolume(float volume);
+    void setSoundEffectVolume(float volume);
+    void fadeOutMusic(float duration);
+    void fadeInMusic(const std::string& filename, bool loop, float duration);
+
+private:
+    AudioManager(const std::string& soundEffectPath, const std::string& musicPath);
+    ~AudioManager();
+
+    std::unordered_map<std::string, sf::SoundBuffer> soundBuffers;
+    sf::Sound sound;
+    sf::Music music;
+    std::string soundEffectPath;
+    std::string musicPath;
+    std::string currentMusicFilename;
 };
 
 #endif // AUDIOMANAGER_HPP
