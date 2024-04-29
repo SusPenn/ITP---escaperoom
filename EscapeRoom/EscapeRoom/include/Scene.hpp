@@ -1,6 +1,6 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
-//eventuell löschen
+//eventuell lï¿½schen
 class Scene {
 public:
     virtual ~Scene() {}
@@ -8,7 +8,7 @@ public:
     virtual void exit() = 0;
     virtual void handleInput() = 0;
     virtual void update(float deltaTime) = 0;
-    virtual void draw() = 0;
+    virtual void draw(sf::RenderWindow &window) = 0;
 };
 
 #endif // SCENE_HPP
