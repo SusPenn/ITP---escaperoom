@@ -11,7 +11,7 @@ class Room : public Scene {
 public:
     void enter() override;
     void exit() override;
-    void handleInput() override;
+    void handleInput(sf::Event& event, sf::RenderWindow& window) override;
     void update(float dt) override;
     void draw(sf::RenderWindow &window) override;
 

@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.hpp"
-#include "SoundManager.hpp"
+#include "AudioManager.hpp"
 
 class GameLoop {
 public:
@@ -21,7 +21,7 @@ public:
 private:
     sf::RenderWindow window;
     Scene* currentScene;
-    SoundManager soundManager;
+    //SoundManager soundManager;
 };
 
 #endif // GAMELOOP_HPP
