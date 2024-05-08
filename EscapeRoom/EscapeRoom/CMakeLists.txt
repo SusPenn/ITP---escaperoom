@@ -8,7 +8,12 @@ add_executable(EscapeRoom "src/main.cpp" "src/AudioManager.cpp" "src/Intro.cpp" 
 set_property(TARGET EscapeRoom PROPERTY CXX_STANDARD 20)
 
 # Path to SFML's CMake configuration files
-set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/external/SFML/lib/cmake/SFML")
+if (WIN32)
+    set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/external/SFML_WIN32/lib/cmake/SFML")
+elseif (APPLE)
+    set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/external/SFML_APPLE/lib")
+endif()
+
 
 # Find SFML components
 find_package(SFML 2.6 COMPONENTS graphics audio REQUIRED)
@@ -23,10 +28,17 @@ target_include_directories(EscapeRoom PRIVATE
 target_link_libraries(EscapeRoom sfml-graphics sfml-audio)
 
 # Copy SFML DLLs to the output directory after building (only needed if using dynamic SFML libs on Windows)
-add_custom_command(TARGET EscapeRoom POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${PROJECT_SOURCE_DIR}/external/SFML/bin"
-    $<TARGET_FILE_DIR:EscapeRoom>)
+if(WIN32)
+    add_custom_command(TARGET EscapeRoom POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/external/SFML_WIN32/bin"
+        $<TARGET_FILE_DIR:EscapeRoom>)
+elseif(APPLE)
+    add_custom_command(TARGET EscapeRoom POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${PROJECT_SOURCE_DIR}/external/SFML_APPLE"
+            $<TARGET_FILE_DIR:EscapeRoom>)
+endif()
 
 add_custom_command(TARGET EscapeRoom POST_BUILD
 COMMAND ${CMAKE_COMMAND} -E copy_directory

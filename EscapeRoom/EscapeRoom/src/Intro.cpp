@@ -20,7 +20,7 @@ void Intro::play() {
     sf::Sprite backgroundSprite(backgroundTexture);
     std::ifstream inFile(filename);
     if (!inFile) {
-        std::cerr << "Fehler beim Öffnen der Datei: " << filename << std::endl;
+        std::cerr << "Fehler beim ï¿½ffnen der Datei: " << filename << std::endl;
         return;
     }
 
