@@ -2,7 +2,6 @@
 
 Timer::Timer(float initialTime)
     : countdownTime(initialTime), isPaused(true), elapsedTime(0.0f) {
-    // Überprüfe, ob die Schriftart korrekt geladen wird
     if (!font.loadFromFile(fontPath)) {
         std::cerr << "Fehler beim Laden der Schriftart von " << fontPath << std::endl;
     }
@@ -10,16 +9,12 @@ Timer::Timer(float initialTime)
     timerText.setFont(font);
     timerText.setCharacterSize(characterSize);
     timerText.setFillColor(sf::Color::White);
-
-    // Initialisiere die Position und den String, um die richtigen Dimensionen zu messen
     timerText.setString("00:00");
-    timerText.setPosition(50, 50);  // Anfängliche Position, später anpassen
 
-    // Richte das Hintergrund-Rechteck ein, Abmessungen werden unten angepasst
-    background.setFillColor(sf::Color(128, 128, 128));  // Graue Farbe
-    background.setPosition(95, 95);  // Anfängliche Position, später anpassen
+    background.setFillColor(sf::Color(128, 128, 128));
+    background.setPosition(610, 50);
 
-    // Passe die anfängliche Größe und Position basierend auf dem Text an
+    // den Hintergrund an den Text anpassen
     adjustBackgroundToText();
 }
 
