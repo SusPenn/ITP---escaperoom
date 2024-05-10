@@ -20,7 +20,7 @@ void Intro::play() {
     sf::Sprite backgroundSprite(backgroundTexture);
     std::ifstream inFile(filename);
     if (!inFile) {
-        std::cerr << "Fehler beim �ffnen der Datei: " << filename << std::endl;
+        std::cerr << "Fehler beim oeffnen der Datei: " << filename << std::endl;
         return;
     }
 
@@ -57,6 +57,7 @@ void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                        AudioManager::getInstance().playSoundEffect("Click.ogg");
                         skipRequested = true;
                     }
                 }

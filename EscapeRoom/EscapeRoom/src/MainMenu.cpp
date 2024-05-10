@@ -29,13 +29,16 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
 
             if (translated_pos.x >= 36 && translated_pos.x <= 360 && translated_pos.y >= 466 && translated_pos.y <= 518) {
                 std::cout << "Neues Spiel" << std::endl;
+                AudioManager::getInstance().playSoundEffect("Click.ogg");
                 Intro intro = Intro("assets/intro/intro.txt", window);
                 intro.play();
             }
             if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
+                AudioManager::getInstance().playSoundEffect("Click.ogg");
                 std::cout << "Highscore" << std::endl;
             }
             if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
+                AudioManager::getInstance().playSoundEffect("Click.ogg");
                 std::cout << "Beenden" << std::endl;
                 window.close();
             }
