@@ -84,3 +84,16 @@ void Timer::adjustBackgroundToText() {
         background.getPosition().y + (background.getSize().y - textBounds.height) / 2.0f - textBounds.top
     );
 }
+
+int Timer::getScore() const {
+    // Berechne die verbleibende Zeit in Sekunden
+    float remainingTime = countdownTime - (elapsedTime + clock.getElapsedTime().asSeconds());
+
+    // Verhindere negative Werte
+    if (remainingTime < 0) {
+        remainingTime = 0;
+    }
+
+    // Konvertiere die verbleibende Zeit zu einer Ganzzahl in Sekunden
+    return static_cast<int>(remainingTime);
+}

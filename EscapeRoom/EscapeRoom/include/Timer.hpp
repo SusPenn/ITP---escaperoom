@@ -19,6 +19,7 @@ public:
     void draw(sf::RenderWindow& window);
     void adjustBackgroundToText();
     bool getIsTimeUp() const;
+    int getScore() const;
 
 private:
     sf::Clock clock;
