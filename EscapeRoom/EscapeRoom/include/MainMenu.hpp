@@ -11,6 +11,7 @@
 #include <vector>
 #include "Intro.hpp"
 #include "Outro.hpp"
+#include "FinalRoom.hpp"
 
 class MainMenu : public Scene {
 public:

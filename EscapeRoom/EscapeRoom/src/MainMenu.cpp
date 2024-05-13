@@ -32,6 +32,8 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 Intro intro = Intro("assets/intro/intro.txt", window);
                 intro.play();
+                FinalRoom finalRoom = FinalRoom();
+                finalRoom.handleInput(event, window);
                 Outro outro = Outro("assets/outro/outro.txt", window); //Jenny
                 outro.play(); //Jenny
             }
