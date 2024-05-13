@@ -1,0 +1,20 @@
+Habt acht! Rechts schaut!
+Wie konnte denn das passieren?
+Da musst du deinen Code noch einmal ueberarbeiten.
+Oder hat den ChatGPT geschrieben?
+Ich sage dir noch einmal die Aufgabenstellung:
+2, 3, 5, 7, 11.... oh Hallo!
+Gratuliere, du bist schon sehr weit gekommen,
+aber sehr weit ist nicht weit genug!
+Als Informatik Student muss man ja hin und
+wieder auch Code schreiben,
+testen wir mal deine Faehigkeiten!
+Ich brauche dringend die 123. Primzahl,
+kannst du ein kleines Programm dafuer in C schreiben?
+Kleiner Tipp: 0 und 1 zaehlen nicht zu den Primzahlen.
+Warum? Keine Ahnung, ich bin ja kein Mathematikauto.
+Antwortmoeglichkeiten:
+**a)** 677
+**b)** 673
+**c)** 683
+**d)** 679
