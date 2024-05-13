@@ -44,7 +44,6 @@ void Outro::play() {
     window.display();
 
     playSuccessMusic();
-    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
 
     sleepMilliseconds(2000); 
    
@@ -76,7 +75,9 @@ void Outro::play() {
 }
 
 void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
- 
+    AudioManager::getInstance().setMusicVolume(100);
+    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
+
     std::string displayedText;
     int lineCount = 0;
     sf::Event event;

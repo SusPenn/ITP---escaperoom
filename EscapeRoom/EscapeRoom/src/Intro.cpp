@@ -14,13 +14,15 @@ void Intro::play() {
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("assets/intro/introBackground.png")) {
         std::cerr << "Failed to load background image!" << std::endl;
+        AudioManager::getInstance().stopMusic();
         return;
     }
 
     sf::Sprite backgroundSprite(backgroundTexture);
     std::ifstream inFile(filename);
     if (!inFile) {
-        std::cerr << "Fehler beim oeffnen der Datei: " << filename << std::endl;
+        std::cerr << "Failed to open file: " << filename << std::endl;
+        AudioManager::getInstance().stopMusic();
         return;
     }
 
@@ -29,7 +31,6 @@ void Intro::play() {
     while (std::getline(inFile, line)) {
         entireText += line + "\n";
     }
-    inFile.close();
 
     sf::Text introText;
     introText.setFont(font);
@@ -39,11 +40,12 @@ void Intro::play() {
 
     skipButton.setPosition(window);
 
-    // Now call printSlowly instead of manually looping through the text here
-    printSlowly(entireText, 50, introText, backgroundSprite, window);
+    if (printSlowly(entireText, 50, introText, backgroundSprite, window)) {
+        AudioManager::getInstance().stopMusic();
+    }
 }
 
-void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
+bool Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
     std::string displayedText;
     int lineCount = 0;
     sf::Event event;
@@ -58,17 +60,19 @@ void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         AudioManager::getInstance().playSoundEffect("Click.ogg");
-                        skipRequested = true;
+                        AudioManager::getInstance().stopMusic();
+                        return true;  // Indicates skip
                     }
                 }
             }
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                skipRequested = true;
+                AudioManager::getInstance().stopMusic();
+                return true;  // Indicates skip
             }
         }
 
         if (skipRequested) {
-            break; // Exit the loop if skip is requested
+            return false;  // Indicates completion without skip
         }
 
         char c = text[i];
@@ -77,30 +81,28 @@ void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
         if (c == '\n') {
             lineCount++;
             if (lineCount == 13) {
-                // When 10 lines are reached, wait for a moment before clearing
-                sleepMilliseconds(delay * 15);  // Longer pause at the end of the 10 lines
-
+                sleepMilliseconds(delay * 15);
                 window.clear();
                 window.draw(backgroundSprite);
-                window.display();  // Show the empty background briefly
+                window.display();
 
-                displayedText.clear();  // Clear the current text
-                lineCount = 0;  // Reset line count
+                displayedText.clear();
+                lineCount = 0;
                 continue;
             }
         }
 
         introText.setString(displayedText);
 
-        window.clear();  // Clear previous frame
-        window.draw(backgroundSprite);  // Draw the background
-        window.draw(introText);  // Draw the updated text
-        skipButton.draw();  // Draw the skip button
-        window.display();  // Display the current frame
+        window.clear();
+        window.draw(backgroundSprite);
+        window.draw(introText);
+        skipButton.draw();
+        window.display();
 
-        sleepMilliseconds(delay);  // Pause for effect between characters
+        sleepMilliseconds(delay);
     }
-    AudioManager::getInstance().stopMusic();
+    return false;  // Indicates completion without skip
 }
 
 bool Intro::isSkipClicked(sf::Event& event) {
