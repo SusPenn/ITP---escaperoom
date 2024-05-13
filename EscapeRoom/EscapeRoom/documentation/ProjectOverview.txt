@@ -26,18 +26,17 @@ GameLoop:
 	-Hauptmenü
 		-Auswahl von "Neues Spiel", "Highscore", "Beenden"
 	-Räume
-		-Bestehen aus verschiedenen Rätseln
-		-Werden alle Rätslen im Raum gelöst, bekommt der Spieler einen Teil des Schlüssels und gelangt in den nächsten Raum
+		-Besteht aus einem Rätsel
+		-Wird das Rätsel gelöst, bekommt der Spieler einen Teil des Schlüssels und gelangt in den nächsten Raum
 	-Outro
 
 
 Spielablauf:
 
-	-Das Spiel startet mit einem Intro, um dem Spieler die Situation zu erklären.
-	-Während dem Spiel läuft ein Timer, somit hat der Spieler eine limitierte Zeit, das Spiel abzuschließen.
-	-Der Spieler besitzt ein Inventar mit Gegenständen (kann die Gegenstände bei bestimmten Rätseln verwenden?)
-	-Der Raum besteht aus einem Foto (z.B. Computerraum der FH) auf dem sich gezeichnete Objekte befinden, mit denen der Spieler interagieren kann und Rätsel "starten" kann.
-	-Werden alle Rätsel im Raum erfolgreich gelöst, erhält der Spieler einen Teil des Schlüssels und kann im nächsten Raum fortfahren.
+	-Das Spiel startet mit der Auswahl eines Charakters (Hilarius oder Fortuna) und einem Intro, um dem Spieler die Situation zu erklären.
+	-Während dem Spiel läuft ein Timer, somit hat der Spieler eine limitierte Zeit, das Spiel abzuschließen, je mehr Zeit am Ende übrig bleibt, desto höher ist der Highscore.
+	-Der Raum besteht aus einem Foto (z.B. Computerraum der FH) auf dem sich gezeichnete Objekte befinden und einem jeweiligen Avatar, der dem Spieler das Rätsel erklärt.
+	-Wird das Rätsel im Raum erfolgreich gelöst, erhält der Spieler einen Teil des Schlüssels und kann im nächsten Raum fortfahren.
 	-Wurden alle Rätsel gelöst und somit alle Schllüsselteile gefunden, hat der Spieler gewonnen und kann nun endlich zum Spritzerstand
 	-Das Spiel endet mit einem Outro
 
@@ -49,10 +48,22 @@ Visueller Stil:
 
 -Kombination aus echten Fotos und Comic-Artwork
 
+Aufbau eines Raumes:
+
+	-Ein Raum besteht aus einem Foto, auf dem sich gezeichnete Objekte befinden und einem jeweiligen Avatar, der dem Spieler das Rätsel erklärt.
+	-Die Rätsel sind auf die Lehrinhalte des ersten Semesters abgestimmt.
+	-Jeder Raum besteht aus ein Rätsel, das gelöst werden muss, um den Raum zu verlassen.
+
 
 Übersicht über die Rätsel:
 
--Kommt noch
+-1.Raum: INFRA
+-2.Raum: Datenmanagement
+-3.Raum: MACS
+-4.Raum: Web-Development
+-5.Raum: PROGR
+	-Um das Rätsel lösen zu können, muss der Spieler ein kleines Programm schreiben, um die 123. Primzahl zu finden.
+
 
 Klassenübersicht:
 
@@ -68,9 +79,3 @@ Klassenübersicht:
 	-Scene: Allgemeine Verwaltung der Spiel-Szenen.
 	-Timer: Überwachung der Spielzeit.
 	-Visuals: Verwaltung der grafischen Darstellung des Spiels.
-
-
-
-
-	
-
