@@ -1,6 +1,5 @@
 #include "Outro.hpp"
 
-
 Outro::Outro(const std::string& filename, sf::RenderWindow& window) :
     filename(filename), window(window), skipButton(window, font) {
 
@@ -8,10 +7,9 @@ Outro::Outro(const std::string& filename, sf::RenderWindow& window) :
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
     }
 
-    linkArea.setSize(sf::Vector2f(220, 240)); 
-    linkArea.setPosition(215, 210); 
+    linkArea.setSize(sf::Vector2f(220, 240));
+    linkArea.setPosition(215, 210);
     linkArea.setFillColor(sf::Color::Transparent);
-
 }
 
 void Outro::playSuccessMusic() {
@@ -19,7 +17,6 @@ void Outro::playSuccessMusic() {
 }
 
 void Outro::play() {
-    
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("assets/outro/outroBackground.png")) {
         std::cerr << "Failed to load background image!" << std::endl;
@@ -28,25 +25,20 @@ void Outro::play() {
 
     sf::Sprite backgroundSprite(backgroundTexture);
 
-    /* ToDo player auswahl if male or female */
-
     if (!girlTexture.loadFromFile("assets/outro/girl.png")) {
         std::cerr << "Failed to load girl image!" << std::endl;
         return;
-
     }
     girlSprite.setTexture(girlTexture);
 
     window.clear();
     window.draw(backgroundSprite);
     window.draw(girlSprite);
-    window.draw(linkArea);
     window.display();
 
     playSuccessMusic();
+    sleepMilliseconds(6000);
 
-    sleepMilliseconds(2000); 
-   
     std::ifstream inFile(filename);
     if (!inFile) {
         std::cerr << "Failed to load file: " << filename << std::endl;
@@ -70,143 +62,150 @@ void Outro::play() {
 
     displayOverlay = true;
 
-    printSlowly(entireText, 50, outroText, backgroundSprite, window);  
+    // Call printSlowly and let it process the text
+    printSlowly(entireText, 50, outroText, backgroundSprite, window);
 
-}
+    // After printSlowly completes, we allow interaction with the link
+    linkVisible = true;
 
-void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
-    AudioManager::getInstance().setMusicVolume(100);
-    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
-
-    std::string displayedText;
-    int lineCount = 0;
-    sf::Event event;
-    bool skipRequested = false;
-    bool endOfTextReached = false;
-
-    sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));  
-    overlay.setFillColor(sf::Color(0, 0, 0, 220));
-
-    for (size_t i = 0; i < text.length(); ++i) {
+    // Continue displaying the final state and check for interactions
+    while (window.isOpen()) {
+        sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
+                    if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                        loadNewImage();
+                        return;  // After loading the new image, we can return to avoid any further processing
+                    }
+                }
+            }
+        }
 
+        window.clear();
+        window.draw(backgroundSprite);
+        window.draw(girlSprite);
+        if (linkVisible) {
+            window.draw(linkArea);  // Draw the link area only if it is supposed to be visible
+        }
+        window.draw(outroText);
+        skipButton.draw();
+        window.display();
+    }
+}
+
+void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
+    AudioManager& audioManager = AudioManager::getInstance();
+    audioManager.setMusicVolume(100);
+    audioManager.playMusic("keyboardTyping.ogg", true);
+
+    std::string displayedText;
+    int lineCount = 0;
+    sf::Event event;
+    bool skipRequested = false;
+
+    sf::RectangleShape overlay(sf::Vector2f(window.getSize().x, window.getSize().y));
+    overlay.setFillColor(sf::Color(0, 0, 0, 220));
+
+    for (size_t i = 0; i < text.length(); ++i) {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+                return;
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
                     if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         skipRequested = true;
-                        displayOverlay = false; 
-                        linkVisible = true; //door area
-
+                        displayOverlay = false;
+                        outroText.setString("");
                     }
-                    if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
-                        loadNewImage(); 
-                    }    
                 }
             }
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 skipRequested = true;
                 displayOverlay = false;
+                outroText.setString("");
             }
         }
 
         if (skipRequested) {
-
-            displayedText.clear();
-            window.clear(); 
-            window.draw(backgroundSprite);
-            window.draw(girlSprite); 
-            if (linkVisible) {
-                window.draw(linkArea);
-            }
-            window.display();
+            break;  // Exit the loop early if skip is requested
         }
         else {
             char c = text[i];
             displayedText += c;
 
-            if (c == '\n' || i == text.length() - 1)  {
+            if (c == '\n' || i == text.length() - 1) {
                 lineCount++;
                 if (lineCount >= 13 || i == text.length() - 1) {
-                    
-                    sleepMilliseconds(delay * 15);  
+                    sleepMilliseconds(delay * 15);
 
                     window.clear();
                     window.draw(backgroundSprite);
                     window.draw(girlSprite);
-                    outroText.setString(displayedText); 
+                    outroText.setString(displayedText);
                     window.draw(outroText);
                     if (displayOverlay) {
                         window.draw(overlay);
                     }
-                    if (linkVisible) {
-                        window.draw(linkArea); 
-                    }
                     window.display();
 
-                    displayedText.clear(); 
-                    lineCount = 0; 
+                    displayedText.clear();
+                    lineCount = 0;
                 }
             }
-
         }
 
         outroText.setString(displayedText);
-        
-        window.clear(); 
-        window.draw(backgroundSprite); 
-        /* TODO */
-        window.draw(girlSprite); 
-        if (displayOverlay) {  
-            window.draw(overlay);  
-        }
-        if (linkVisible) {
-            window.draw(linkArea); 
-        }
-        window.draw(outroText);  
-        skipButton.draw();  
-        window.display();  
 
-        sleepMilliseconds(delay);  // Pause for effect between characters
-    }
-    if (!skipRequested) { 
-        linkVisible = true;
-        displayOverlay = false;
-        while (window.isOpen()) {
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    window.close();
-                }
-                else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                    if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
-                        loadNewImage(); 
-                    }
-                }
-            }
-            window.clear();
-            window.draw(backgroundSprite);
-            window.draw(girlSprite);
-            window.draw(linkArea);
-            window.display();
+        window.clear();
+        window.draw(backgroundSprite);
+        window.draw(girlSprite);
+        if (displayOverlay) {
+            window.draw(overlay);
         }
+        window.draw(outroText);
+        skipButton.draw();
+        window.display();
+
+        sleepMilliseconds(delay);
     }
 
-    AudioManager::getInstance().stopMusic();
+    audioManager.stopMusic();
+    // Ensure linkVisible is set based on whether we ended naturally or due to a skip
+    linkVisible = !skipRequested;
 }
 
-// Outro BUTTON
+void Outro::loadNewImage() {
+    if (!spritzerStandTexture.loadFromFile("assets/outro/spritzerstand.png")) {
+        std::cerr << "Failed to load new image!" << std::endl;
+        return;
+    }
+    spritzerStandSprite.setTexture(spritzerStandTexture);
+    window.clear();
+    window.draw(spritzerStandSprite);
+    window.display();
 
-bool Outro::isSkipClicked(sf::Event& event) {
-    return (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape);
+    // Wait for the window to be closed after loading the new image
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+        }
+    }
 }
 
 bool Outro::isSkipButtonClicked(sf::Vector2f clickPosition) {
     return skipButton.isClicked(clickPosition);
 }
 
-bool Outro::isLinkClicked(sf::Vector2f clickPosition) { // NEW: Funktion zur Überprüfung des Link-Klicks
+bool Outro::isLinkClicked(sf::Vector2f clickPosition) {
     return linkVisible && linkArea.getGlobalBounds().contains(clickPosition);
 }
 
@@ -239,27 +238,4 @@ void Outro::SkipButton::setPosition(sf::RenderWindow& window) {
 
 bool Outro::SkipButton::isClicked(sf::Vector2f clickPosition) {
     return buttonShape.getGlobalBounds().contains(clickPosition);
-}
-
-
-void Outro::loadNewImage() {
-    displayOverlay = false; // Stoppe die Anzeige des Textes
-    if (!spritzerStandTexture.loadFromFile("assets/outro/spritzerstand.png")) {
-        std::cerr << "Failed to load new image!" << std::endl;
-        return;
-    }
-    spritzerStandSprite.setTexture(spritzerStandTexture);
-    window.clear();
-    window.draw(spritzerStandSprite);
-    window.display();
-
-    bool windowOpen = true;
-    while (windowOpen) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                windowOpen = false; 
-            }
-        }
-    }
 }

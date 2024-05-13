@@ -38,7 +38,6 @@ private:
     bool linkVisible = false;
     bool isLinkClicked(sf::Vector2f clickPosition);
 
-
     class SkipButton {
     public:
         SkipButton(sf::RenderWindow& window, sf::Font& font);
