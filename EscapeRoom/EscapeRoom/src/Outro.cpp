@@ -62,13 +62,12 @@ void Outro::play() {
 
     displayOverlay = true;
 
-    // Call printSlowly and let it process the text
+    // Den Text anzeigen lassen
     printSlowly(entireText, 50, outroText, backgroundSprite, window);
 
-    // After printSlowly completes, we allow interaction with the link
+    // Nachdem die Textanzeige fertig ist, oder geskipped wurde, wird die Tür clickable gemacht
     linkVisible = true;
 
-    // Continue displaying the final state and check for interactions
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -79,7 +78,7 @@ void Outro::play() {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         loadNewImage();
-                        return;  // After loading the new image, we can return to avoid any further processing
+                        return; // Nach dem Laden des neuen Bildes können wir zurückkehren, um eine weitere Verarbeitung zu vermeiden
                     }
                 }
             }
@@ -89,7 +88,7 @@ void Outro::play() {
         window.draw(backgroundSprite);
         window.draw(girlSprite);
         if (linkVisible) {
-            window.draw(linkArea);  // Draw the link area only if it is supposed to be visible
+            window.draw(linkArea); // Zeichne den Link-Bereich nur, wenn er sichtbar sein soll
         }
         window.draw(outroText);
         skipButton.draw();
@@ -133,7 +132,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
         }
 
         if (skipRequested) {
-            break;  // Exit the loop early if skip is requested
+            break;// Beende die Schleife frühzeitig, wenn ein Skip geklickt wird
         }
         else {
             char c = text[i];
@@ -176,7 +175,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
     }
 
     audioManager.stopMusic();
-    // Ensure linkVisible is set based on whether we ended naturally or due to a skip
+    // Sichergehen, dass linkVisible basierend darauf gesetzt wird, ob wir natürlich oder aufgrund eines Skips beendet haben
     linkVisible = !skipRequested;
 }
 
@@ -190,7 +189,7 @@ void Outro::loadNewImage() {
     window.draw(spritzerStandSprite);
     window.display();
 
-    // Wait for the window to be closed after loading the new image
+    // Warten, bis das Fenster nach dem Laden des neuen Bildes geschlossen wird
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
