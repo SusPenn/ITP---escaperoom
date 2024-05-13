@@ -78,6 +78,7 @@ void Outro::play() {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         loadNewImage();
+                        AudioManager::getInstance().stopMusic();
                         return; // Nach dem Laden des neuen Bildes können wir zurückkehren, um eine weitere Verarbeitung zu vermeiden
                     }
                 }
@@ -184,6 +185,12 @@ void Outro::loadNewImage() {
         std::cerr << "Failed to load new image!" << std::endl;
         return;
     }
+    AudioManager& audioManager = AudioManager::getInstance();
+    audioManager.playSoundEffect("DoorOpen.ogg");
+    sleepMilliseconds(1500);
+    audioManager.setMusicVolume(100);
+    audioManager.playMusic("Synthwave-002.ogg", true);
+
     spritzerStandSprite.setTexture(spritzerStandTexture);
     window.clear();
     window.draw(spritzerStandSprite);
