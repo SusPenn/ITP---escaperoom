@@ -32,6 +32,8 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 Intro intro = Intro("assets/intro/intro.txt", window);
                 intro.play();
+                Outro outro = Outro("assets/outro/outro.txt", window); //Jenny
+                outro.play(); //Jenny
             }
             if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");

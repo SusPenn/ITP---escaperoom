@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include "Intro.hpp"
+#include "Outro.hpp"
 
 class MainMenu : public Scene {
 public:
