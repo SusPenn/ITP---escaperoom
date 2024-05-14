@@ -176,6 +176,8 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
     }
 
     audioManager.stopMusic();
+    audioManager.setMusicVolume(10);
+    audioManager.playMusic("Synthwave-002.ogg", true);
     // Sichergehen, dass linkVisible basierend darauf gesetzt wird, ob wir natürlich oder aufgrund eines Skips beendet haben
     linkVisible = !skipRequested;
 }
@@ -189,7 +191,6 @@ void Outro::loadNewImage() {
     audioManager.playSoundEffect("DoorOpen.ogg");
     sleepMilliseconds(1500);
     audioManager.setMusicVolume(100);
-    audioManager.playMusic("Synthwave-002.ogg", true);
 
     spritzerStandSprite.setTexture(spritzerStandTexture);
     window.clear();

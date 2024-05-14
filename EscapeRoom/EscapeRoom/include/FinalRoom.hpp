@@ -6,6 +6,7 @@
 #define ESCAPEROOM_FINALROOM_HPP
 
 #include <SFML/Graphics.hpp>
+#include <AudioManager.hpp>
 #include <vector>
 #include <fstream>
 #include "Riddle.hpp"

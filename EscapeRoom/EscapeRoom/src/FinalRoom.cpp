@@ -20,6 +20,12 @@ FinalRoom::FinalRoom() {
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
         // Optionally handle error properly, e.g., by setting a flag or throwing an exception
     }
+
+    // Musik abspielen
+    AudioManager& audioManager = AudioManager::getInstance();
+    audioManager.setMusicVolume(100);
+    audioManager.playMusic("Kahoot.ogg", true);
+
     finalRoomTextfieldSprite.setTexture(finalRoomTextfieldTexture);
     finalRoomMadRichterSprite.setTexture(finalRoomMadRichterTexture);
     playerSprite.setTexture(playerTexture);
@@ -41,6 +47,7 @@ void FinalRoom::handleInput(sf::Event &event, sf::RenderWindow &window) {
         if (event.type == sf::Event::Closed) {
             window.close();
         }
+
         window.clear();
         window.draw(finalRoomNiceRichterSprite);
         window.draw(playerSprite);
@@ -149,11 +156,14 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
                     //std::cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << std::endl;
                     if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 500 && translated_pos.y <= 514) {
                         //right answer
+                        AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
+                        AudioManager::getInstance().stopMusic();
                         std::cout << "Richtige Antwort" << std::endl;
                         return;
                     }
                     if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 528 && translated_pos.y <= 600) {
                         //wrong answer
+                        AudioManager::getInstance().playSoundEffect("FailSounds/ComputerFail.ogg");
                         //display mad richter and mad text!
                         playerFailedBool = true;
                         displayQuestion("assets/textures/Pictures/Prozedurale Sprachen Labor/madRichterReply.txt", window, playerFailedBool, finalRoomMadRichterSprite);
