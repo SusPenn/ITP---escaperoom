@@ -1,8 +1,5 @@
-//
-// Created by Lukas Kalab on 11.05.24.
-//
-
 #include "FinalRoom.hpp"
+
 FinalRoom::FinalRoom() {
     if (!finalRoomNiceRichterTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+freundlich.png")) {
         std::cerr << "Failed to load Richter texture." << std::endl;
@@ -14,11 +11,10 @@ FinalRoom::FinalRoom() {
         std::cerr << "Failed to load Player texture." << std::endl;
     }
     if (!finalRoomMadRichterTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+unfreundlich.png")) {
-        std::cerr << "Failed to load Player texture." << std::endl;
+        std::cerr << "Failed to load Mad Richter texture." << std::endl;  // Fix typo
     }
     if (!font.loadFromFile("assets/intro/arial.ttf")) {
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
-        // Optionally handle error properly, e.g., by setting a flag or throwing an exception
     }
 
     // Musik abspielen
@@ -42,7 +38,7 @@ void FinalRoom::exit() {
 
 }
 
-void FinalRoom::handleInput(sf::Event &event, sf::RenderWindow &window) {
+void FinalRoom::handleInput(sf::Event& event, sf::RenderWindow& window) {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window.close();
@@ -54,8 +50,6 @@ void FinalRoom::handleInput(sf::Event &event, sf::RenderWindow &window) {
         window.draw(finalRoomTextfieldSprite);
         window.draw(playerText);
         window.display();
-
-
     }
     displayQuestion("assets/textures/Pictures/Prozedurale Sprachen Labor/cRiddle.txt", window, playerFailedBool, finalRoomNiceRichterSprite);
 }
@@ -64,13 +58,13 @@ void FinalRoom::update(float dt) {
 
 }
 
-void FinalRoom::draw(sf::RenderWindow &window) {
+void FinalRoom::draw(sf::RenderWindow& window) {
     window.draw(finalRoomNiceRichterSprite);
     window.draw(playerSprite);
     window.draw(finalRoomTextfieldSprite);
 }
 
-void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, bool playerFailed, sf::Sprite background) {
+void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow& window, bool playerFailed, sf::Sprite background) {
     std::string entireText;
     std::string line;
     std::ifstream inFile(filename);
@@ -96,6 +90,7 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return; // Return if the window is closed
             }
         }
         char c = entireText[i];
@@ -103,7 +98,6 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
         if (c == '\n') {
             lineCount++;
             if (lineCount == 5 || lineCount == 10) {
-                // When 10 lines are reached, wait for a moment before clearing
                 sleepMilliseconds(delay * 15);  // Longer pause at the end of the 10 lines
 
                 window.clear();
@@ -117,8 +111,7 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
             }
             if (playerFailed) {
                 if (lineCount == 15) {
-                    // When 10 lines are reached, wait for a moment before clearing
-                    sleepMilliseconds(delay * 15);  // Longer pause at the end of the 10 lines
+                    sleepMilliseconds(delay * 15);  // Longer pause at the end of the 15 lines
 
                     window.clear();
                     window.draw(background);
@@ -143,8 +136,11 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
 
         sleepMilliseconds(delay);
     }
-    //hält window open
-    while (window.isOpen()) {
+
+    // Prevent the window from closing prematurely
+    bool levelCompleted = false;
+
+    while (window.isOpen() && !levelCompleted) {
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -155,29 +151,31 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow &window, 
                     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
                     //std::cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << std::endl;
                     if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 500 && translated_pos.y <= 514) {
-                        //right answer
+                        // Right answer
                         AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
                         AudioManager::getInstance().stopMusic();
                         std::cout << "Richtige Antwort" << std::endl;
-                        return;
+                        levelCompleted = true;
+                        break;  // Exit the loop
                     }
                     if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 528 && translated_pos.y <= 600) {
-                        //wrong answer
+                        // Wrong answer
                         AudioManager::getInstance().playSoundEffect("FailSounds/ComputerFail.ogg");
-                        //display mad richter and mad text!
+                        // Display mad richter and mad text!
                         playerFailedBool = true;
                         displayQuestion("assets/textures/Pictures/Prozedurale Sprachen Labor/madRichterReply.txt", window, playerFailedBool, finalRoomMadRichterSprite);
+                        return; // Return to avoid nested calls to displayQuestion
                     }
                 }
             }
         }
-            window.clear();  // Clear previous frame
-            window.draw(background);
-            window.draw(playerSprite);
-            window.draw(finalRoomTextfieldSprite);
-            window.draw(questionText);  // Draw the updated text
-            window.display();  // Display the current frame
 
+        window.clear();  // Clear previous frame
+        window.draw(background);
+        window.draw(playerSprite);
+        window.draw(finalRoomTextfieldSprite);
+        window.draw(questionText);  // Draw the updated text
+        window.display();  // Display the current frame
     }
 }
 
