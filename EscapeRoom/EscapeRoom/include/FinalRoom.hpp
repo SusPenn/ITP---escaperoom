@@ -24,7 +24,7 @@ public:
     void handleInput(sf::Event& event, sf::RenderWindow& window) override;
     void update(float dt) override;
     void draw(sf::RenderWindow &window) override;
-    void displayQuestion(std::string filename, sf::RenderWindow &window, bool playerFailed, sf::Sprite background);
+    void displayQuestion(std::string filename, sf::RenderWindow& window, bool playerFailed, sf::Sprite background);
     static void sleepMilliseconds(int milliseconds);
 
 private:

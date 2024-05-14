@@ -4,7 +4,7 @@ FinalRoom::FinalRoom() {
     if (!finalRoomNiceRichterTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+freundlich.png")) {
         std::cerr << "Failed to load Richter texture." << std::endl;
     }
-    if (!finalRoomTextfieldTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/textfeld1.png")) {
+    if (!finalRoomTextfieldTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/textfeldprozd.png")) {
         std::cerr << "Failed to load Textfield texture." << std::endl;
     }
     if (!playerTexture.loadFromFile("assets/textures/Pictures/Prozedurale Sprachen Labor/Fortuna.png")) {
@@ -26,8 +26,6 @@ FinalRoom::FinalRoom() {
     finalRoomMadRichterSprite.setTexture(finalRoomMadRichterTexture);
     playerSprite.setTexture(playerTexture);
     finalRoomNiceRichterSprite.setTexture(finalRoomNiceRichterTexture);
-    finalRoomTextfieldSprite.setScale(0.5, 0.5);
-    finalRoomTextfieldSprite.setPosition(323, 450);
 }
 
 void FinalRoom::enter() {
@@ -78,13 +76,15 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow& window, 
     inFile.close();
     questionText.setFont(font);
     questionText.setCharacterSize(24);
-    questionText.setFillColor(sf::Color::Black);
+    questionText.setFillColor(sf::Color::White);
     questionText.setPosition(357, 462);
 
     int lineCount = 0;
     int delay = 50;
     std::string displayedText;
     sf::Event event;
+
+    sf::Sprite originalBackground = finalRoomNiceRichterSprite; // Store original background
 
     for (size_t i = 0; i < entireText.length(); ++i) {
         while (window.pollEvent(event)) {
@@ -149,16 +149,17 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow& window, 
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
                     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
-                    //std::cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << std::endl;
-                    if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 500 && translated_pos.y <= 514) {
+                    // std::cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << std::endl;
+                    if (translated_pos.x >= 350 && translated_pos.x <= 470 && translated_pos.y >= 494 && translated_pos.y <= 520) {
                         // Right answer
+                        background = originalBackground; // Reset to original background
                         AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
                         AudioManager::getInstance().stopMusic();
                         std::cout << "Richtige Antwort" << std::endl;
                         levelCompleted = true;
                         break;  // Exit the loop
                     }
-                    if (translated_pos.x >= 359 && translated_pos.x <= 416 && translated_pos.y >= 528 && translated_pos.y <= 600) {
+                    if (translated_pos.x >= 350 && translated_pos.x <= 494 && translated_pos.y >= 520 && translated_pos.y <= 600) {
                         // Wrong answer
                         AudioManager::getInstance().playSoundEffect("FailSounds/ComputerFail.ogg");
                         // Display mad richter and mad text!
@@ -176,6 +177,7 @@ void FinalRoom::displayQuestion(std::string filename, sf::RenderWindow& window, 
         window.draw(finalRoomTextfieldSprite);
         window.draw(questionText);  // Draw the updated text
         window.display();  // Display the current frame
+        sleepMilliseconds(2000);  // Sleep for 2 seconds
     }
 }
 
