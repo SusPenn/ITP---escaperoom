@@ -59,6 +59,7 @@ void Outro::play() {
     outroText.setPosition(50.f, 50.f);
 
     skipButton.setPosition(window);
+    skipButton.setVisible(true);
 
     displayOverlay = true;
 
@@ -122,6 +123,8 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
                         skipRequested = true;
                         displayOverlay = false;
                         outroText.setString("");
+                        skipButton.setVisible(false); // Skip-Button unsichtbar machen
+                        AudioManager::getInstance().playSoundEffect("Click.ogg"); // Skip-Sound abspielen
                     }
                 }
             }
@@ -129,11 +132,13 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
                 skipRequested = true;
                 displayOverlay = false;
                 outroText.setString("");
+                skipButton.setVisible(false); // Skip-Button unsichtbar machen
+                AudioManager::getInstance().playSoundEffect("Click.ogg"); // Skip-Sound abspielen
             }
         }
 
         if (skipRequested) {
-            break;// Beende die Schleife frühzeitig, wenn ein Skip geklickt wird
+            break; // Beende die Schleife frühzeitig, wenn ein Skip geklickt wird
         }
         else {
             char c = text[i];
@@ -230,8 +235,10 @@ Outro::SkipButton::SkipButton(sf::RenderWindow& window, sf::Font& font) :
 }
 
 void Outro::SkipButton::draw() {
-    window.draw(buttonShape);
-    window.draw(buttonText);
+    if (visible) {
+        window.draw(buttonShape);
+        window.draw(buttonText);
+    }
 }
 
 void Outro::SkipButton::setPosition(sf::RenderWindow& window) {
@@ -246,3 +253,8 @@ void Outro::SkipButton::setPosition(sf::RenderWindow& window) {
 bool Outro::SkipButton::isClicked(sf::Vector2f clickPosition) {
     return buttonShape.getGlobalBounds().contains(clickPosition);
 }
+
+void Outro::SkipButton::setVisible(bool isVisible) {
+    visible = isVisible;
+}
+

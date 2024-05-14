@@ -12,24 +12,23 @@
 
 class Outro {
 public:
-    Outro(const std::string& filename, sf::RenderWindow& window); //Konstruktor
+    Outro(const std::string& filename, sf::RenderWindow& window); // Konstruktor
     void play();
     void playSuccessMusic();
     static void sleepMilliseconds(int milliseconds);
     void loadNewImage();
 
-    
 private:
     std::string filename;
     sf::RenderWindow& window;
     sf::Font font;
-    sf::Texture girlTexture;  
+    sf::Texture girlTexture;
     sf::Sprite girlSprite;
     sf::Texture boyTexture;
     sf::Sprite boySprite;
     sf::Texture spritzerStandTexture;
     sf::Sprite spritzerStandSprite;
-    sf::RectangleShape linkArea; 
+    sf::RectangleShape linkArea;
     void printSlowly(const std::string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
     bool isSkipClicked(sf::Event& event);
     bool isSkipButtonClicked(sf::Vector2f clickPosition);
@@ -44,16 +43,16 @@ private:
         void draw();
         void setPosition(sf::RenderWindow& window);
         bool isClicked(sf::Vector2f clickPosition);
+        void setVisible(bool isVisible);
 
     private:
         sf::RenderWindow& window;
         sf::RectangleShape buttonShape;
         sf::Text buttonText;
+        bool visible = true; // Standardm‰ﬂig sichtbar
     };
 
     SkipButton skipButton;
-
-
 };
 
 #endif // OUTRO_HPP
