@@ -1,4 +1,5 @@
 #include "Intro.hpp"
+#include "game.hpp"
 
 Intro::Intro(const std::string& filename, sf::RenderWindow& window) :
     filename(filename), window(window), skipButton(window, font) {
@@ -8,7 +9,7 @@ Intro::Intro(const std::string& filename, sf::RenderWindow& window) :
     }
 }
 
-void Intro::play() {
+void Intro::play(Game& game) {
     AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
 
     sf::Texture backgroundTexture;
@@ -40,12 +41,12 @@ void Intro::play() {
 
     skipButton.setPosition(window);
 
-    if (printSlowly(entireText, 50, introText, backgroundSprite, window)) {
-        AudioManager::getInstance().stopMusic();
-    }
+    printSlowly(entireText, 50, introText, backgroundSprite, window);
+    AudioManager::getInstance().stopMusic();
+    game.setIntroFinished();
 }
 
-bool Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
+void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
     std::string displayedText;
     int lineCount = 0;
     sf::Event event;
@@ -55,24 +56,27 @@ bool Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return; // Exit the function if the window is closed
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         AudioManager::getInstance().playSoundEffect("Click.ogg");
                         AudioManager::getInstance().stopMusic();
-                        return true;  // Indicates skip
+                        skipRequested = true;
+                        break; // Exit the event loop and set skipRequested
                     }
                 }
             }
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 AudioManager::getInstance().stopMusic();
-                return true;  // Indicates skip
+                skipRequested = true;
+                break; // Exit the event loop and set skipRequested
             }
         }
 
         if (skipRequested) {
-            return false;  // Indicates completion without skip
+            break; // Exit the text processing loop if skipRequested is true
         }
 
         char c = text[i];
@@ -102,7 +106,6 @@ bool Intro::printSlowly(const std::string& text, int delay, sf::Text& introText,
 
         sleepMilliseconds(delay);
     }
-    return false;  // Indicates completion without skip
 }
 
 bool Intro::isSkipClicked(sf::Event& event) {

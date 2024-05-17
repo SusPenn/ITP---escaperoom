@@ -1,50 +1,77 @@
-//
-// Created by Lukas Kalab on 11.05.24.
-//
-
-#ifndef ESCAPEROOM_FINALROOM_HPP
-#define ESCAPEROOM_FINALROOM_HPP
+#ifndef FINALROOM_HPP
+#define FINALROOM_HPP
 
 #include <SFML/Graphics.hpp>
-#include <AudioManager.hpp>
-#include <vector>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <iostream>
 #include <fstream>
-#include "Riddle.hpp"
-#include "Timer.hpp"
-#include "Scene.hpp"
-#include <chrono>
+#include <string>
 #include <thread>
+#include <chrono>
+#include <unordered_map>
+#include <memory>
+#include "AudioManager.hpp"
+#include "Game.hpp"
+#include "Timer.hpp"
 
+class Game;  // Forward declaration to avoid circular dependency
 
-class FinalRoom : public Scene {
+class FinalRoom {
 public:
-    FinalRoom();
-    void enter() override;
-    void exit() override;
-    void handleInput(sf::Event& event, sf::RenderWindow& window) override;
-    void update(float dt) override;
-    void draw(sf::RenderWindow &window) override;
-    void displayQuestion(std::string filename, sf::RenderWindow& window, bool playerFailed, sf::Sprite background);
-    static void sleepMilliseconds(int milliseconds);
+    FinalRoom(Game* gameInstance);
+    void loadAssets();
+    void enter();
+    void exit();
+    void handleInput(sf::Event& event, sf::RenderWindow& window);
+    void update(float dt);
+    void draw(sf::RenderWindow& window);
 
 private:
-    sf::Texture finalRoomNiceRichterTexture;
-    sf::Sprite finalRoomNiceRichterSprite;
-    sf::Texture finalRoomMadRichterTexture;
-    sf::Sprite finalRoomMadRichterSprite;
+    Game* game;
+
+    sf::Texture niceLecturerTexture;
+    sf::Texture textfieldTexture;
+    sf::Texture madLecturerTexture;
+    sf::Texture roomCompletedTexture;
     sf::Texture playerTexture;
+
+    sf::Sprite textfieldSprite;
+    sf::Sprite madLecturerSprite;
     sf::Sprite playerSprite;
-    sf::Texture finalRoomTextfieldTexture;
-    sf::Sprite finalRoomTextfieldSprite;
-    std::vector<Riddle> riddles;
-    sf::String playerInput;
-    sf::Text playerText;
-    sf::Text questionText;
+    sf::Sprite niceLecturerSprite;
+    sf::Sprite roomCompletedSprite;
+    sf::Sprite background;
+
     sf::Font font;
-    std::string textFileToOpen;
-    bool playerFailedBool = false;
-    //Timer finalRoomTimer;
+    sf::Text questionText;
+
+    std::string riddleText;
+    std::string madLecturerText;
+
+    int questionIndex;
+    bool displayTextLineByLineActive;
+    float displayTextLineByLineTime;
+    bool waitingForAnswer;
+    std::string currentText;
+    int lineCount;
+    bool lineDelayActive;
+    float lineDelayTime;
+    float lineDelayDuration;
+
+    void loadTexture(sf::Texture& texture, const std::string& filename, const std::string& name);
+    void setupSprites();
+    void loadFont(const std::string& fontPath);
+    void playBackgroundMusic();
+    void setupQuestionText(const std::string& text);
+    std::string readFile(const std::string& filename);
+    void displayTextLineByLine(const std::string& entireText);
+    void waitForAnswer(sf::RenderWindow& window);
+    void handleMouseClick(sf::RenderWindow& window);
+    bool isCorrectAnswer(const sf::Vector2f& pos);
+    bool isWrongAnswer(const sf::Vector2f& pos);
+    void handleCorrectAnswer();
+    void handleWrongAnswer();
 };
 
-
-#endif //ESCAPEROOM_FINALROOM_HPP
+#endif // FINALROOM_HPP

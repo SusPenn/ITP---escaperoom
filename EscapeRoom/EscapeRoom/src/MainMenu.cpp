@@ -1,4 +1,5 @@
 #include "MainMenu.hpp"
+#include "Game.hpp"
 
 MainMenu::MainMenu() {
     if (!menuTexture.loadFromFile("assets/textures/mainMenu.png")) {
@@ -18,10 +19,11 @@ MainMenu::MainMenu() {
     newGameSprite.setTexture(newGameTexture);
     exitSprite.setTexture(exitTexture);
     highScoreSprite.setTexture(highScoreTexture);
+
     AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
-void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
+void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -30,16 +32,12 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
             if (translated_pos.x >= 36 && translated_pos.x <= 360 && translated_pos.y >= 466 && translated_pos.y <= 518) {
                 std::cout << "Neues Spiel" << std::endl;
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
-                Intro intro = Intro("assets/intro/intro.txt", window);
-                intro.play();
-                FinalRoom finalRoom = FinalRoom();
-                finalRoom.handleInput(event, window);
-                Outro outro = Outro("assets/outro/outro.txt", window); //Jenny
-                outro.play(); //Jenny
+                game.startNewGame();
             }
             if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 std::cout << "Highscore" << std::endl;
+                game.showHighscore();
             }
             if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
@@ -50,37 +48,10 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window) {
     }
 }
 
-void MainMenu::update(float dt) {
-
-}
-
-void MainMenu::draw(sf::RenderWindow& window) {
+void MainMenu::draw(sf::RenderWindow& window) const {
     window.draw(menuSprite);
     window.draw(newGameSprite);
     window.draw(exitSprite);
     window.draw(highScoreSprite);
-}
-
-void MainMenu::activateButton() {
-
-}
-
-void MainMenu::enter() {
-
-}
-
-void MainMenu::exit() {
-
-}
-
-sf::Sprite MainMenu::getNewGameSprite() const {
-    return newGameSprite;
-}
-
-sf::Sprite MainMenu::getExitSprite() const {
-    return exitSprite;
-}
-
-sf::Sprite MainMenu::getHighScoreSprite() const {
-    return highScoreSprite;
+    window.display();
 }

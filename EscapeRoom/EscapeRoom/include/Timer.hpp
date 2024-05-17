@@ -16,10 +16,11 @@ public:
     void start();
     void pause();
     void update();
-    void draw(sf::RenderWindow& window);
+    void draw(sf::RenderWindow& window) const;
     void adjustBackgroundToText();
     bool getIsTimeUp() const;
     int getScore() const;
+    void resetTimer(float time);
 
 private:
     sf::Clock clock;

@@ -4,16 +4,18 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "AudioManager.hpp"
-#include "Button.hpp"
+#include "Game.hpp"
 #include <iostream>
 #include <fstream>
 #include <chrono>
 #include <thread>
 
+class Game;
+
 class Outro {
 public:
     Outro(const std::string& filename, sf::RenderWindow& window); // Konstruktor
-    void play();
+    void play(Game& game);
     void playSuccessMusic();
     static void sleepMilliseconds(int milliseconds);
     void loadNewImage();
@@ -22,10 +24,8 @@ private:
     std::string filename;
     sf::RenderWindow& window;
     sf::Font font;
-    sf::Texture girlTexture;
-    sf::Sprite girlSprite;
-    sf::Texture boyTexture;
-    sf::Sprite boySprite;
+    sf::Texture playerTexture;
+    sf::Sprite playerSprite;
     sf::Texture spritzerStandTexture;
     sf::Sprite spritzerStandSprite;
     sf::RectangleShape linkArea;

@@ -16,7 +16,7 @@ void Outro::playSuccessMusic() {
     AudioManager::getInstance().playSoundEffect("SuccessSounds/SuccessFanfare.ogg");
 }
 
-void Outro::play() {
+void Outro::play(Game& game) {
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("assets/outro/outroBackground.png")) {
         std::cerr << "Failed to load background image!" << std::endl;
@@ -25,15 +25,23 @@ void Outro::play() {
 
     sf::Sprite backgroundSprite(backgroundTexture);
 
-    if (!girlTexture.loadFromFile("assets/outro/girl.png")) {
-        std::cerr << "Failed to load girl image!" << std::endl;
-        return;
+    if (game.getChosenCharacter() == "Fortuna") {
+        if (!playerTexture.loadFromFile("assets/outro/fortuna.png")) {
+			std::cerr << "Failed to load player image!" << std::endl;
+			return;
+		}
     }
-    girlSprite.setTexture(girlTexture);
+    else {
+        if (!playerTexture.loadFromFile("assets/outro/hilarius.png")) {
+			std::cerr << "Failed to load player image!" << std::endl;
+			return;
+        }
+    }
+    playerSprite.setTexture(playerTexture);
 
     window.clear();
     window.draw(backgroundSprite);
-    window.draw(girlSprite);
+    window.draw(playerSprite);
     window.display();
 
     playSuccessMusic();
@@ -88,7 +96,7 @@ void Outro::play() {
 
         window.clear();
         window.draw(backgroundSprite);
-        window.draw(girlSprite);
+        window.draw(playerSprite);
         if (linkVisible) {
             window.draw(linkArea); // Zeichne den Link-Bereich nur, wenn er sichtbar sein soll
         }
@@ -151,7 +159,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
 
                     window.clear();
                     window.draw(backgroundSprite);
-                    window.draw(girlSprite);
+                    window.draw(playerSprite);
                     outroText.setString(displayedText);
                     window.draw(outroText);
                     if (displayOverlay) {
@@ -169,7 +177,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
 
         window.clear();
         window.draw(backgroundSprite);
-        window.draw(girlSprite);
+        window.draw(playerSprite);
         if (displayOverlay) {
             window.draw(overlay);
         }
@@ -200,16 +208,32 @@ void Outro::loadNewImage() {
     spritzerStandSprite.setTexture(spritzerStandTexture);
     window.clear();
     window.draw(spritzerStandSprite);
+    skipButton.setPosition(window);
+    skipButton.setVisible(true);
     window.display();
 
-    // Warten, bis das Fenster nach dem Laden des neuen Bildes geschlossen wird
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
+                return;
+            }
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                        skipButton.setVisible(false);
+                        AudioManager::getInstance().playSoundEffect("Click.ogg");
+                        return;
+                    }
+                }
             }
         }
+
+        window.clear();
+        window.draw(spritzerStandSprite);
+        skipButton.draw();
+        window.display();
     }
 }
 
@@ -257,4 +281,3 @@ bool Outro::SkipButton::isClicked(sf::Vector2f clickPosition) {
 void Outro::SkipButton::setVisible(bool isVisible) {
     visible = isVisible;
 }
-

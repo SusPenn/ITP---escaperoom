@@ -56,19 +56,23 @@ void Timer::update() {
 
         // Aktualisiere den Timer-Text
         timerText.setString(timeStream.str());
-
         // Passe die Größe und Position des Hintergrunds basierend auf dem neuen Text an
         adjustBackgroundToText();
     }
 }
 
-void Timer::draw(sf::RenderWindow& window) {
+void Timer::draw(sf::RenderWindow& window) const {
     window.draw(background);
     window.draw(timerText);
 }
 
 bool Timer::getIsTimeUp() const {
-    return elapsedTime + clock.getElapsedTime().asSeconds() >= countdownTime;
+    if (countdownTime == 0.0f) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 void Timer::adjustBackgroundToText() {
@@ -96,4 +100,12 @@ int Timer::getScore() const {
 
     // Konvertiere die verbleibende Zeit zu einer Ganzzahl in Sekunden
     return static_cast<int>(remainingTime);
+}
+
+void Timer::resetTimer(float time) {
+    elapsedTime = 0;
+    countdownTime = 600.0f; 
+    isPaused = true;  
+    timerText.setString("10:00");  
+    adjustBackgroundToText();
 }

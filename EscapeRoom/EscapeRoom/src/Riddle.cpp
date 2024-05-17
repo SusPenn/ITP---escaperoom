@@ -1,2 +1,0 @@
-#include "Riddle.hpp"
-

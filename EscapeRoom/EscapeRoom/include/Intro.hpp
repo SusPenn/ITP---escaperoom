@@ -9,20 +9,23 @@
 #include <chrono>
 #include <thread>
 
+class Game;
+
 class Intro {
 public:
     Intro(const std::string& filename, sf::RenderWindow& window);
-    void play();
+    void play(Game& game);
     static void sleepMilliseconds(int milliseconds);
 
 private:
     std::string filename;
     sf::RenderWindow& window;
     sf::Font font;
-    bool printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
+    void printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
     bool isSkipClicked(sf::Event& event);
     bool isSkipButtonClicked(sf::Vector2f clickPosition);
     bool skipRequested = false;
+    Game* game;
 
     class SkipButton {
     public:
