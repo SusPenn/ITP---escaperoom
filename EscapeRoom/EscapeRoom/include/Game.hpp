@@ -7,15 +7,15 @@
 #include <chrono>
 #include "Intro.hpp"
 #include "Outro.hpp"
-#include "FinalRoom.hpp"    
+#include "Room.hpp" 
 #include "MainMenu.hpp"
 #include "Highscore.hpp"
 #include "CharacterSelection.hpp"
 #include "Timer.hpp"
 #include "GameOver.hpp"
 
-class Outro; 
-class FinalRoom;
+class Outro;
+class Room;
 
 enum class GameState {
     MainMenu,
@@ -58,8 +58,8 @@ private:
     void draw();
 
     sf::RenderWindow window;
-    std::map<std::string, std::unique_ptr<FinalRoom>> rooms;
-    FinalRoom* currentRoom;
+    std::map<std::string, std::unique_ptr<Room>> rooms;
+    Room* currentRoom;
     MainMenu mainMenu;
     Highscore highscore;
     Intro* intro;
