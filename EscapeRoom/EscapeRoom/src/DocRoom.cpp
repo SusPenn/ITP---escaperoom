@@ -2,7 +2,7 @@
 
 void DocRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/Pictures/Datenmanagement/Datenmanagement+Docsek.png", "Doc");
-    loadTexture(textfieldTexture, "assets/textures/Pictures/Datenmanagement/textfelddm.png", "Textfield");
+    loadTexture(textfieldTexture, "assets/textures/Pictures/Datenmanagement/textfelddmNew.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/Pictures/Datenmanagement/Datenmanagement+Docsek.png", "Mad Doc");
     loadTexture(roomCompletedTexture, "assets/textures/Pictures/Datenmanagement/Datenmanagement+Docsek.png", "DocRoomCompleted");
 
