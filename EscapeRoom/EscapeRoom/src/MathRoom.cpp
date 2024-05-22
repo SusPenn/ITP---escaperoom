@@ -2,9 +2,9 @@
 
 void MathRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "Porchet");
-    loadTexture(textfieldTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/textfeldprozd.png", "Textfield");
-    loadTexture(madLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Prozedurale Sprachen Labor+Richter+unfreundlich.png", "Mad Richter");
-    loadTexture(roomCompletedTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Prozedurale Sprachen Labor+Richter+freundlich.png", "FinalRoomCompleted");
+    loadTexture(textfieldTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/textfeldmathe.png", "Textfield");
+    loadTexture(madLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet+unfreundlich.png", "Mad Porchet");
+    loadTexture(roomCompletedTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "MathRoomCompleted");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Fortuna.png", "Player");
@@ -17,8 +17,8 @@ void MathRoom::loadAssets() {
     loadFont("assets/intro/arial.ttf");
 
     // load the text files
-    riddleText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/cRiddle.txt");
-    madLecturerText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/madPorchetReply.txt");
+    riddleText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/MACRiddle.txt");
+    madLecturerText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/MadMACRiddle.txt");
 }
 
 void MathRoom::playBackgroundMusic() {
