@@ -21,8 +21,8 @@ void DocRoom::loadAssets() {
     loadFont("assets/intro/arial.ttf");
 
     // load the text files
-    riddleText = readFile("assets/textures/Pictures/Datenmanagement/cRiddle.txt");
-    madLecturerText = readFile("assets/textures/Pictures/Datenmanagement/madRichterReply.txt");
+    riddleText = readFile("assets/textures/Pictures/Datenmanagement/DocRiddle.txt");
+    madLecturerText = readFile("assets/textures/Pictures/Datenmanagement/MadDocRiddle.txt");
 }
 
 void DocRoom::playBackgroundMusic() {

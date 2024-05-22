@@ -1,0 +1,10 @@
+1:1, 1:n, n:m... Das sind Kardinalitäten?
+Wählt Ihr aus denen euren religiösen Anführer?
+Komisches Volk, ich sollte euch noch genauer untersuchen.
+Während ich dich von Kopf bis Fuß durchleuchte,
+erkläre mir doch was ein 1:n Kardinalität ist:
+Antwortmöglichkeiten:
+**a)** Ein Tuppel der 1.Table ist mit beliebig vielen der 2.Table verknüpft.
+**b)** Die erste Tabelle ist mit allen anderen Tabellen verknüpft.
+**c)** Ein ERM Modell kann mit n-Tabellen dargestellt werden.
+**d)** Ein Primärschlüssel hat n Fremdschlüssel.
