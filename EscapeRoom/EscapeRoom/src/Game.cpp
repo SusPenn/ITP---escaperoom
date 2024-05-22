@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "FinalRoom.hpp"
+#include "DocRoom.h"
 
 Game::Game()
     : window(sf::VideoMode(1280, 720), "Game Title"),
@@ -17,8 +18,9 @@ Game::Game()
     isFinalRoomFinished(false),
     isOutroFinished(false),
     currentState(GameState::MainMenu) {
-    // Die anderen Räume hier initialisieren
-    rooms["FinalRoom"] = std::make_unique<FinalRoom>(this);  // Game instanz an FinalRoom übergeben
+    // Die anderen Rï¿½ume hier initialisieren
+    rooms["DocRoom"] = std::make_unique<FinalRoom>(this);  // Game instanz an FinalRoom ï¿½bergeben
+    rooms["FinalRoom"] = std::make_unique<FinalRoom>(this);  // Game instanz an FinalRoom ï¿½bergeben
 }
 
 void Game::run() {
@@ -40,12 +42,17 @@ void Game::startNewGame() {
     if (isCharacterChosen) {
         startIntro();
     }
-    // andere Räume hier einfügen
+    // andere Rï¿½ume hier einfï¿½gen
     if (isIntroFinished) {
+        std::cout << "Hier rein gekommen" << std::endl;
         globalTimer.start();
+        enterRoom("DocRoom");
+    }
+    //Room one finished
+    if (isRoom1Finished) {
         enterRoom("FinalRoom");
     }
-    // Nach dem Outro wieder zurück ins mainMenu?
+    // Nach dem Outro wieder zurï¿½ck ins mainMenu?
 }
 
 void Game::chooseCharacter() {
