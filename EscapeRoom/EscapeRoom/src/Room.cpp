@@ -40,7 +40,7 @@ void Room::enter() {
 }
 
 void Room::exit() {
-    _sleep(2000);
+    sf::sleep(sf::seconds(2));
 }
 
 void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
