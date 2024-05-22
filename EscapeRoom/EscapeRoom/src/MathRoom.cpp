@@ -3,7 +3,7 @@
 void MathRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "Porchet");
     loadTexture(textfieldTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/textfeldmathe.png", "Textfield");
-    loadTexture(madLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "Mad Porchet");
+    loadTexture(madLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet+unfreundlich.png", "Mad Porchet");
     loadTexture(roomCompletedTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "MathRoomCompleted");
 
     if (game->getChosenCharacter() == "Fortuna") {
