@@ -12,7 +12,7 @@ Timer::Timer(float initialTime)
     timerText.setString("00:00");
 
     background.setFillColor(sf::Color(128, 128, 128));
-    background.setPosition(610, 50);
+    background.setPosition(610, 25);
 
     // den Hintergrund an den Text anpassen
     adjustBackgroundToText();
