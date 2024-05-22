@@ -32,6 +32,7 @@ void Room::loadFont(const std::string& fontPath) {
 }
 
 void Room::enter() {
+    game->getGlobalTimer().start();
     loadAssets();
     playBackgroundMusic();
     setupQuestionText(riddleText);

@@ -1,8 +1,4 @@
-//
-// Created by Lukas Kalab on 22.05.24.
-//
-
-#include "DocRoom.h"
+#include "DocRoom.hpp"
 
 void DocRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/Pictures/Datenmanagement/Datenmanagement+Docsek.png", "Doc");
@@ -58,6 +54,5 @@ void DocRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
-    game->setRoom1Finished();
-    game->setCurrentState(GameState::Outro);
+    game->enterRoom("MathRoom");
 }

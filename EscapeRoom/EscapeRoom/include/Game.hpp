@@ -40,22 +40,14 @@ public:
     sf::RenderWindow& getWindow();
     std::string getChosenCharacter() const;
     Timer& getGlobalTimer();
-    void setScore(int score);
+    void setScore();
     void setCurrentState(GameState state);
-
-    // Bool flag setter für die Spielabschnitte
-    void setCharacterChosen();
-    void setIntroFinished();
-    void setRoom1Finished();
-    void setRoom2Finished();
-    void setRoom3Finished();
-    void setFinalRoomFinished();
-    void setOutroFinished();
 
 private:
     void handleInput(sf::Event& event);
     void update(float dt);
     void draw();
+    void resetGame();
 
     sf::RenderWindow window;
     std::map<std::string, std::unique_ptr<Room>> rooms;
@@ -70,17 +62,6 @@ private:
     std::string chosenCharacter;
     int score;
     Timer globalTimer;
-
-    // Boolean Flags für die verschiedenen Spielabschnitte
-    bool isCharacterChosen;
-    bool isIntroFinished;
-    bool isRoom1Finished;
-    bool isRoom2Finished;
-    bool isRoom3Finished;
-    bool isFinalRoomFinished;
-    bool isOutroFinished;
-
-    void resetGame();
 };
 
 #endif // GAME_HPP

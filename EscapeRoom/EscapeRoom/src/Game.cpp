@@ -1,6 +1,7 @@
 #include "Game.hpp"
-#include "FinalRoom.hpp"
-#include "DocRoom.h"
+#include "ProzdRoom.hpp"
+#include "DocRoom.hpp"
+#include "MathRoom.hpp"
 
 Game::Game()
     : window(sf::VideoMode(1280, 720), "Game Title"),
@@ -10,17 +11,11 @@ Game::Game()
     chosenCharacter(""),
     score(0),
     globalTimer(600.0f),  // 10 Minuten
-    isCharacterChosen(false),
-    isIntroFinished(false),
-    isRoom1Finished(false),
-    isRoom2Finished(false),
-    isRoom3Finished(false),
-    isFinalRoomFinished(false),
-    isOutroFinished(false),
     currentState(GameState::MainMenu) {
-    // Die anderen R�ume hier initialisieren
-    rooms["DocRoom"] = std::make_unique<FinalRoom>(this);  // Game instanz an FinalRoom �bergeben
-    rooms["FinalRoom"] = std::make_unique<FinalRoom>(this);  // Game instanz an FinalRoom �bergeben
+    // Die anderen Raeume hier initialisieren
+    rooms["DocRoom"] = std::make_unique<DocRoom>(this);  
+    rooms["MathRoom"] = std::make_unique<MathRoom>(this); 
+    rooms["ProzdRoom"] = std::make_unique<ProzdRoom>(this);  
 }
 
 void Game::run() {
@@ -39,26 +34,12 @@ void Game::run() {
 
 void Game::startNewGame() {
     chooseCharacter();
-    if (isCharacterChosen) {
-        startIntro();
-    }
-    // andere R�ume hier einf�gen
-    if (isIntroFinished) {
-        std::cout << "Hier rein gekommen" << std::endl;
-        globalTimer.start();
-        enterRoom("DocRoom");
-    }
-    //Room one finished
-    if (isRoom1Finished) {
-        enterRoom("FinalRoom");
-    }
-    // Nach dem Outro wieder zur�ck ins mainMenu?
+    startIntro();
 }
 
 void Game::chooseCharacter() {
     // Charakterauswal in den chosenCharacter String speichern
     chosenCharacter = "Fortuna";
-    setCharacterChosen();
 }
 
 void Game::startIntro() {
@@ -71,8 +52,8 @@ void Game::startIntro() {
     intro->play(*this);
     delete intro;
     intro = nullptr;
-    isIntroFinished = true;
     currentState = GameState::InGame;
+    enterRoom("DocRoom");
 }
 
 void Game::startOutro() {
@@ -150,6 +131,7 @@ void Game::update(float dt) {
         currentRoom->update(dt);
     }
     if (currentState == GameState::Outro && currentRoom) {
+        setScore();
         startOutro();
 	}
 
@@ -183,49 +165,14 @@ Timer& Game::getGlobalTimer() {
 }
 
 void Game::resetGame() {
-	isCharacterChosen = false;
-	isIntroFinished = false;
-	isRoom1Finished = false;
-	isRoom2Finished = false;
-	isRoom3Finished = false;
-	isFinalRoomFinished = false;
-    isOutroFinished = false;
     score = 0;
     globalTimer.resetTimer(600.0f);
 }
 
-void Game::setScore(int score) {
-	this->score = score;
+void Game::setScore() {
+    this->score = globalTimer.getScore();
 }
 
 void Game::setCurrentState(GameState state) {
 	currentState = state;
-}
-
-void Game::setCharacterChosen() {
-	isCharacterChosen = true;
-}
-
-void Game::setIntroFinished() {
-	isIntroFinished = true;
-}
-
-void Game::setRoom1Finished() {
-	isRoom1Finished = true;
-}
-
-void Game::setRoom2Finished() {
-	isRoom2Finished = true;
-}
-
-void Game::setRoom3Finished() {
-	isRoom3Finished = true;
-}
-
-void Game::setFinalRoomFinished() {
-	isFinalRoomFinished = true;
-}
-
-void Game::setOutroFinished() {
-	isOutroFinished = true;
 }

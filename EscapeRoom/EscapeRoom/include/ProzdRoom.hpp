@@ -3,9 +3,9 @@
 
 #include "Room.hpp"
 
-class FinalRoom : public Room {
+class ProzdRoom : public Room {
 public:
-    FinalRoom(Game* gameInstance) : Room(gameInstance) {}
+    ProzdRoom(Game* gameInstance) : Room(gameInstance) {}
     void playBackgroundMusic() override;
     void setupQuestionText(const std::string& text) override;
     bool isCorrectAnswer(const sf::Vector2f& pos) override;

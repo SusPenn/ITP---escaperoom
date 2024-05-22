@@ -1,6 +1,6 @@
-#include "FinalRoom.hpp"
+#include "ProzdRoom.hpp"
 
-void FinalRoom::loadAssets() {
+void ProzdRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+freundlich.png", "Richter");
     loadTexture(textfieldTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/textfeldprozd.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+unfreundlich.png", "Mad Richter");
@@ -21,13 +21,13 @@ void FinalRoom::loadAssets() {
     madLecturerText = readFile("assets/textures/Pictures/Prozedurale Sprachen Labor/madRichterReply.txt");
 }
 
-void FinalRoom::playBackgroundMusic() {
+void ProzdRoom::playBackgroundMusic() {
     AudioManager& audioManager = AudioManager::getInstance();
     audioManager.setMusicVolume(100);
     audioManager.playMusic("Kahoot.ogg", true);
 }
 
-void FinalRoom::setupQuestionText(const std::string& text) {
+void ProzdRoom::setupQuestionText(const std::string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);
@@ -38,15 +38,15 @@ void FinalRoom::setupQuestionText(const std::string& text) {
     questionText.setString(currentText);
 }
 
-bool FinalRoom::isCorrectAnswer(const sf::Vector2f& pos) {
+bool ProzdRoom::isCorrectAnswer(const sf::Vector2f& pos) {
     return (pos.x >= 350 && pos.x <= 470 && pos.y >= 494 && pos.y <= 520);
 }
 
-bool FinalRoom::isWrongAnswer(const sf::Vector2f& pos) {
+bool ProzdRoom::isWrongAnswer(const sf::Vector2f& pos) {
     return (pos.x >= 350 && pos.x <= 494 && pos.y >= 520 && pos.y <= 600);
 }
 
-void FinalRoom::handleCorrectAnswer() {
+void ProzdRoom::handleCorrectAnswer() {
     std::cout << "Correct answer!" << std::endl;
     background = roomCompletedSprite;  // Change the background
     draw(game->getWindow());
@@ -54,6 +54,5 @@ void FinalRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
-    game->setFinalRoomFinished();
     game->setCurrentState(GameState::Outro);
 }

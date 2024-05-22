@@ -24,7 +24,7 @@ void MathRoom::loadAssets() {
 void MathRoom::playBackgroundMusic() {
     AudioManager& audioManager = AudioManager::getInstance();
     audioManager.setMusicVolume(100);
-    audioManager.playMusic("Kahoot.ogg", true);
+    audioManager.playMusic("Primzahlen.ogg", true);
 }
 
 void MathRoom::setupQuestionText(const std::string& text) {
@@ -54,6 +54,5 @@ void MathRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
-    game->setFinalRoomFinished();
-    game->setCurrentState(GameState::Outro);
+    game->enterRoom("ProzdRoom");
 }

@@ -43,7 +43,6 @@ void Intro::play(Game& game) {
 
     printSlowly(entireText, 50, introText, backgroundSprite, window);
     AudioManager::getInstance().stopMusic();
-    game.setIntroFinished();
 }
 
 void Intro::printSlowly(const std::string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
