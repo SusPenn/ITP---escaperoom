@@ -15,3 +15,5 @@ public:
 };
 
 #endif // INFRAROOM_HPP
+
+
