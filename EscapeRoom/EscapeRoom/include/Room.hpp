@@ -24,7 +24,7 @@ public:
     void enter();
     void exit();
     void handleInput(sf::Event& event, sf::RenderWindow& window);
-    void update(float dt);
+    virtual void update(float dt);
     void draw(sf::RenderWindow& window);
 
 protected:
@@ -69,7 +69,6 @@ protected:
     void setupSprites();
     void loadFont(const std::string& fontPath);
     std::string readFile(const std::string& filename);
-    void displayTextLineByLine(const std::string& entireText);
     void handleMouseClick(sf::RenderWindow& window);
     void handleWrongAnswer();
 };

@@ -1,24 +1,24 @@
 #include "MathRoom.hpp"
 
 void MathRoom::loadAssets() {
-    loadTexture(niceLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "Porchet");
-    loadTexture(textfieldTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/textfeldmathe.png", "Textfield");
-    loadTexture(madLecturerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet+unfreundlich.png", "Mad Porchet");
-    loadTexture(roomCompletedTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Mathematik_für_Computer_Science_1+Porchet.png", "MathRoomCompleted");
+    loadTexture(niceLecturerTexture, "assets/textures/MACS_1/MACS_1_Porsche.png", "Porchet");
+    loadTexture(textfieldTexture, "assets/textures/MACS_1/MACS_1_Textfield.png", "Textfield");
+    loadTexture(madLecturerTexture, "assets/textures/MACS_1/MACS_1_Porsche_Mad.png", "Mad Porchet");
+    loadTexture(roomCompletedTexture, "assets/textures/MACS_1/MACS_1_Porsche.png", "MathRoomCompleted");
 
     if (game->getChosenCharacter() == "Fortuna") {
-        loadTexture(playerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Fortuna.png", "Player");
+        loadTexture(playerTexture, "assets/textures/MACS_1/Fortuna.png", "Player");
     }
     else {
-        loadTexture(playerTexture, "assets/textures/Pictures/Mathematik für Computer Science 1/Hilarius.png", "Player");
+        loadTexture(playerTexture, "assets/textures/MACS_1/Hilarius.png", "Player");
     }
 
     setupSprites();
     loadFont("assets/intro/arial.ttf");
 
     // load the text files
-    riddleText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/MACRiddle.txt");
-    madLecturerText = readFile("assets/textures/Pictures/Mathematik für Computer Science 1/MadMACRiddle.txt");
+    riddleText = readFile("assets/textures/MACS_1/MACRiddle.txt");
+    madLecturerText = readFile("assets/textures/MACS_1/MadMACRiddle.txt");
 }
 
 void MathRoom::playBackgroundMusic() {
@@ -45,6 +45,8 @@ bool MathRoom::isCorrectAnswer(const sf::Vector2f& pos) {
 bool MathRoom::isWrongAnswer(const sf::Vector2f& pos) {
     if ((pos.x >= 235 && pos.x <= 325 && pos.y >= 165 && pos.y <= 218) || (pos.x >= 235 && pos.x <= 325 && pos.y >= 249 && pos.y <= 277)) {
         return true;
+    } else {
+        return false;
     }
 }
 

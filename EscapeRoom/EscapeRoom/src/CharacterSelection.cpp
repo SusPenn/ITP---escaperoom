@@ -3,7 +3,7 @@
 
 CharacterSelection::CharacterSelection(Game* game)
     : game(game) {
-    if (!backgroundTexture.loadFromFile("./assets/textures/Pictures/Charakterauswahl/Charakterauswahl.png")) {
+    if (!backgroundTexture.loadFromFile("./assets/textures/Characters/Character_Choose.png")) {
         std::cerr << "Failed to load background image!" << std::endl;
         return;
     }

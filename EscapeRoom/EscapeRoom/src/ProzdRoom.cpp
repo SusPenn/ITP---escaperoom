@@ -1,24 +1,24 @@
 #include "ProzdRoom.hpp"
 
 void ProzdRoom::loadAssets() {
-    loadTexture(niceLecturerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+freundlich.png", "Richter");
-    loadTexture(textfieldTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/textfeldprozd.png", "Textfield");
-    loadTexture(madLecturerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+unfreundlich.png", "Mad Richter");
-    loadTexture(roomCompletedTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Prozedurale Sprachen Labor+Richter+freundlich.png", "FinalRoomCompleted");
+    loadTexture(niceLecturerTexture, "assets/textures/PROZD/PROZD_Judge.png", "Richter");
+    loadTexture(textfieldTexture, "assets/textures/PROZD/PROZD_Textfield.png", "Textfield");
+    loadTexture(madLecturerTexture, "assets/textures/PROZD/PROZD_Judge_Mad.png", "Mad Richter");
+    loadTexture(roomCompletedTexture, "assets/textures/PROZD/PROZD_Judge.png", "FinalRoomCompleted");
 
     if (game->getChosenCharacter() == "Fortuna") {
-        loadTexture(playerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Fortuna.png", "Player");
+        loadTexture(playerTexture, "assets/textures/PROZD/Fortuna.png", "Player");
     }
     else {
-        loadTexture(playerTexture, "assets/textures/Pictures/Prozedurale Sprachen Labor/Hilarius.png", "Player");
+        loadTexture(playerTexture, "assets/textures/PROZD/Hilarius.png", "Player");
     }
 
     setupSprites();
     loadFont("assets/intro/arial.ttf");
 
     // load the text files
-    riddleText = readFile("assets/textures/Pictures/Prozedurale Sprachen Labor/cRiddle.txt");
-    madLecturerText = readFile("assets/textures/Pictures/Prozedurale Sprachen Labor/madRichterReply.txt");
+    riddleText = readFile("assets/textures/PROZD/cRiddle.txt");
+    madLecturerText = readFile("assets/textures/PROZD/madRichterReply.txt");
 }
 
 void ProzdRoom::playBackgroundMusic() {

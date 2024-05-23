@@ -1,5 +1,5 @@
 #include "Intro.hpp"
-#include "game.hpp"
+#include "Game.hpp"
 
 Intro::Intro(const std::string& filename, sf::RenderWindow& window) :
     filename(filename), window(window), skipButton(window, font) {

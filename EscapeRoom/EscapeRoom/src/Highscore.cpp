@@ -2,7 +2,7 @@
 #include "Game.hpp"
 
 Highscore::Highscore() {
-    if (!highscoreTexture.loadFromFile("assets/textures/highscore.png")) {
+    if (!highscoreTexture.loadFromFile("assets/textures/MainMenu/Highscore.png")) {
         std::cerr << "Failed to load high score texture." << std::endl;
     }
 

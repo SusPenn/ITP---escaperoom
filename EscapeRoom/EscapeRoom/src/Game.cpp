@@ -50,11 +50,11 @@ void Game::chooseCharacter() {
     characterSelection = std::make_unique<CharacterSelection>(this);
     currentState = GameState::CharacterSelection;
 }
+
 void Game::setChosenCharacter(const std::string& character) { 
     chosenCharacter = character;
     startIntro();
 } 
-
 
 void Game::startIntro() {
     if (currentRoom) {

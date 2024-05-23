@@ -1,0 +1,45 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+									2, 3, 5, 7, 11.... oh Hallo!
+									Gratuliere, du bist schon sehr weit gekommen,
+									aber sehr weit ist nicht weit genug!
+									Als Informatik Student muss man ja hin und
+									wieder auch Code schreiben, 
+									testen wir mal deine Fähigkeiten!
+
+
+
+
+
+
+
+
+
+
+
+
+Ich brauche dringend die 123. Primzahl,
+kannst du ein kleines Programm dafür in C schreiben?
+Kleiner Tipp: 0 und 1 zählen nicht zu den Primzahlen.
+Warum? Keine Ahnung, ich bin ja kein Mathematikauto.

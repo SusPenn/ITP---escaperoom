@@ -2,16 +2,16 @@
 #include "Game.hpp"
 
 MainMenu::MainMenu() {
-    if (!menuTexture.loadFromFile("assets/textures/mainMenu.png")) {
+    if (!menuTexture.loadFromFile("assets/textures/MainMenu/MainMenu.png")) {
         std::cerr << "Failed to load main menu texture." << std::endl;
     }
-    if (!newGameTexture.loadFromFile("assets/textures/newGame.png")) {
+    if (!newGameTexture.loadFromFile("assets/textures/MainMenu/New_Game.png")) {
         std::cerr << "Failed to load new game texture." << std::endl;
     }
-    if (!exitTexture.loadFromFile("assets/textures/exit.png")) {
+    if (!exitTexture.loadFromFile("assets/textures/MainMenu/Quit.png")) {
         std::cerr << "Failed to load exit texture." << std::endl;
     }
-    if (!highScoreTexture.loadFromFile("assets/textures/highscore.png")) {
+    if (!highScoreTexture.loadFromFile("assets/textures/MainMenu/Highscore.png")) {
         std::cerr << "Failed to load high score texture." << std::endl;
     }
 

@@ -74,7 +74,7 @@ void Outro::play(Game& game) {
     // Den Text anzeigen lassen
     printSlowly(entireText, 50, outroText, backgroundSprite, window);
 
-    // Nachdem die Textanzeige fertig ist, oder geskipped wurde, wird die Tür clickable gemacht
+    // Nachdem die Textanzeige fertig ist, oder geskipped wurde, wird die Tï¿½r clickable gemacht
     linkVisible = true;
 
     while (window.isOpen()) {
@@ -88,7 +88,7 @@ void Outro::play(Game& game) {
                     if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         loadNewImage();
                         AudioManager::getInstance().stopMusic();
-                        return; // Nach dem Laden des neuen Bildes können wir zurückkehren, um eine weitere Verarbeitung zu vermeiden
+                        return; // Nach dem Laden des neuen Bildes kï¿½nnen wir zurï¿½ckkehren, um eine weitere Verarbeitung zu vermeiden
                     }
                 }
             }
@@ -146,7 +146,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
         }
 
         if (skipRequested) {
-            break; // Beende die Schleife frühzeitig, wenn ein Skip geklickt wird
+            break; // Beende die Schleife frï¿½hzeitig, wenn ein Skip geklickt wird
         }
         else {
             char c = text[i];
@@ -191,7 +191,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
     audioManager.stopMusic();
     audioManager.setMusicVolume(10);
     audioManager.playMusic("Synthwave-002.ogg", true);
-    // Sichergehen, dass linkVisible basierend darauf gesetzt wird, ob wir natürlich oder aufgrund eines Skips beendet haben
+    // Sichergehen, dass linkVisible basierend darauf gesetzt wird, ob wir natï¿½rlich oder aufgrund eines Skips beendet haben
     linkVisible = !skipRequested;
 }
 

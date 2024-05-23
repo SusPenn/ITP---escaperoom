@@ -12,6 +12,7 @@ class DocRoom: public Room{
         bool isWrongAnswer(const sf::Vector2f& pos) override;
         void handleCorrectAnswer() override;
         void loadAssets() override;
+        void update(float dt) override;
 };
 
 
