@@ -1,24 +1,24 @@
 #include "InfraRoom.hpp"
 
 void InfraRoom::loadAssets() {
-    loadTexture(niceLecturerTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/Infrastruktur_Grundlagen+Ballner.png", "Ballner");
-    loadTexture(textfieldTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/textfeldinfra.png", "Textfield");
-    loadTexture(madLecturerTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/Infrastruktur_Grundlagen+Ballner+unfreundlich.png", "Mad Ballner");
-    loadTexture(roomCompletedTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/Infrastruktur_Grundlagen+Ballner.png", "InfraRoomCompleted");
+    loadTexture(niceLecturerTexture, "assets/textures/INFRA/INFRA_Ballner.png", "Ballner");
+    loadTexture(textfieldTexture, "assets/textures/INFRA/INFRA_Textfield.png", "Textfield");
+    loadTexture(madLecturerTexture, "assets/textures/INFRA/INFRA_Ballner_Mad.png", "Mad Ballner");
+    loadTexture(roomCompletedTexture, "assets/textures/INFRA/INFRA_Ballner.png", "InfraRoomCompleted");
 
     if (game->getChosenCharacter() == "Fortuna") {
-        loadTexture(playerTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/Fortuna.png", "Player");
+        loadTexture(playerTexture, "assets/textures/INFRA/Fortuna.png", "Player");
     }
     else {
-        loadTexture(playerTexture, "assets/textures/Pictures/Infrastruktur Grundlagen/Hilarius.png", "Player");
+        loadTexture(playerTexture, "assets/textures/INFRA/Hilarius.png", "Player");
     }
   
     setupSprites();
     loadFont("assets/intro/arial.ttf");
 
     // load the text files
-    riddleText = readFile("assets/textures/Pictures/Infrastruktur Grundlagen/InfraRiddle.txt");
-    madLecturerText = readFile("assets/textures/Pictures/Infrastruktur Grundlagen/MadInfraRiddle.txt");
+    riddleText = readFile("assets/textures/INFRA/InfraRiddle.txt");
+    madLecturerText = readFile("assets/textures/INFRA/MadInfraRiddle.txt");
 }
 
 void InfraRoom::playBackgroundMusic() {

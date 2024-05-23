@@ -1,0 +1,10 @@
+"ARP ACK IP MAC SEQ! In meiner Sprache bedeutet das 
+'Der Ball naehrt das Buch'. ARP auf eurem Planeten 
+bedeutet Adress Resolution Protocol. Aber was ist 
+die Hauptfunktion des ARP (Address Resolution Protocol)?
+
+Antwortmoeglichkeiten:
+**a)** Die Umwandlung von MAC-Adressen in IP-Adressen
+**b)** Die Umwandlung von IP-Adressen in MAC-Adressen
+**c)** Die Unterstuetzung des DHCP-Protokolls
+**d)** Die Verwaltung von TCP-Verbindungen
