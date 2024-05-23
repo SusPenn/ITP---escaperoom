@@ -2,12 +2,16 @@
 #include "ProzdRoom.hpp"
 #include "DocRoom.hpp"
 #include "MathRoom.hpp"
+//#include "InfraRoom.hpp"
+#include "CharacterSelection.hpp"
 
 Game::Game()
     : window(sf::VideoMode(1280, 720), "Game Title"),
     currentRoom(nullptr),
     intro(nullptr),
     outro(nullptr),
+    characterSelection(nullptr), //NEW
+   
     chosenCharacter(""),
     score(0),
     globalTimer(600.0f),  // 10 Minuten
@@ -15,6 +19,7 @@ Game::Game()
     // Die anderen Raeume hier initialisieren
     rooms["DocRoom"] = std::make_unique<DocRoom>(this);  
     rooms["MathRoom"] = std::make_unique<MathRoom>(this); 
+   // rooms["InfraRoom"] = std::make_unique<InfraRoom>(this);
     rooms["ProzdRoom"] = std::make_unique<ProzdRoom>(this);  
 }
 
@@ -34,13 +39,22 @@ void Game::run() {
 
 void Game::startNewGame() {
     chooseCharacter();
-    startIntro();
 }
 
 void Game::chooseCharacter() {
     // Charakterauswal in den chosenCharacter String speichern
-    chosenCharacter = "Fortuna";
+    if (currentRoom) {
+        currentRoom->exit(); 
+    }
+    currentRoom = nullptr; 
+    characterSelection = std::make_unique<CharacterSelection>(this);
+    currentState = GameState::CharacterSelection;
 }
+void Game::setChosenCharacter(const std::string& character) { 
+    chosenCharacter = character;
+    startIntro();
+} 
+
 
 void Game::startIntro() {
     if (currentRoom) {
@@ -116,6 +130,9 @@ void Game::handleInput(sf::Event& event) {
     }
     else if (currentState == GameState::Highscore) {
         highscore.handleInput(event, window, *this);
+    } 
+    else if (currentState == GameState::CharacterSelection) {
+        characterSelection->handleInput(event, window);
     }
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->handleInput(event, window);
@@ -147,6 +164,9 @@ void Game::draw() {
     }
     else if (currentState == GameState::Highscore) {
         highscore.draw(window);
+    } 
+    else if (currentState == GameState::CharacterSelection) {
+        characterSelection->draw(window);
     }
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->draw(window);

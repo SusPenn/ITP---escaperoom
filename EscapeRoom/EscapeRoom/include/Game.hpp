@@ -23,7 +23,8 @@ enum class GameState {
     Intro,
     InGame,
     Outro,
-    GameOver
+    GameOver,
+    CharacterSelection
 };
 
 class Game {
@@ -42,6 +43,7 @@ public:
     Timer& getGlobalTimer();
     void setScore();
     void setCurrentState(GameState state);
+    void setChosenCharacter(const std::string& character);
 
 private:
     void handleInput(sf::Event& event);
@@ -57,7 +59,7 @@ private:
     Intro* intro;
     Outro* outro;
     GameOver* gameOver;
-    CharacterSelection* characterSelection;
+    std::unique_ptr<CharacterSelection> characterSelection; 
     GameState currentState;
     std::string chosenCharacter;
     int score;
