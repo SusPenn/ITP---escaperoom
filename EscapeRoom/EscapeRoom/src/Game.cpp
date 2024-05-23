@@ -1,8 +1,8 @@
 #include "Game.hpp"
 #include "ProzdRoom.hpp"
+#include "InfraRoom.hpp"
 #include "DocRoom.hpp"
 #include "MathRoom.hpp"
-//#include "InfraRoom.hpp"
 #include "CharacterSelection.hpp"
 
 Game::Game()
@@ -18,8 +18,8 @@ Game::Game()
     currentState(GameState::MainMenu) {
     // Die anderen Raeume hier initialisieren
     rooms["DocRoom"] = std::make_unique<DocRoom>(this);  
+    rooms["InfraRoom"] = std::make_unique<InfraRoom>(this);
     rooms["MathRoom"] = std::make_unique<MathRoom>(this); 
-   // rooms["InfraRoom"] = std::make_unique<InfraRoom>(this);
     rooms["ProzdRoom"] = std::make_unique<ProzdRoom>(this);  
 }
 
