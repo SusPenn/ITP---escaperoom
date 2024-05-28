@@ -7,7 +7,7 @@ CharacterSelection::CharacterSelection(Game* game)
         std::cerr << "Failed to load background image!" << std::endl;
         return;
     }
- 
+
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0, 0);
 
@@ -26,10 +26,12 @@ void CharacterSelection::handleInput(sf::Event& event, sf::RenderWindow& window)
         if (event.mouseButton.button == sf::Mouse::Left) {
             sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
             if (fortunaRect.contains(mousePos)) {
+                AudioManager::getInstance().playSoundEffect("Click.ogg");
                 game->setChosenCharacter("Fortuna");
                 game->setCurrentState(GameState::InGame);
             }
             else if (hilariusRect.contains(mousePos)) {
+                AudioManager::getInstance().playSoundEffect("Click.ogg");
                 game->setChosenCharacter("Hilarius");
                 game->setCurrentState(GameState::InGame);
             }
@@ -40,5 +42,5 @@ void CharacterSelection::handleInput(sf::Event& event, sf::RenderWindow& window)
 void CharacterSelection::draw(sf::RenderWindow& window) {
     window.clear(); //Clear the window before drawing
     window.draw(backgroundSprite);
-    window.display(); 
+    window.display();
 }
