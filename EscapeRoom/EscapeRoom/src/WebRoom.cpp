@@ -31,7 +31,7 @@ void WebRoom::setupQuestionText(const std::string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);
-    questionText.setPosition(300, 149);
+    questionText.setPosition(300, 119);
     currentText.clear();
     questionIndex = 0;
     lineCount = 0;
@@ -39,11 +39,11 @@ void WebRoom::setupQuestionText(const std::string& text) {
 }
 
 bool WebRoom::isCorrectAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 300 && pos.x <= 774 && pos.y >= 262 && pos.y <= 319);
+    return (pos.x >= 300 && pos.x <= 774 && pos.y >= 232 && pos.y <= 289);
 }
 
 bool WebRoom::isWrongAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 300 && pos.x <= 996 && pos.y >= 185 && pos.y <= 262);
+    return (pos.x >= 300 && pos.x <= 996 && pos.y >= 135 && pos.y <= 232);
 }
 
 void WebRoom::handleCorrectAnswer() {
