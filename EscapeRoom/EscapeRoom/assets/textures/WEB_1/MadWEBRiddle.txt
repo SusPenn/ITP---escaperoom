@@ -1,0 +1,15 @@
+Das war ja mehr als falsch!
+Macht dein Projektpartner etwas die ganze Arbeit??
+Eine Chance gebe ich dir noch,
+sonst muss ich das Projekt als Einzelarbeiten werten.
+Denk nochmal nach!
+Ugh, ich kann HTML und CSS Aufgaben schon
+nicht mehr sehen. Die sehen alle gleich aus.
+Laut Recherche bekommst du die allerwichtigste
+Frage gestellt! Welche Antwort ist korrekt?
+
+Antwortmoeglichkeiten:
+**a)** GET-Anfragen sind immer schneller als POST-Anfragen.
+**b)** GET uebertraegt Daten in der URL.
+**c)** GET ist sicherer als POST
+**d)** POST wird verwendet, um Daten vom Server abzurufen

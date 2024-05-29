@@ -3,6 +3,7 @@
 #include "InfraRoom.hpp"
 #include "DocRoom.hpp"
 #include "MathRoom.hpp"
+#include "WebRoom.hpp"
 #include "CharacterSelection.hpp"
 
 Game::Game()
@@ -20,6 +21,7 @@ Game::Game()
     rooms["DocRoom"] = std::make_unique<DocRoom>(this);  
     rooms["InfraRoom"] = std::make_unique<InfraRoom>(this);
     rooms["MathRoom"] = std::make_unique<MathRoom>(this); 
+    rooms["WebRoom"] = std::make_unique<WebRoom>(this);
     rooms["ProzdRoom"] = std::make_unique<ProzdRoom>(this);  
 }
 

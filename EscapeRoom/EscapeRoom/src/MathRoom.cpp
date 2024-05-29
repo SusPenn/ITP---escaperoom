@@ -58,5 +58,5 @@ void MathRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
-    game->enterRoom("InfraRoom");
+    game->enterRoom("WebRoom");
 }
