@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "AudioManager.hpp"
 
 class Game;
 
