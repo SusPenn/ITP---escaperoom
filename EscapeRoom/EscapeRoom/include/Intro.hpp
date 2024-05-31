@@ -15,7 +15,7 @@ class Game;
 
 class Intro {
 public:
-    Intro(Game* gameInstance, const string& filename);
+    Intro(Game* gameInstance);
     void enter();
     void exit();
     void handleInput(sf::Event& event, sf::RenderWindow& window);

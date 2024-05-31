@@ -10,9 +10,9 @@ Room::Room(Game* gameInstance) {
     lineDelayDuration = 2.0f;
 }
 
-void Room::loadTexture(sf::Texture& texture, const std::string& filename, const std::string& name) {
+void Room::loadTexture(sf::Texture& texture, const string& filename, const string& name) {
     if (!texture.loadFromFile(filename)) {
-        std::cerr << "Failed to load " << name << " texture from " << filename << std::endl;
+        cerr << "Failed to load " << name << " texture from " << filename << endl;
     }
 }
 
@@ -22,12 +22,12 @@ void Room::setupSprites() {
     playerSprite.setTexture(playerTexture);
     niceLecturerSprite.setTexture(niceLecturerTexture);
     roomCompletedSprite.setTexture(roomCompletedTexture);
-    background = niceLecturerSprite;
+    background.setTexture(niceLecturerTexture);
 }
 
-void Room::loadFont(const std::string& fontPath) {
+void Room::loadFont(const string& fontPath) {
     if (!font.loadFromFile(fontPath)) {
-        std::cerr << "Failed to load font from " << fontPath << std::endl;
+        cerr << "Failed to load font from " << fontPath << endl;
     }
 }
 
@@ -50,7 +50,7 @@ void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            std::cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << std::endl;
+            cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
         }
     }
 
@@ -134,14 +134,14 @@ void Room::handleMouseClick(sf::RenderWindow& window) {
     }
 }
 
-std::string Room::readFile(const std::string& filename) {
-    std::ifstream inFile(filename);
+string Room::readFile(const string& filename) {
+    ifstream inFile(filename);
     if (!inFile) {
-        std::cerr << "Failed to open file: " << filename << std::endl;
+        cerr << "Failed to open file: " << filename << endl;
         return "";
     }
 
-    std::string content((std::istreambuf_iterator<char>(inFile)), std::istreambuf_iterator<char>());
+    string content((istreambuf_iterator<char>(inFile)), istreambuf_iterator<char>());
     inFile.close();
     return content;
 }

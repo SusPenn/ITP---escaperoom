@@ -1,12 +1,12 @@
 #include "Intro.hpp"
 #include "AudioManager.hpp"
 
-Intro::Intro(Game* gameInstance, const string& filename) :
+Intro::Intro(Game* gameInstance) :
     game(gameInstance), 
-    filename(filename), 
-    skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(gameInstance->getWindow().getSize().x - 120.f, gameInstance->getWindow().getSize().y - 70.f), sf::Color::Blue, "Skip", 20),
-    losButton(sf::Vector2f(200.f, 100.f), sf::Vector2f(gameInstance->getWindow().getSize().x - 760.f, gameInstance->getWindow().getSize().y - 260.f), sf::Color::Green, "LOS!", 40),
-    currentIndex(0), 
+    filename("assets/intro/intro.txt"),
+    skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(1160.f, 650.f), sf::Color::Blue, "Skip", 20),
+    losButton(sf::Vector2f(200.f, 100.f), sf::Vector2f(520.f, 460.f), sf::Color::Green, "LOS!", 40),
+    currentIndex(0),
     displayTextLineByLineTime(0.0f), 
     lineCount(0), lineDelayActive(false), 
     lineDelayTime(0.0f), 
@@ -24,12 +24,12 @@ void Intro::loadAssets() {
     }
     backgroundSprite.setTexture(backgroundTexture);
 
-    std::ifstream inFile(filename);
+    ifstream inFile(filename);
     if (!inFile) {
         cerr << "Failed to open file: " << filename << endl;
     }
     else {
-        std::string line;
+        string line;
         while (getline(inFile, line)) {
             entireText += line + "\n";
         }

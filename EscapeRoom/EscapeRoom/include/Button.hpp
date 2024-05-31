@@ -12,8 +12,11 @@ public:
     Button(const sf::Vector2f& size, const sf::Vector2f& position, const sf::Color& color, const string& text, const int characterSize);
     void draw(sf::RenderWindow& window) const;
     bool isClicked(sf::Vector2f clickPosition);
+    void setVisibility(bool isVisible);
+    bool getIsButtonVisible() const;
 
 private:
+    bool isVisible = true;
 	sf::Font font;
     sf::RectangleShape buttonShape;
     sf::Text buttonText;

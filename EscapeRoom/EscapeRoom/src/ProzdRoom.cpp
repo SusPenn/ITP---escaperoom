@@ -54,5 +54,6 @@ void ProzdRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
+    game->setScore();
     game->setCurrentState(GameState::Outro);
 }

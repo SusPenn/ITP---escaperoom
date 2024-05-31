@@ -18,7 +18,7 @@ Game::Game()
     globalTimer(600.0f),  // 10 Minuten
     currentState(GameState::MainMenu) {
     characterSelection = make_unique<CharacterSelection>(this);
-    intro = make_unique<Intro>(this, "assets/intro/intro.txt");
+    intro = make_unique<Intro>(this);
     // Die anderen Raeume hier initialisieren
     rooms["DocRoom"] = make_unique<DocRoom>(this);  
     rooms["MathRoom"] = make_unique<MathRoom>(this);
@@ -56,7 +56,7 @@ void Game::startOutro() {
     }
     currentRoom = nullptr;
     currentState = GameState::Outro;
-    outro = new Outro("assets/outro/outro.txt", window);
+    outro = new Outro(this);
     outro->play(*this);
     delete outro;
     outro = nullptr;
@@ -135,7 +135,6 @@ void Game::update(float dt) {
         currentRoom->update(dt);
     }
     if (currentState == GameState::Outro && currentRoom) {
-        setScore();
         startOutro();
 	}
     if (currentState == GameState::GameOver) {

@@ -1,81 +1,88 @@
 #include "Outro.hpp"
 
-Outro::Outro(const std::string& filename, sf::RenderWindow& window) :
-    filename(filename), window(window), skipButton(window, font) {
+Outro::Outro(Game* gameInstance) :
+    game(gameInstance),
+    window(window), 
+    skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(1160.f, 650.f), sf::Color::Blue, "Skip", 20),
+    returnToMainMenuButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(1160.f, 650.f), sf::Color::Blue, "Skip", 20),
+    doorButton(sf::Vector2f(220.f, 240.f), sf::Vector2f(215.f, 210.f), sf::Color::Transparent, "", 20)
+    {
+    returnToMainMenuButton.setVisibility(false);
+    doorButton.setVisibility(false);
 
-    if (!font.loadFromFile("assets/outro/arial.ttf")) {
-        std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
-    }
-
-    linkArea.setSize(sf::Vector2f(220, 240));
-    linkArea.setPosition(215, 210);
-    linkArea.setFillColor(sf::Color::Transparent);
+    loadAssets();
 }
 
-void Outro::playSuccessMusic() {
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/SuccessFanfare.ogg");
+void Outro::loadAssets() {
+    loadTexture(backgroundTexture, "assets/outro/outroBackground.png", "Background");
+    loadTexture(spritzerStandTexture, "assets/outro/spritzerstand.png", "Spritzerstand");
+
+    if (game->getChosenCharacter() == "Fortuna") {
+        loadTexture(playerTexture, "assets/textures/PROZD/Fortuna.png", "Player");
+    }
+    else {
+        loadTexture(playerTexture, "assets/textures/PROZD/Hilarius.png", "Player");
+    }
+
+    setupSprites();
+    loadFont("assets/outro/arial.ttf");
+    setupOutroText();
+}
+
+void Outro::loadTexture(sf::Texture& texture, const string& filename, const string& name) {
+    if (!texture.loadFromFile(filename)) {
+        cerr << "Failed to load " << name << " texture from " << filename << endl;
+    }
+}
+
+void Outro::loadFont(const string& fontPath) {
+    if (!font.loadFromFile(fontPath)) {
+        cerr << "Failed to load font from " << fontPath << endl;
+    }
+}
+
+void Outro::setupSprites() {
+	playerSprite.setTexture(playerTexture);
+    backgroundSprite.setTexture(backgroundTexture);
+    spritzerStandSprite.setTexture(spritzerStandTexture);
+}
+
+string Outro::readFile(const string& filename) {
+    ifstream inFile(filename);
+    if (!inFile) {
+        cerr << "Failed to open file: " << filename << endl;
+        return "";
+    }
+
+    string content((istreambuf_iterator<char>(inFile)), istreambuf_iterator<char>());
+    inFile.close();
+    return content;
+}
+
+void Outro::setupOutroText() {
+    outroText.setFont(font);
+    outroText.setCharacterSize(24);
+    outroText.setFillColor(sf::Color::White);
+    outroText.setPosition(50.f, 50.f);
+    outroText.setString(readFile("assets/outro/outro.txt"));
 }
 
 void Outro::play(Game& game) {
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("assets/outro/outroBackground.png")) {
-        std::cerr << "Failed to load background image!" << std::endl;
-        return;
-    }
-
-    sf::Sprite backgroundSprite(backgroundTexture);
-
-    if (game.getChosenCharacter() == "Fortuna") {
-        if (!playerTexture.loadFromFile("assets/outro/fortuna.png")) {
-			std::cerr << "Failed to load player image!" << std::endl;
-			return;
-		}
-    }
-    else {
-        if (!playerTexture.loadFromFile("assets/outro/hilarius.png")) {
-			std::cerr << "Failed to load player image!" << std::endl;
-			return;
-        }
-    }
-    playerSprite.setTexture(playerTexture);
-
     window.clear();
     window.draw(backgroundSprite);
     window.draw(playerSprite);
     window.display();
 
-    playSuccessMusic();
-    sleepMilliseconds(6000);
-
-    std::ifstream inFile(filename);
-    if (!inFile) {
-        std::cerr << "Failed to load file: " << filename << std::endl;
-        return;
-    }
-
-    std::string entireText;
-    std::string line;
-    while (std::getline(inFile, line)) {
-        entireText += line + "\n";
-    }
-    inFile.close();
-
-    sf::Text outroText;
-    outroText.setFont(font);
-    outroText.setCharacterSize(24);
-    outroText.setFillColor(sf::Color::White);
-    outroText.setPosition(50.f, 50.f);
-
-    skipButton.setPosition(window);
-    skipButton.setVisible(true);
+    AudioManager::getInstance().playSoundEffect("SuccessSounds/SuccessFanfare.ogg");
+    sf::sleep(sf::seconds(6));
 
     displayOverlay = true;
 
     // Den Text anzeigen lassen
-    printSlowly(entireText, 50, outroText, backgroundSprite, window);
+    printSlowly(outroText, 50, outroText, backgroundSprite, window);
 
-    // Nachdem die Textanzeige fertig ist, oder geskipped wurde, wird die T�r clickable gemacht
-    linkVisible = true;
+    // Nachdem die Textanzeige fertig ist, oder geskipped wurde, wird die Tür clickable gemacht
+    doorButton.setVisibility(true);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -85,7 +92,7 @@ void Outro::play(Game& game) {
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    if (linkVisible && isLinkClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                    if (doorButton.getIsButtonVisible() && doorButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         loadNewImage();
                         AudioManager::getInstance().stopMusic();
                         return; // Nach dem Laden des neuen Bildes k�nnen wir zur�ckkehren, um eine weitere Verarbeitung zu vermeiden
@@ -97,11 +104,11 @@ void Outro::play(Game& game) {
         window.clear();
         window.draw(backgroundSprite);
         window.draw(playerSprite);
-        if (linkVisible) {
-            window.draw(linkArea); // Zeichne den Link-Bereich nur, wenn er sichtbar sein soll
+        if (doorButton.getIsButtonVisible()) {
+            doorButton.draw(window); // Zeichne den Link-Bereich nur, wenn er sichtbar sein soll
         }
         window.draw(outroText);
-        skipButton.draw();
+        skipButton.draw(window);
         window.display();
     }
 }
@@ -111,7 +118,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
     audioManager.setMusicVolume(100);
     audioManager.playMusic("keyboardTyping.ogg", true);
 
-    std::string displayedText;
+    string displayedText;
     int lineCount = 0;
     sf::Event event;
     bool skipRequested = false;
@@ -127,11 +134,11 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                    if (skipButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
                         skipRequested = true;
                         displayOverlay = false;
                         outroText.setString("");
-                        skipButton.setVisible(false); // Skip-Button unsichtbar machen
+                        skipButton.setVisibility(false); // Skip-Button unsichtbar machen
                         AudioManager::getInstance().playSoundEffect("Click.ogg"); // Skip-Sound abspielen
                     }
                 }
@@ -140,7 +147,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
                 skipRequested = true;
                 displayOverlay = false;
                 outroText.setString("");
-                skipButton.setVisible(false); // Skip-Button unsichtbar machen
+                skipButton.setVisibility(false); // Skip-Button unsichtbar machen
                 AudioManager::getInstance().playSoundEffect("Click.ogg"); // Skip-Sound abspielen
             }
         }
@@ -155,7 +162,7 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
             if (c == '\n' || i == text.length() - 1) {
                 lineCount++;
                 if (lineCount >= 13 || i == text.length() - 1) {
-                    sleepMilliseconds(delay * 15);
+                    sf::sleep(sf::seconds(delay * 15));
 
                     window.clear();
                     window.draw(backgroundSprite);
@@ -182,34 +189,28 @@ void Outro::printSlowly(const std::string& text, int delay, sf::Text& outroText,
             window.draw(overlay);
         }
         window.draw(outroText);
-        skipButton.draw();
+        skipButton.draw(window);
         window.display();
 
-        sleepMilliseconds(delay);
+        sf::sleep(sf::seconds(delay));
     }
 
     audioManager.stopMusic();
     audioManager.setMusicVolume(10);
     audioManager.playMusic("Synthwave-002.ogg", true);
     // Sichergehen, dass linkVisible basierend darauf gesetzt wird, ob wir nat�rlich oder aufgrund eines Skips beendet haben
-    linkVisible = !skipRequested;
+    doorButton.setVisibility(!skipRequested);
 }
 
 void Outro::loadNewImage() {
-    if (!spritzerStandTexture.loadFromFile("assets/outro/spritzerstand.png")) {
-        std::cerr << "Failed to load new image!" << std::endl;
-        return;
-    }
     AudioManager& audioManager = AudioManager::getInstance();
     audioManager.playSoundEffect("DoorOpen.ogg");
-    sleepMilliseconds(1500);
+    sf::sleep(sf::milliseconds(1500));
     audioManager.setMusicVolume(100);
 
-    spritzerStandSprite.setTexture(spritzerStandTexture);
     window.clear();
     window.draw(spritzerStandSprite);
-    skipButton.setPosition(window);
-    skipButton.setVisible(true);
+    returnToMainMenuButton.setVisibility(true);
     window.display();
 
     while (window.isOpen()) {
@@ -221,8 +222,8 @@ void Outro::loadNewImage() {
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
-                    if (isSkipButtonClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
-                        skipButton.setVisible(false);
+                    if (returnToMainMenuButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+                        returnToMainMenuButton.setVisibility(false);
                         AudioManager::getInstance().playSoundEffect("Click.ogg");
                         return;
                     }
@@ -232,52 +233,7 @@ void Outro::loadNewImage() {
 
         window.clear();
         window.draw(spritzerStandSprite);
-        skipButton.draw();
+        skipButton.draw(window);
         window.display();
     }
-}
-
-bool Outro::isSkipButtonClicked(sf::Vector2f clickPosition) {
-    return skipButton.isClicked(clickPosition);
-}
-
-bool Outro::isLinkClicked(sf::Vector2f clickPosition) {
-    return linkVisible && linkArea.getGlobalBounds().contains(clickPosition);
-}
-
-void Outro::sleepMilliseconds(int milliseconds) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-}
-
-Outro::SkipButton::SkipButton(sf::RenderWindow& window, sf::Font& font) :
-    window(window), buttonShape(sf::Vector2f(100.f, 50.f)), buttonText() {
-    buttonShape.setFillColor(sf::Color::Blue);
-    buttonText.setFont(font);
-    buttonText.setCharacterSize(20);
-    buttonText.setFillColor(sf::Color::White);
-    buttonText.setString("Skip");
-}
-
-void Outro::SkipButton::draw() {
-    if (visible) {
-        window.draw(buttonShape);
-        window.draw(buttonText);
-    }
-}
-
-void Outro::SkipButton::setPosition(sf::RenderWindow& window) {
-    buttonShape.setPosition(window.getSize().x - buttonShape.getSize().x - 20.f, window.getSize().y - buttonShape.getSize().y - 20.f);
-    sf::FloatRect textRect = buttonText.getLocalBounds();
-    buttonText.setPosition(
-        buttonShape.getPosition().x + (buttonShape.getSize().x - textRect.width) / 2.f - textRect.left,
-        buttonShape.getPosition().y + (buttonShape.getSize().y - textRect.height) / 2.f - textRect.top
-    );
-}
-
-bool Outro::SkipButton::isClicked(sf::Vector2f clickPosition) {
-    return buttonShape.getGlobalBounds().contains(clickPosition);
-}
-
-void Outro::SkipButton::setVisible(bool isVisible) {
-    visible = isVisible;
 }

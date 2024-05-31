@@ -32,3 +32,11 @@ void Button::centerText() {
         buttonShape.getPosition().y + (buttonShape.getSize().y - textRect.height) / 2.f - textRect.top
     );
 }
+
+void Button::setVisibility(bool isVisible) {
+	this->isVisible = isVisible;
+}
+
+bool Button::getIsButtonVisible() const {
+	return isVisible;
+}

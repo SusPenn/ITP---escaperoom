@@ -5,54 +5,46 @@
 #include <SFML/Graphics.hpp>
 #include "AudioManager.hpp"
 #include "Game.hpp"
+#include "Button.hpp"
 #include <iostream>
 #include <fstream>
 #include <chrono>
 #include <thread>
 
+using namespace std;
+
 class Game;
 
 class Outro {
 public:
-    Outro(const std::string& filename, sf::RenderWindow& window); // Konstruktor
+    Outro(Game* gameInstance);
     void play(Game& game);
-    void playSuccessMusic();
-    static void sleepMilliseconds(int milliseconds);
-    void loadNewImage();
 
 private:
-    std::string filename;
+    Game* game;
+    Button skipButton;
+    Button returnToMainMenuButton;
+    Button doorButton;
     sf::RenderWindow& window;
     sf::Font font;
+    sf::Text outroText;
     sf::Texture playerTexture;
     sf::Sprite playerSprite;
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
     sf::Texture spritzerStandTexture;
     sf::Sprite spritzerStandSprite;
-    sf::RectangleShape linkArea;
-    void printSlowly(const std::string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
-    bool isSkipClicked(sf::Event& event);
-    bool isSkipButtonClicked(sf::Vector2f clickPosition);
+    void loadAssets();
+    void loadTexture(sf::Texture& texture, const string& filename, const string& name);
+    void setupSprites();
+    void loadFont(const string& fontPath);
+    string readFile(const string& filename);
+    void setupOutroText();
+    void printSlowly(const string& text, int delay, sf::Text& outroText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
     bool skipRequested = false;
     bool displayOverlay;
-    bool linkVisible = false;
     bool isLinkClicked(sf::Vector2f clickPosition);
-
-    class SkipButton {
-    public:
-        SkipButton(sf::RenderWindow& window, sf::Font& font);
-        void draw();
-        void setPosition(sf::RenderWindow& window);
-        bool isClicked(sf::Vector2f clickPosition);
-        void setVisible(bool isVisible);
-
-    private:
-        sf::RenderWindow& window;
-        sf::RectangleShape buttonShape;
-        sf::Text buttonText;
-        bool visible = true; // Standardm‰ﬂig sichtbar
-    };
-
-    SkipButton skipButton;
+    void loadNewImage();
 };
 
 #endif // OUTRO_HPP
