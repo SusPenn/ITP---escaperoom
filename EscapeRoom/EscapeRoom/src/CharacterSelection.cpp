@@ -28,12 +28,12 @@ void CharacterSelection::handleInput(sf::Event& event, sf::RenderWindow& window)
             if (fortunaRect.contains(mousePos)) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 game->setChosenCharacter("Fortuna");
-                game->setCurrentState(GameState::InGame);
+                game->setCurrentState(GameState::Intro);
             }
             else if (hilariusRect.contains(mousePos)) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 game->setChosenCharacter("Hilarius");
-                game->setCurrentState(GameState::InGame);
+                game->setCurrentState(GameState::Intro);
             }
         }
     }

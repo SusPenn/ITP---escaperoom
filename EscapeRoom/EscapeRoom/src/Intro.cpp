@@ -1,113 +1,137 @@
 #include "Intro.hpp"
-#include "Game.hpp"
+#include "AudioManager.hpp"
 
-Intro::Intro(const string& filename, sf::RenderWindow& window) :
-    filename(filename), window(window), skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(window.getSize().x - 120.f, window.getSize().y - 70.f), sf::Color::Blue, "Skip", 20) {
-    if (!font.loadFromFile("assets/intro/arial.ttf")) {
-        cerr << "Fehler beim Laden der Schriftart!" << endl;
-
-    }
+Intro::Intro(Game* gameInstance, const string& filename) :
+    game(gameInstance), 
+    filename(filename), 
+    skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(gameInstance->getWindow().getSize().x - 120.f, gameInstance->getWindow().getSize().y - 70.f), sf::Color::Blue, "Skip", 20),
+    losButton(sf::Vector2f(200.f, 100.f), sf::Vector2f(gameInstance->getWindow().getSize().x - 760.f, gameInstance->getWindow().getSize().y - 260.f), sf::Color::Green, "LOS!", 40),
+    currentIndex(0), 
+    displayTextLineByLineTime(0.0f), 
+    lineCount(0), lineDelayActive(false), 
+    lineDelayTime(0.0f), 
+    lineDelayDuration(3.0f),
+    losButtonActive(false){
+    loadAssets();
 }
 
-void Intro::play(Game& game) {
-    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
-
-    sf::Texture backgroundTexture;
+void Intro::loadAssets() {
+    if (!font.loadFromFile("assets/intro/arial.ttf")) {
+        cerr << "Failed to load font from " << filename << endl;
+    }
     if (!backgroundTexture.loadFromFile("assets/intro/introBackground.png")) {
         cerr << "Failed to load background image!" << endl;
-        AudioManager::getInstance().stopMusic();
-        return;
     }
+    backgroundSprite.setTexture(backgroundTexture);
 
-    sf::Sprite backgroundSprite(backgroundTexture);
-    ifstream inFile(filename);
+    std::ifstream inFile(filename);
     if (!inFile) {
         cerr << "Failed to open file: " << filename << endl;
-        AudioManager::getInstance().stopMusic();
-        return;
     }
-
-    string entireText;
-    string line;
-    while (getline(inFile, line)) {
-        entireText += line + "\n";
+    else {
+        std::string line;
+        while (getline(inFile, line)) {
+            entireText += line + "\n";
+        }
     }
-
-    sf::Text introText;
     introText.setFont(font);
     introText.setCharacterSize(24);
     introText.setFillColor(sf::Color::Green);
     introText.setPosition(50.f, 50.f);
-
-    printSlowly(entireText, 50, introText, backgroundSprite, window);
-    AudioManager::getInstance().stopMusic();
 }
 
-void Intro::printSlowly(const string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window) {
-    string displayedText;
-    int lineCount = 0;
-    bool skipRequested = false;
+void Intro::enter() {
+    currentIndex = 0;
+    displayedText.clear();
+    displayTextLineByLineTime = 0.0f;
+    lineCount = 0;
+    lineDelayActive = false;
+    lineDelayTime = 0.0f;
+    AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
+}
 
-    for (size_t i = 0; i < text.length(); ++i) {
-        processEvents(window, skipRequested);
+void Intro::exit() {
+    cout << "Exiting intro" << endl;
+    AudioManager::getInstance().stopMusic();
+    game->enterRoom("DocRoom");
+}
 
-        if (skipRequested) {
-            break; // Exit the text processing loop if skipRequested is true
+void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {
+    if (event.type == sf::Event::Closed) {
+        window.close();
+        exit();
+    }
+    else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+        sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
+
+        if (skipButton.isClicked(clickPosition)) {
+            AudioManager::getInstance().playSoundEffect("Click.ogg");
+            exit();
         }
 
-        char c = text[i];
+        if (losButtonActive && losButton.isClicked(clickPosition)) {
+            AudioManager::getInstance().playSoundEffect("Teleport.ogg");
+            exit();
+        }
+    }
+    else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        AudioManager::getInstance().stopMusic();
+        exit(); // Call the exit function when the Escape key is pressed
+    }
+}
+
+void Intro::update(float dt) {
+    if (lineDelayActive) {
+        AudioManager::getInstance().stopMusic();
+        lineDelayTime += dt;
+        if (lineDelayTime >= lineDelayDuration) {
+            lineDelayActive = false;
+            lineDelayTime = 0.0f;
+            displayedText.clear();
+            introText.setString(displayedText);
+            lineCount = 0;
+            AudioManager::getInstance().setMusicVolume(100);
+            AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
+        }
+        return;
+    }
+
+    displayText(dt);
+}
+
+void Intro::draw(sf::RenderWindow& window) {
+    window.clear();
+    window.draw(backgroundSprite);
+    window.draw(introText);
+    skipButton.draw(window);
+
+    if(losButtonActive) {
+		losButton.draw(window);
+	}
+
+    window.display();
+}
+
+void Intro::displayText(float dt) {
+    displayTextLineByLineTime += dt;
+    if (displayTextLineByLineTime >= 0.05f && currentIndex < entireText.length()) {
+        displayTextLineByLineTime = 0.0f;
+        char c = entireText[currentIndex++];
         displayedText += c;
 
         if (c == '\n') {
             lineCount++;
             if (lineCount == 13) {
-                sleepMilliseconds(delay * 40);
-                window.clear();
-                window.draw(backgroundSprite);
-                window.display();
-
-                displayedText.clear();
-                lineCount = 0;
-                continue;
+                lineDelayActive = true;
+                lineDelayTime = 0.0f;
             }
         }
 
         introText.setString(displayedText);
 
-        window.clear();
-        window.draw(backgroundSprite);
-        window.draw(introText);
-        skipButton.draw(window);
-        window.display();
-
-        sleepMilliseconds(delay);
-    }
-}
-
-void Intro::processEvents(sf::RenderWindow& window, bool& skipRequested) {
-    sf::Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-            skipRequested = true;
-            return;
-        }
-        else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-            if (skipButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
-                AudioManager::getInstance().playSoundEffect("Click.ogg");
-                AudioManager::getInstance().stopMusic();
-                skipRequested = true;
-                return;
-            }
-        }
-        else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        if (currentIndex >= entireText.length() && !lineDelayActive) {
             AudioManager::getInstance().stopMusic();
-            skipRequested = true;
-            return;
+            losButtonActive = true;
         }
     }
-}
-
-void Intro::sleepMilliseconds(int milliseconds) {
-    this_thread::sleep_for(chrono::milliseconds(milliseconds));
 }

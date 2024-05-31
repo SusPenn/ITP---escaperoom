@@ -27,9 +27,8 @@ void Button::centerText() {
     sf::FloatRect textRect = buttonText.getLocalBounds();
     sf::Vector2f buttonPosition = buttonShape.getPosition();
     sf::Vector2f buttonSize = buttonShape.getSize();
-
-	// Die Mitte des Buttons berechnen und den Text zentrieren
-	float centerX = buttonPosition.x + buttonSize.x / 2.0f - textRect.width / 2.0f;
-    float centerY = buttonPosition.y + buttonSize.y / 2.0f - textRect.height / 2.0f;
-    buttonText.setPosition(centerX, centerY);
+    buttonText.setPosition(
+        buttonShape.getPosition().x + (buttonShape.getSize().x - textRect.width) / 2.f - textRect.left,
+        buttonShape.getPosition().y + (buttonShape.getSize().y - textRect.height) / 2.f - textRect.top
+    );
 }

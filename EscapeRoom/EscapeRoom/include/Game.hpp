@@ -1,10 +1,11 @@
+// Game.hpp
 #ifndef GAME_HPP
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <map>
-#include <chrono>
+#include <string>
 #include "Intro.hpp"
 #include "Outro.hpp"
 #include "Room.hpp" 
@@ -14,8 +15,11 @@
 #include "Timer.hpp"
 #include "GameOver.hpp"
 
+using namespace std;
+
 class Outro;
 class Room;
+class Intro;
 
 enum class GameState {
     MainMenu,
@@ -33,37 +37,34 @@ public:
     void run();
     void startNewGame();
     void chooseCharacter();
-    void startIntro();
+    void setChosenCharacter(const string& character);
     void startOutro();
     void showHighscore();
-    void enterRoom(const std::string& roomName);
+    void enterRoom(const string& roomName);
     void returnToMainMenu();
     sf::RenderWindow& getWindow();
-    std::string getChosenCharacter() const;
-    Timer& getGlobalTimer();
-    void setScore();
-    void setCurrentState(GameState state);
-    void setChosenCharacter(const std::string& character);
-
-private:
     void handleInput(sf::Event& event);
     void update(float dt);
     void draw();
+    string getChosenCharacter() const;
+    Timer& getGlobalTimer();
     void resetGame();
+    void setScore();
+    void setCurrentState(GameState state);
 
+private:
     sf::RenderWindow window;
-    std::map<std::string, std::unique_ptr<Room>> rooms;
     Room* currentRoom;
-    MainMenu mainMenu;
-    Highscore highscore;
-    Intro* intro;
+    map<string, unique_ptr<Room>> rooms;
+    unique_ptr<CharacterSelection> characterSelection;
+    unique_ptr<Intro> intro; // Add intro as a unique_ptr
     Outro* outro;
-    GameOver* gameOver;
-    std::unique_ptr<CharacterSelection> characterSelection; 
-    GameState currentState;
-    std::string chosenCharacter;
+    string chosenCharacter;
     int score;
     Timer globalTimer;
+    GameState currentState;
+    MainMenu mainMenu;
+    Highscore highscore;
 };
 
 #endif // GAME_HPP

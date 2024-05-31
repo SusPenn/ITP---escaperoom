@@ -1,35 +1,49 @@
+// Intro.hpp
 #ifndef INTRO_HPP
 #define INTRO_HPP
 
-#include <string>
 #include <SFML/Graphics.hpp>
-#include "AudioManager.hpp"
-#include "Button.hpp"
-#include <iostream>
+#include <string>
 #include <fstream>
-#include <chrono>
-#include <thread>
-
-class Game;
+#include <iostream>
+#include "Button.hpp"
+#include "Game.hpp"
 
 using namespace std;
 
+class Game;
+
 class Intro {
 public:
-    Intro(const string& filename, sf::RenderWindow& window);
-    void play(Game& game);
-    static void sleepMilliseconds(int milliseconds);
+    Intro(Game* gameInstance, const string& filename);
+    void enter();
+    void exit();
+    void handleInput(sf::Event& event, sf::RenderWindow& window);
+    void update(float dt);
+    void draw(sf::RenderWindow& window);
 
 private:
-    string filename;
-    sf::RenderWindow& window;
-    sf::Font font;
-    void printSlowly(const string& text, int delay, sf::Text& introText, sf::Sprite& backgroundSprite, sf::RenderWindow& window);
-    void processEvents(sf::RenderWindow& window, bool& skipRequested);
-    bool skipRequested = false;
     Game* game;
-
+    string filename;
+    sf::Font font;
     Button skipButton;
+    Button losButton;
+    string entireText;
+    sf::Text introText;
+    sf::Sprite backgroundSprite;
+    sf::Texture backgroundTexture;
+    bool losButtonActive;
+
+    std::string displayedText;
+    size_t currentIndex;
+    float displayTextLineByLineTime;
+    int lineCount;
+    bool lineDelayActive;
+    float lineDelayTime;
+    const float lineDelayDuration;
+
+    void loadAssets();
+    void displayText(float dt);
 };
 
 #endif // INTRO_HPP

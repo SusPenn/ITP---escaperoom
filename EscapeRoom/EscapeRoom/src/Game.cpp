@@ -17,12 +17,14 @@ Game::Game()
     score(0),
     globalTimer(600.0f),  // 10 Minuten
     currentState(GameState::MainMenu) {
+    characterSelection = make_unique<CharacterSelection>(this);
+    intro = make_unique<Intro>(this, "assets/intro/intro.txt");
     // Die anderen Raeume hier initialisieren
-    rooms["DocRoom"] = std::make_unique<DocRoom>(this);  
-    rooms["InfraRoom"] = std::make_unique<InfraRoom>(this);
-    rooms["MathRoom"] = std::make_unique<MathRoom>(this); 
-    rooms["WebRoom"] = std::make_unique<WebRoom>(this);
-    rooms["ProzdRoom"] = std::make_unique<ProzdRoom>(this);  
+    rooms["DocRoom"] = make_unique<DocRoom>(this);  
+    rooms["MathRoom"] = make_unique<MathRoom>(this);
+    rooms["InfraRoom"] = make_unique<InfraRoom>(this); 
+    rooms["WebRoom"] = make_unique<WebRoom>(this);
+    rooms["ProzdRoom"] = make_unique<ProzdRoom>(this);  
 }
 
 void Game::run() {
@@ -40,37 +42,13 @@ void Game::run() {
 }
 
 void Game::startNewGame() {
-    chooseCharacter();
-}
-
-void Game::chooseCharacter() {
-    // Charakterauswal in den chosenCharacter String speichern
-    if (currentRoom) {
-        currentRoom->exit(); 
-    }
-    currentRoom = nullptr; 
-    characterSelection = std::make_unique<CharacterSelection>(this);
     currentState = GameState::CharacterSelection;
 }
 
-void Game::setChosenCharacter(const std::string& character) { 
+void Game::setChosenCharacter(const string& character) { 
     chosenCharacter = character;
-    startIntro();
+    intro->enter();
 } 
-
-void Game::startIntro() {
-    if (currentRoom) {
-        currentRoom->exit();
-    }
-    currentRoom = nullptr;
-    currentState = GameState::Intro;
-    intro = new Intro("assets/intro/intro.txt", window);
-    intro->play(*this);
-    delete intro;
-    intro = nullptr;
-    currentState = GameState::InGame;
-    enterRoom("DocRoom");
-}
 
 void Game::startOutro() {
     if (currentRoom) {
@@ -94,7 +72,7 @@ void Game::showHighscore() {
     AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
-void Game::enterRoom(const std::string& roomName) {
+void Game::enterRoom(const string& roomName) {
     auto it = rooms.find(roomName);
     if (it != rooms.end()) {
         if (currentRoom) {
@@ -136,6 +114,9 @@ void Game::handleInput(sf::Event& event) {
     else if (currentState == GameState::CharacterSelection) {
         characterSelection->handleInput(event, window);
     }
+    else if (currentState == GameState::Intro) {
+		intro->handleInput(event, window);
+	}
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->handleInput(event, window);
     }
@@ -145,7 +126,11 @@ void Game::update(float dt) {
     if (globalTimer.getIsTimeUp()) {
         currentState = GameState::GameOver;
     }
-    
+
+
+    if (currentState == GameState::Intro) {
+        intro->update(dt);
+    }
     if (currentState == GameState::InGame && currentRoom) {
         currentRoom->update(dt);
     }
@@ -153,7 +138,6 @@ void Game::update(float dt) {
         setScore();
         startOutro();
 	}
-
     if (currentState == GameState::GameOver) {
         // gameOver->update(dt);
     }
@@ -170,6 +154,9 @@ void Game::draw() {
     else if (currentState == GameState::CharacterSelection) {
         characterSelection->draw(window);
     }
+    else if(currentState == GameState::Intro) {
+		intro->draw(window);
+	}
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->draw(window);
     }
