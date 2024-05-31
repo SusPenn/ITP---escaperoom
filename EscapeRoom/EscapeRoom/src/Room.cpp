@@ -5,6 +5,8 @@ Room::Room(Game* gameInstance) {
     questionIndex = 0;
     displayTextLineByLineActive = false;
     waitingForAnswer = false;
+    lineCount = 0;
+    displayTextLineByLineActive = false;
     lineDelayActive = false;
     lineDelayTime = 0;
     lineDelayDuration = 2.0f;

@@ -34,7 +34,7 @@ private:
     sf::Texture backgroundTexture;
     bool losButtonActive;
 
-    std::string displayedText;
+    string displayedText;
     size_t currentIndex;
     float displayTextLineByLineTime;
     int lineCount;

@@ -55,5 +55,6 @@ void ProzdRoom::handleCorrectAnswer() {
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
     game->setScore();
+    exit();
     game->setCurrentState(GameState::Outro);
 }

@@ -8,11 +8,11 @@ Intro::Intro(Game* gameInstance) :
     losButton(sf::Vector2f(200.f, 100.f), sf::Vector2f(520.f, 460.f), sf::Color::Green, "LOS!", 40),
     currentIndex(0),
     displayTextLineByLineTime(0.0f), 
-    lineCount(0), lineDelayActive(false), 
+    lineCount(0), 
+    lineDelayActive(false), 
     lineDelayTime(0.0f), 
     lineDelayDuration(3.0f),
     losButtonActive(false){
-    loadAssets();
 }
 
 void Intro::loadAssets() {
@@ -41,6 +41,7 @@ void Intro::loadAssets() {
 }
 
 void Intro::enter() {
+    loadAssets();
     currentIndex = 0;
     displayedText.clear();
     displayTextLineByLineTime = 0.0f;

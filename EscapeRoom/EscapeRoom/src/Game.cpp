@@ -19,6 +19,7 @@ Game::Game()
     currentState(GameState::MainMenu) {
     characterSelection = make_unique<CharacterSelection>(this);
     intro = make_unique<Intro>(this);
+    outro = make_unique<Outro>(this);
     // Die anderen Raeume hier initialisieren
     rooms["DocRoom"] = make_unique<DocRoom>(this);  
     rooms["MathRoom"] = make_unique<MathRoom>(this);
@@ -49,19 +50,6 @@ void Game::setChosenCharacter(const string& character) {
     chosenCharacter = character;
     intro->enter();
 } 
-
-void Game::startOutro() {
-    if (currentRoom) {
-        currentRoom->exit();
-    }
-    currentRoom = nullptr;
-    currentState = GameState::Outro;
-    outro = new Outro(this);
-    outro->play(*this);
-    delete outro;
-    outro = nullptr;
-    returnToMainMenu();
-}
 
 void Game::showHighscore() {
     if (currentRoom) {
@@ -120,6 +108,12 @@ void Game::handleInput(sf::Event& event) {
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->handleInput(event, window);
     }
+	else if (currentState == GameState::Outro) {
+        outro->handleInput(event, window);
+        }
+    else if (currentState == GameState::GameOver) {
+		// gameOver->handleInput(event, window);
+	}
 }
 
 void Game::update(float dt) {
@@ -135,7 +129,7 @@ void Game::update(float dt) {
         currentRoom->update(dt);
     }
     if (currentState == GameState::Outro && currentRoom) {
-        startOutro();
+        outro->update(dt);
 	}
     if (currentState == GameState::GameOver) {
         // gameOver->update(dt);
@@ -159,6 +153,9 @@ void Game::draw() {
     else if (currentState == GameState::InGame && currentRoom) {
         currentRoom->draw(window);
     }
+    else if (currentState == GameState::Outro) {
+		outro->draw(window);
+	}
     else if (currentState == GameState::GameOver) {
 		// gameOver->draw(window);
 	}

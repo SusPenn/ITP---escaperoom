@@ -36,9 +36,7 @@ public:
     Game();
     void run();
     void startNewGame();
-    void chooseCharacter();
     void setChosenCharacter(const string& character);
-    void startOutro();
     void showHighscore();
     void enterRoom(const string& roomName);
     void returnToMainMenu();
@@ -58,7 +56,7 @@ private:
     map<string, unique_ptr<Room>> rooms;
     unique_ptr<CharacterSelection> characterSelection;
     unique_ptr<Intro> intro; // Add intro as a unique_ptr
-    Outro* outro;
+    unique_ptr<Outro> outro;
     string chosenCharacter;
     int score;
     Timer globalTimer;
