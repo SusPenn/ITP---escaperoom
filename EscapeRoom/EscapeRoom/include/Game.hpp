@@ -49,6 +49,7 @@ public:
     void resetGame();
     void setScore();
     void setCurrentState(GameState state);
+    void gameWon();
 
 private:
     sf::RenderWindow window;

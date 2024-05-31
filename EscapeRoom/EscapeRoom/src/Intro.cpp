@@ -42,19 +42,15 @@ void Intro::loadAssets() {
 
 void Intro::enter() {
     loadAssets();
-    currentIndex = 0;
     displayedText.clear();
-    displayTextLineByLineTime = 0.0f;
-    lineCount = 0;
-    lineDelayActive = false;
-    lineDelayTime = 0.0f;
     AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
 }
 
 void Intro::exit() {
     cout << "Exiting intro" << endl;
     AudioManager::getInstance().stopMusic();
-    game->enterRoom("DocRoom");
+    //game->enterRoom("DocRoom");
+    game->gameWon();
 }
 
 void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {

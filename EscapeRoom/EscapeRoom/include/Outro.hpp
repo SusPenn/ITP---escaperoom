@@ -45,8 +45,10 @@ private:
     size_t currentIndex;
     bool outroTextFinished;
     float lineDelayTime;
+    int lineCount;
     const float lineDelayDuration;
     float displayTextLineByLineTime;
+    bool lineDelayActive;
 
     void loadAssets();
     void loadTexture(sf::Texture& texture, const string& filename, const string& name);

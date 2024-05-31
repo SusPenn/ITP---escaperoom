@@ -9,10 +9,6 @@
 Game::Game()
     : window(sf::VideoMode(1280, 720), "Game Title"),
     currentRoom(nullptr),
-    intro(nullptr),
-    outro(nullptr),
-    characterSelection(nullptr), //NEW
-   
     chosenCharacter(""),
     score(0),
     globalTimer(600.0f),  // 10 Minuten
@@ -128,7 +124,7 @@ void Game::update(float dt) {
     if (currentState == GameState::InGame && currentRoom) {
         currentRoom->update(dt);
     }
-    if (currentState == GameState::Outro && currentRoom) {
+    if (currentState == GameState::Outro) {
         outro->update(dt);
 	}
     if (currentState == GameState::GameOver) {
@@ -161,8 +157,13 @@ void Game::draw() {
 	}
 }
 
-std::string Game::getChosenCharacter() const {
+string Game::getChosenCharacter() const {
 	return chosenCharacter;
+}
+
+void Game::gameWon() {
+    currentState = GameState::Outro;
+    outro->enter();
 }
 
 Timer& Game::getGlobalTimer() {
