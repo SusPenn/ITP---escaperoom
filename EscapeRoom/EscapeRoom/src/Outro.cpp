@@ -97,9 +97,6 @@ void Outro::handleInput(sf::Event& event, sf::RenderWindow& window) {
             }
         }
     }
-    else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-        exit();
-    }
 }
 
 void Outro::update(float dt) {
@@ -202,6 +199,7 @@ void Outro::setupOutroText() {
 }
 
 void Outro::displayTextFinished() {
+    sf::sleep(sf::seconds(3));
     displayedText.clear();
     outroText.setString(displayedText);
     outroTextFinished = true;

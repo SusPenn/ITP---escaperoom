@@ -47,10 +47,8 @@ void Intro::enter() {
 }
 
 void Intro::exit() {
-    cout << "Exiting intro" << endl;
     AudioManager::getInstance().stopMusic();
-    //game->enterRoom("DocRoom");
-    game->gameWon();
+    game->enterRoom("DocRoom");
 }
 
 void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {
