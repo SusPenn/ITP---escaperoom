@@ -3,7 +3,7 @@
 Outro::Outro(Game* gameInstance) :
     game(gameInstance),
     skipButton(sf::Vector2f(100.f, 50.f), sf::Vector2f(1160.f, 650.f), sf::Color::Blue, "Skip", 20),
-    returnToMainMenuButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1060.f, 650.f), sf::Color::Blue, "Return To Main Menu", 20),
+    returnToMainMenuButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1060.f, 650.f), sf::Color::Blue, "Back to Main Menu", 20),
     doorButton(sf::Vector2f(220.f, 240.f), sf::Vector2f(215.f, 210.f), sf::Color::Transparent, "", 20),
     overlay(sf::Vector2f(1280, 720)),
     currentIndex(0),
@@ -13,7 +13,10 @@ Outro::Outro(Game* gameInstance) :
     lineDelayTime(0.0f),
     lineDelayActive(false),
     lineDelayDuration(3.0f),
-    displayOverlay(false)
+    displayOverlay(false),
+    showScore(false),
+    showCredits(false),
+    creditsPositionY(720.f)
 {
     skipButton.setVisibility(false);
     returnToMainMenuButton.setVisibility(false);
@@ -67,6 +70,15 @@ void Outro::draw(sf::RenderWindow& window) {
         doorButton.draw(window);
     }
 
+    if(showScore) {
+		window.draw(scoreTextfieldSprite);
+		window.draw(scoreText);
+	}
+
+    if(showCredits) {
+        window.draw(outroCreditsSprite);
+    }
+
     if (returnToMainMenuButton.getIsButtonVisible()) {
         returnToMainMenuButton.draw(window);
     }
@@ -116,10 +128,16 @@ void Outro::update(float dt) {
         }
         displayText(dt);
     }
+
+    if (showCredits) {
+        if(creditsPositionY > 0.f) {
+			creditsPositionY -= 0.2;
+			outroCreditsSprite.setPosition(0.f, creditsPositionY);
+		}
+    }
 }
 
 void Outro::displayText(float dt) {
-    cout << "Displaying text" << endl;
     displayTextLineByLineTime += dt;
     if (displayTextLineByLineTime >= 0.05f && currentIndex < entireText.length()) {
         displayTextLineByLineTime = 0.0f;
@@ -138,6 +156,7 @@ void Outro::displayText(float dt) {
         outroText.setString(displayedText);
     }
     else if (currentIndex >= entireText.length() && !lineDelayActive) {
+        sf::sleep(sf::seconds(3));
         displayTextFinished(); // Wenn der Text fertig ist, wird die Funktion aufgerufen
     }
 }
@@ -145,6 +164,8 @@ void Outro::displayText(float dt) {
 void Outro::loadAssets() {
     loadTexture(backgroundTexture, "assets/outro/outroBackground.png", "Background");
     loadTexture(spritzerStandTexture, "assets/outro/spritzerstand.png", "Spritzerstand");
+    loadTexture(outroCreditsTexture, "assets/outro/outroCredits.png", "Credits");
+    loadTexture(scoreTextfieldTexture, "assets/outro/scoreTextfield.png", "ScoreTextfield");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/PROZD/Fortuna.png", "Player");
@@ -156,6 +177,7 @@ void Outro::loadAssets() {
     setupSprites();
     loadFont("assets/outro/arial.ttf");
     setupOutroText();
+    setupScoreText();
 }
 
 void Outro::loadTexture(sf::Texture& texture, const string& filename, const string& name) {
@@ -174,6 +196,8 @@ void Outro::setupSprites() {
     playerSprite.setTexture(playerTexture);
     backgroundSprite.setTexture(backgroundTexture);
     spritzerStandSprite.setTexture(spritzerStandTexture);
+    outroCreditsSprite.setTexture(outroCreditsTexture);
+    scoreTextfieldSprite.setTexture(scoreTextfieldTexture);
 }
 
 string Outro::readFile(const string& filename) {
@@ -198,8 +222,15 @@ void Outro::setupOutroText() {
     outroText.setString(displayedText); // Initially set to empty string
 }
 
+void Outro::setupScoreText() {
+    scoreText.setFont(font);
+	scoreText.setCharacterSize(40);
+	scoreText.setFillColor(sf::Color::White);
+	scoreText.setPosition(550.f, 70.f);
+    scoreText.setString("Score: " + to_string(game->getScore()));
+}
+
 void Outro::displayTextFinished() {
-    sf::sleep(sf::seconds(3));
     displayedText.clear();
     outroText.setString(displayedText);
     outroTextFinished = true;
@@ -213,6 +244,10 @@ void Outro::displayTextFinished() {
 
 void Outro::toTheSpritzer() {
     backgroundSprite = spritzerStandSprite;
+    doorButton.setVisibility(false);
+    showScore = true;
+    showCredits = true;
+    outroCreditsSprite.setPosition(0.f, creditsPositionY);
     AudioManager::getInstance().playSoundEffect("DoorOpen.ogg");
     sf::sleep(sf::milliseconds(1500));
     AudioManager::getInstance().setMusicVolume(100);

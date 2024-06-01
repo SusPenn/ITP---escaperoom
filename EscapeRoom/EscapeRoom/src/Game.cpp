@@ -179,6 +179,10 @@ void Game::setScore() {
     this->score = globalTimer.getScore();
 }
 
+int Game::getScore() const {
+	return score;
+}
+
 void Game::setCurrentState(GameState state) {
 	currentState = state;
 }

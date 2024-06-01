@@ -32,12 +32,17 @@ private:
     Button doorButton;
     sf::Font font;
     sf::Text outroText;
+    sf::Text scoreText;
     sf::Texture playerTexture;
     sf::Sprite playerSprite;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
     sf::Texture spritzerStandTexture;
     sf::Sprite spritzerStandSprite;
+    sf::Texture outroCreditsTexture;
+    sf::Sprite outroCreditsSprite;
+    sf::Texture scoreTextfieldTexture;
+    sf::Sprite scoreTextfieldSprite;
     sf::RectangleShape overlay;
 
     string entireText;
@@ -49,6 +54,9 @@ private:
     const float lineDelayDuration;
     float displayTextLineByLineTime;
     bool lineDelayActive;
+    bool showScore;
+    bool showCredits;
+    float creditsPositionY;
 
     void loadAssets();
     void loadTexture(sf::Texture& texture, const string& filename, const string& name);
@@ -56,6 +64,7 @@ private:
     void loadFont(const string& fontPath);
     string readFile(const string& filename);
     void setupOutroText();
+    void setupScoreText();
     void displayText(float dt);
     void displayTextFinished();
 

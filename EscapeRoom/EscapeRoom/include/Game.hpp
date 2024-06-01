@@ -48,6 +48,7 @@ public:
     Timer& getGlobalTimer();
     void resetGame();
     void setScore();
+    int getScore() const;
     void setCurrentState(GameState state);
     void gameWon();
 
