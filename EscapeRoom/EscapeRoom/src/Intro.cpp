@@ -42,13 +42,12 @@ void Intro::loadAssets() {
 
 void Intro::enter() {
     loadAssets();
-    displayedText.clear();
     AudioManager::getInstance().playMusic("keyboardTyping.ogg", true);
 }
 
 void Intro::exit() {
     AudioManager::getInstance().stopMusic();
-    game->enterRoom("DocRoom");
+    game->enterRoom("ProzdRoom");
 }
 
 void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {

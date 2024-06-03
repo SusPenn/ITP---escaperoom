@@ -13,15 +13,19 @@ Game::Game()
     score(0),
     globalTimer(600.0f),  // 10 Minuten
     currentState(GameState::MainMenu) {
+    initializeRooms();
+}
+
+void Game::initializeRooms() {
     characterSelection = make_unique<CharacterSelection>(this);
     intro = make_unique<Intro>(this);
     outro = make_unique<Outro>(this);
     // Die anderen Raeume hier initialisieren
-    rooms["DocRoom"] = make_unique<DocRoom>(this);  
+    rooms["DocRoom"] = make_unique<DocRoom>(this);
     rooms["MathRoom"] = make_unique<MathRoom>(this);
-    rooms["InfraRoom"] = make_unique<InfraRoom>(this); 
+    rooms["InfraRoom"] = make_unique<InfraRoom>(this);
     rooms["WebRoom"] = make_unique<WebRoom>(this);
-    rooms["ProzdRoom"] = make_unique<ProzdRoom>(this);  
+    rooms["ProzdRoom"] = make_unique<ProzdRoom>(this);
 }
 
 void Game::run() {
@@ -173,6 +177,12 @@ Timer& Game::getGlobalTimer() {
 void Game::resetGame() {
     score = 0;
     globalTimer.resetTimer(600.0f);
+    chosenCharacter = "";
+
+    rooms.clear();
+    currentRoom = nullptr;
+
+    initializeRooms();
 }
 
 void Game::setScore() {

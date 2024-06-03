@@ -26,10 +26,7 @@ Outro::Outro(Game* gameInstance) :
 
 void Outro::enter() {
     loadAssets();
-
-    game->getWindow().clear();
-    game->getWindow().draw(backgroundSprite);
-    game->getWindow().display();
+    draw(game->getWindow());
 
     AudioManager::getInstance().playSoundEffect("SuccessSounds/SuccessFanfare.ogg");
     sf::sleep(sf::seconds(6));
@@ -54,6 +51,7 @@ void Outro::exit() {
 void Outro::draw(sf::RenderWindow& window) {
     window.clear();
     window.draw(backgroundSprite);
+    window.draw(playerSprite);
 
     if (displayOverlay) {
         window.draw(overlay);
@@ -168,10 +166,10 @@ void Outro::loadAssets() {
     loadTexture(scoreTextfieldTexture, "assets/outro/scoreTextfield.png", "ScoreTextfield");
 
     if (game->getChosenCharacter() == "Fortuna") {
-        loadTexture(playerTexture, "assets/textures/PROZD/Fortuna.png", "Player");
+        loadTexture(playerTexture, "assets/outro/fortuna.png", "Player");
     }
     else {
-        loadTexture(playerTexture, "assets/textures/PROZD/Hilarius.png", "Player");
+        loadTexture(playerTexture, "assets/outro/hilarius.png", "Player");
     }
 
     setupSprites();
@@ -244,6 +242,7 @@ void Outro::displayTextFinished() {
 
 void Outro::toTheSpritzer() {
     backgroundSprite = spritzerStandSprite;
+    playerSprite.setColor(sf::Color(0, 0, 0, 0));
     doorButton.setVisibility(false);
     showScore = true;
     showCredits = true;

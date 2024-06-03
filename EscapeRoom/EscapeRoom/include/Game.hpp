@@ -41,9 +41,6 @@ public:
     void enterRoom(const string& roomName);
     void returnToMainMenu();
     sf::RenderWindow& getWindow();
-    void handleInput(sf::Event& event);
-    void update(float dt);
-    void draw();
     string getChosenCharacter() const;
     Timer& getGlobalTimer();
     void resetGame();
@@ -53,6 +50,10 @@ public:
     void gameWon();
 
 private:
+    void handleInput(sf::Event& event);
+    void update(float dt);
+    void draw();
+    void initializeRooms();
     sf::RenderWindow window;
     Room* currentRoom;
     map<string, unique_ptr<Room>> rooms;
