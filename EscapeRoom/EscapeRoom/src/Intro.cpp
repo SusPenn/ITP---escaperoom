@@ -47,7 +47,7 @@ void Intro::enter() {
 
 void Intro::exit() {
     AudioManager::getInstance().stopMusic();
-    game->enterRoom("ProzdRoom");
+    game->enterRoom("DocRoom");
 }
 
 void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {
