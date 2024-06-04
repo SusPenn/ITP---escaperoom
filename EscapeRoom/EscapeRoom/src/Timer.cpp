@@ -65,7 +65,7 @@ void Timer::draw(sf::RenderWindow& window) const {
     window.draw(background);
     window.draw(timerText);
 }
-
+/*
 bool Timer::getIsTimeUp() const {
     if (countdownTime == 0.0f) {
         return true;
@@ -73,6 +73,11 @@ bool Timer::getIsTimeUp() const {
     else {
         return false;
     }
+}*/
+
+bool Timer::getIsTimeUp() const {
+    float remainingTime = countdownTime - (elapsedTime + clock.getElapsedTime().asSeconds());
+    return remainingTime <= 0; 
 }
 
 void Timer::adjustBackgroundToText() {
@@ -104,8 +109,10 @@ int Timer::getScore() const {
 
 void Timer::resetTimer(float time) {
     elapsedTime = 0;
-    countdownTime = 600.0f; 
+  //  countdownTime = 600.0f; 
+    countdownTime = time;  // TEST_TIMER
     isPaused = true;  
+   // timerText.setString("00:30");  // TEST_TIMER
     timerText.setString("10:00");  
     adjustBackgroundToText();
 }

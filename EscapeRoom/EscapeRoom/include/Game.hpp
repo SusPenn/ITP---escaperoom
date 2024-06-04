@@ -20,6 +20,7 @@ using namespace std;
 class Outro;
 class Room;
 class Intro;
+class GameOver;
 
 enum class GameState {
     MainMenu,
@@ -60,6 +61,7 @@ private:
     unique_ptr<CharacterSelection> characterSelection;
     unique_ptr<Intro> intro; // Add intro as a unique_ptr
     unique_ptr<Outro> outro;
+    unique_ptr<GameOver> gameOver; 
     string chosenCharacter;
     int score;
     Timer globalTimer;

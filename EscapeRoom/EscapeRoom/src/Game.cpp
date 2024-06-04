@@ -11,9 +11,11 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(600.0f),  // 10 Minuten
+    globalTimer(600.0f),
+   // globalTimer(10.0f),  // TEST TIME
     currentState(GameState::MainMenu) {
     initializeRooms();
+    gameOver = std::make_unique<GameOver>(this); // NEW
 }
 
 void Game::initializeRooms() {
@@ -43,7 +45,9 @@ void Game::run() {
 }
 
 void Game::startNewGame() {
+
     currentState = GameState::CharacterSelection;
+
 }
 
 void Game::setChosenCharacter(const string& character) { 
@@ -112,13 +116,16 @@ void Game::handleInput(sf::Event& event) {
         outro->handleInput(event, window);
         }
     else if (currentState == GameState::GameOver) {
-		// gameOver->handleInput(event, window);
+		 gameOver->handleInput(event, window);
 	}
 }
 
 void Game::update(float dt) {
+
+    globalTimer.update(); // NEW: Timer-Update
     if (globalTimer.getIsTimeUp()) {
         currentState = GameState::GameOver;
+        gameOver->enter(); 
     }
 
 
@@ -131,8 +138,8 @@ void Game::update(float dt) {
     if (currentState == GameState::Outro) {
         outro->update(dt);
 	}
-    if (currentState == GameState::GameOver) {
-        // gameOver->update(dt);
+    if (currentState == GameState::GameOver) { 
+        gameOver->update(dt);
     }
 }
 
@@ -157,7 +164,7 @@ void Game::draw() {
 		outro->draw(window);
 	}
     else if (currentState == GameState::GameOver) {
-		// gameOver->draw(window);
+		 gameOver->draw(window); 
 	}
 }
 
