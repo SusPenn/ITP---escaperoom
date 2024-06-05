@@ -43,7 +43,7 @@ bool KokoRoom::isCorrectAnswer(const sf::Vector2f& pos) {
 }
 
  bool KokoRoom::isWrongAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 170 && pos.x <= 210 && pos.y >= 590 && pos.y <= 595);
+    return (pos.x >= 165 && pos.x <= 230 && pos.y >= 580 && pos.y <= 615);
 }
 
 void KokoRoom::handleCorrectAnswer() {
