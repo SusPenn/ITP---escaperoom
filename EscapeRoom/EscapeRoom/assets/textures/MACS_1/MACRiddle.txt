@@ -8,7 +8,7 @@ Berechne den groessten gemeinsamen Teiler
 von 96 und 186.
 Bist du ein Euklid oder doch ein Primfaktorzerleger?
 
-Antwortmoeglichkeiten:
+ggT von 96 und 186?
 **a)** 9
 **b)** 3
 **c)** 6

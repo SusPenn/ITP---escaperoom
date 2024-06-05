@@ -8,7 +8,7 @@ nicht mehr sehen. Die sehen alle gleich aus.
 Laut Recherche bekommst du die allerwichtigste
 Frage gestellt! Welche Antwort ist korrekt?
 
-Antwortmoeglichkeiten:
+Welche Antwort ist korrekt?
 **a)** GET-Anfragen sind immer schneller als POST-Anfragen.
 **b)** GET uebertraegt Daten in der URL.
 **c)** GET ist sicherer als POST

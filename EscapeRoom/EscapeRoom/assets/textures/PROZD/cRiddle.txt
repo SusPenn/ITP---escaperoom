@@ -8,7 +8,7 @@ Ich brauche dringend die 123. Primzahl,
 kannst du ein kleines Programm dafuer in C schreiben?
 Kleiner Tipp: 0 und 1 zaehlen nicht zu den Primzahlen.
 Warum? Keine Ahnung, ich bin ja kein Mathematikauto.
-Antwortmoeglichkeiten:
+123. Primzahl?
 **a)** 677
 **b)** 673
 **c)** 683

@@ -10,7 +10,7 @@ Komisches Volk, ich sollte euch noch genauer untersuchen.
 Waehrend ich dich von Kopf bis Fuss durchleuchte,
 erklaere mir doch was ein 1:n Kardinalitaet ist:
 
-Antwortmoeglichkeiten:
+Was ist eine 1:n Kardinalitaet?
 **a)** Ein Primaerschluessel hat n Fremdschluessel.
 **b)** Die erste Tabelle ist mit allen anderen Tabellen verknuepft.
 **c)** Ein ERM Modell kann mit n-Tabellen dargestellt werden.
