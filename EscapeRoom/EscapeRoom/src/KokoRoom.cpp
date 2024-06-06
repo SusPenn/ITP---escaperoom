@@ -39,7 +39,7 @@ void KokoRoom::setupQuestionText(const std::string& text) {
 }
 
 bool KokoRoom::isCorrectAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 80 && pos.x <= 420 && pos.y >= 160 && pos.y <= 245);
+    return (pos.x >= 80 && pos.x <= 480 && pos.y >= 155 && pos.y <= 260);
 }
 
  bool KokoRoom::isWrongAnswer(const sf::Vector2f& pos) {
@@ -54,5 +54,5 @@ void KokoRoom::handleCorrectAnswer() {
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
     game->getGlobalTimer().pause();
-    game->enterRoom("InfraRoom");
+    game->enterRoom("EngRoom");
 }

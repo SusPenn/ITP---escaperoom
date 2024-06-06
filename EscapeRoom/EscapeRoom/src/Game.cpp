@@ -5,6 +5,7 @@
 #include "MathRoom.hpp"
 #include "WebRoom.hpp"
 #include "KokoRoom.hpp"
+#include "EngRoom.hpp"
 #include "CharacterSelection.hpp"
 
 Game::Game()
@@ -29,6 +30,7 @@ void Game::initializeRooms() {
     rooms["InfraRoom"] = make_unique<InfraRoom>(this);
     rooms["WebRoom"] = make_unique<WebRoom>(this);
     rooms["KokoRoom"] = make_unique<KokoRoom>(this);
+    rooms["EngRoom"] = make_unique<EngRoom>(this);
     rooms["ProzdRoom"] = make_unique<ProzdRoom>(this);
 }
 

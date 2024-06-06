@@ -39,7 +39,7 @@ void WebRoom::setupQuestionText(const std::string& text) {
 }
 
 bool WebRoom::isCorrectAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 300 && pos.x <= 774 && pos.y >= 232 && pos.y <= 289);
+    return (pos.x >= 300 && pos.x <= 824 && pos.y >= 232 && pos.y <= 289);
 }
 
 bool WebRoom::isWrongAnswer(const sf::Vector2f& pos) {
