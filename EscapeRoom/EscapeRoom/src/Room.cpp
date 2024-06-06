@@ -25,6 +25,8 @@ void Room::setupSprites() {
     niceLecturerSprite.setTexture(niceLecturerTexture);
     roomCompletedSprite.setTexture(roomCompletedTexture);
     background.setTexture(niceLecturerTexture);
+    progressSprite.setTexture(progressTexture);
+    progressSpriteAfter.setTexture(progressTextureAfter);
 }
 
 void Room::loadFont(const string& fontPath) {
@@ -43,7 +45,18 @@ void Room::enter() {
 }
 
 void Room::exit() {
-    sf::sleep(sf::seconds(2));
+    game->getGlobalTimer().pause();
+    progressSprite = progressSpriteAfter;
+    game->getWindow().clear();
+    game->getWindow().draw(niceLecturerSprite);
+    game->getWindow().draw(roomCompletedSprite);
+    game->getWindow().draw(progressSprite);
+    game->getGlobalTimer().draw(game->getWindow());
+    game->getWindow().display();
+    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
+    AudioManager::getInstance().stopMusic();
+    waitingForAnswer = false;
+    sf::sleep(sf::seconds(3));
 }
 
 void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
@@ -108,6 +121,7 @@ void Room::draw(sf::RenderWindow& window) {
     window.draw(playerSprite);
     window.draw(textfieldSprite);
     window.draw(questionText);
+    window.draw(progressSprite);
     game->getGlobalTimer().draw(window);
     window.display();
     game->getGlobalTimer().update();

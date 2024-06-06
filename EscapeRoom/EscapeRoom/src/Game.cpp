@@ -13,7 +13,7 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(600.0f),
+    globalTimer(10.0f),
    // globalTimer(10.0f),  // TEST TIME
     currentState(GameState::MainMenu) {
     initializeRooms();
@@ -27,8 +27,8 @@ void Game::initializeRooms() {
     // Die anderen Raeume hier initialisieren
     rooms["DocRoom"] = make_unique<DocRoom>(this);
     rooms["MathRoom"] = make_unique<MathRoom>(this);
-    rooms["InfraRoom"] = make_unique<InfraRoom>(this);
     rooms["WebRoom"] = make_unique<WebRoom>(this);
+    rooms["InfraRoom"] = make_unique<InfraRoom>(this);
     rooms["KokoRoom"] = make_unique<KokoRoom>(this);
     rooms["EngRoom"] = make_unique<EngRoom>(this);
     rooms["ProzdRoom"] = make_unique<ProzdRoom>(this);
@@ -49,9 +49,7 @@ void Game::run() {
 }
 
 void Game::startNewGame() {
-
     currentState = GameState::CharacterSelection;
-
 }
 
 void Game::setChosenCharacter(const string& character) { 
@@ -84,9 +82,6 @@ void Game::enterRoom(const string& roomName) {
 }
 
 void Game::returnToMainMenu() {
-    if (currentRoom) {
-        currentRoom->exit();
-    }
     resetGame();
 
     currentRoom = nullptr;
@@ -125,7 +120,6 @@ void Game::handleInput(sf::Event& event) {
 }
 
 void Game::update(float dt) {
-
     globalTimer.update(); // NEW: Timer-Update
     if (globalTimer.getIsTimeUp()) {
         currentState = GameState::GameOver;

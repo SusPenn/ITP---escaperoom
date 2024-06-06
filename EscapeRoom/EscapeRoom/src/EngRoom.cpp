@@ -5,12 +5,16 @@ void EngRoom::loadAssets() {
     loadTexture(textfieldTexture, "assets/textures/ENG_1/ENG_1_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/ENG_1/ENG_1_Liberty.png", "Liberty");
     loadTexture(roomCompletedTexture, "assets/textures/ENG_1/ENG_1_Liberty.png", "EngRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_4.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_5.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/ENG_1/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/ENG_1/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
 
     setupSprites();
@@ -48,11 +52,5 @@ bool EngRoom::isWrongAnswer(const sf::Vector2f& pos) {
 
 void EngRoom::handleCorrectAnswer() {
     std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
-    game->getGlobalTimer().pause();
     game->enterRoom("InfraRoom");
 }

@@ -4,13 +4,16 @@ void MathRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/MACS_1/MACS_1_Porsche.png", "Porchet");
     loadTexture(textfieldTexture, "assets/textures/MACS_1/MACS_1_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/MACS_1/MACS_1_Porsche_Mad.png", "Mad Porchet");
-    loadTexture(roomCompletedTexture, "assets/textures/MACS_1/MACS_1_Porsche.png", "MathRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_1.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_2.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/MACS_1/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/MACS_1/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
 
     setupSprites();
@@ -51,12 +54,5 @@ bool MathRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void MathRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
-    game->getGlobalTimer().pause();
     game->enterRoom("WebRoom");
 }

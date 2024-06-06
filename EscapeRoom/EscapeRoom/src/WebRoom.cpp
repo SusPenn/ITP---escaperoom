@@ -5,12 +5,16 @@ void WebRoom::loadAssets() {
     loadTexture(textfieldTexture, "assets/textures/WEB_1/WEB_1_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/WEB_1/WEB_1_Browser_Mad.png", "Mad Browser");
     loadTexture(roomCompletedTexture, "assets/textures/WEB_1/WEB_1_Browser.png", "WebRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_2.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_3.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/WEB_1/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/WEB_1/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
 
     setupSprites();
@@ -47,12 +51,5 @@ bool WebRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void WebRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
-    game->getGlobalTimer().pause();
     game->enterRoom("KokoRoom");
 }
