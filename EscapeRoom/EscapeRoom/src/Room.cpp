@@ -56,7 +56,9 @@ void Room::exit() {
     AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
     AudioManager::getInstance().stopMusic();
     waitingForAnswer = false;
-    sf::sleep(sf::seconds(3));
+    sf::sleep(sf::seconds(2));
+    AudioManager::getInstance().playSoundEffect("Teleport.ogg");
+    sf::sleep(sf::seconds(1));
 }
 
 void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
