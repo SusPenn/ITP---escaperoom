@@ -13,7 +13,7 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(10.0f),
+    globalTimer(600.0f),
    // globalTimer(10.0f),  // TEST TIME
     currentState(GameState::MainMenu) {
     initializeRooms();
@@ -120,17 +120,15 @@ void Game::handleInput(sf::Event& event) {
 }
 
 void Game::update(float dt) {
-    globalTimer.update(); // NEW: Timer-Update
-    if (globalTimer.getIsTimeUp()) {
-        currentState = GameState::GameOver;
-        gameOver->enter(); 
-    }
-
-
     if (currentState == GameState::Intro) {
         intro->update(dt);
     }
     if (currentState == GameState::InGame && currentRoom) {
+        globalTimer.update(); // NEW: Timer-Update
+        if (globalTimer.getIsTimeUp()) {
+            currentState = GameState::GameOver;
+            gameOver->enter();
+        }
         currentRoom->update(dt);
     }
     if (currentState == GameState::Outro) {
