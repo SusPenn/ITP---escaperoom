@@ -13,7 +13,7 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(600.0f),
+    globalTimer(1500.0f),
    // globalTimer(10.0f),  // TEST TIME
     currentState(GameState::MainMenu) {
     initializeRooms();
@@ -63,6 +63,18 @@ void Game::showHighscore() {
     }
     currentRoom = nullptr;
     currentState = GameState::Highscore;
+    highscore.resetHighscores();
+    highscore.loadHighscores();
+    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
+}
+
+void Game::setNewHighscore() {
+    if (currentRoom) {
+        currentRoom->exit();
+    }
+    currentRoom = nullptr;
+    currentState = GameState::SetHighscore;
+    setHighscore.setScore(score);
     AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
@@ -101,7 +113,10 @@ void Game::handleInput(sf::Event& event) {
     }
     else if (currentState == GameState::Highscore) {
         highscore.handleInput(event, window, *this);
-    } 
+    }
+    else if (currentState == GameState::SetHighscore) {
+        setHighscore.handleInput(event, window, *this);
+    }
     else if (currentState == GameState::CharacterSelection) {
         characterSelection->handleInput(event, window);
     }
@@ -146,7 +161,10 @@ void Game::draw() {
     }
     else if (currentState == GameState::Highscore) {
         highscore.draw(window);
-    } 
+    }
+    else if (currentState == GameState::SetHighscore) {
+        setHighscore.draw(window);
+    }
     else if (currentState == GameState::CharacterSelection) {
         characterSelection->draw(window);
     }
@@ -179,7 +197,7 @@ Timer& Game::getGlobalTimer() {
 
 void Game::resetGame() {
     score = 0;
-    globalTimer.resetTimer(600.0f);
+    globalTimer.resetTimer(1500.0f);
     chosenCharacter = "";
 
     rooms.clear();

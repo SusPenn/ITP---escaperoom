@@ -14,6 +14,7 @@
 #include "CharacterSelection.hpp"
 #include "Timer.hpp"
 #include "GameOver.hpp"
+#include "SetHighscore.hpp"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ class GameOver;
 enum class GameState {
     MainMenu,
     Highscore,
+    SetHighscore,
     Intro,
     InGame,
     Outro,
@@ -49,6 +51,7 @@ public:
     int getScore() const;
     void setCurrentState(GameState state);
     void gameWon();
+    void setNewHighscore();
 
 private:
     void handleInput(sf::Event& event);
@@ -61,13 +64,14 @@ private:
     unique_ptr<CharacterSelection> characterSelection;
     unique_ptr<Intro> intro; // Add intro as a unique_ptr
     unique_ptr<Outro> outro;
-    unique_ptr<GameOver> gameOver; 
+    unique_ptr<GameOver> gameOver;
     string chosenCharacter;
     int score;
     Timer globalTimer;
     GameState currentState;
     MainMenu mainMenu;
     Highscore highscore;
+    SetHighscore setHighscore;
 };
 
 #endif // GAME_HPP

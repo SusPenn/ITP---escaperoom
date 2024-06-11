@@ -45,7 +45,7 @@ void Outro::exit() {
     skipButton.setVisibility(false);
     doorButton.setVisibility(false);
     returnToMainMenuButton.setVisibility(false);
-    game->returnToMainMenu();
+    game->setNewHighscore();
 }
 
 void Outro::draw(sf::RenderWindow& window) {

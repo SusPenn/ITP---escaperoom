@@ -6,6 +6,7 @@
 #include "AudioManager.hpp"
 #include "Game.hpp"
 #include "Button.hpp"
+#include "SetHighscore.hpp"
 #include <iostream>
 #include <fstream>
 #include <chrono>

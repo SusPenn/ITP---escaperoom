@@ -1,1 +1,1 @@
-Max: 666
+Max,666|Lukas,245|Johannes,332|Jenny,540|Susi,623|

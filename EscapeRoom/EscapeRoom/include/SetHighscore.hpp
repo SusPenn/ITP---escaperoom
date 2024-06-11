@@ -1,5 +1,5 @@
-#ifndef HIGHSCORE_HPP
-#define HIGHSCORE_HPP
+#ifndef ESCAPEROOM_SETHIGHSCORE_HPP
+#define ESCAPEROOM_SETHIGHSCORE_HPP
 
 #include <SFML/Graphics.hpp>
 #include "AudioManager.hpp"
@@ -9,26 +9,29 @@
 #include <sstream>
 #include <algorithm>
 
-// Forward declaration
+
 class Game;
 
-class Highscore {
+class SetHighscore {
 public:
-    Highscore();
+    SetHighscore();
     void handleInput(sf::Event& event, sf::RenderWindow& window, Game& game);
-    void loadHighscores();
-    void showHighscore();
-    void resetHighscores();
+    void addHighscore();
     void update(float dt);
     void draw(sf::RenderWindow& window);
+    static void setScore(int newScore);
+    int getScore();
 
 private:
+    static int score;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-    Button returnToMenuButton;
-    vector<sf::Text> highscoreTexts;
+    Button returnToHighscoreButton;
     sf::Font font;
-    vector<pair<string, int>> highscoreList;
+    sf::String playerInput;
+    sf::Text playerText;
+    sf::Text headlineText;
+    sf::Text yourScore;
 };
 
-#endif // HIGHSCORE_HPP
+#endif //ESCAPEROOM_SETHIGHSCORE_HPP
