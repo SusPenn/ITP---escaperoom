@@ -4,7 +4,7 @@
 
 GameOver::GameOver(Game* gameInstance) :
     game(gameInstance),
-    returnToMenuButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 650.f), sf::Color(0, 100, 156), "Hauptmenü", 20),
+    returnToMenuButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 650.f), sf::Color(0, 100, 156), "Hauptmenue", 20),
     restartGameButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 580.f), sf::Color(139, 179, 29), "Neues Spiel", 20) {
 }
 

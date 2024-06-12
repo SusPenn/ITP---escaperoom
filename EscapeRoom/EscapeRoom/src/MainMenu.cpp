@@ -37,7 +37,7 @@ void MainMenu::handleInput(sf::Event& event, sf::RenderWindow& window, Game& gam
             if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 std::cout << "Highscore" << std::endl;
-                game.showHighscore();
+                game.setNewHighscore();
             }
             if (translated_pos.x >= 54 && translated_pos.x <= 362 && translated_pos.y >= 583 && translated_pos.y <= 633) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");

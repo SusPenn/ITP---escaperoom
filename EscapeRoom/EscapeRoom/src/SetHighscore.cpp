@@ -41,7 +41,7 @@ SetHighscore::SetHighscore() :
 }
 
 void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
-    yourScore.setString("Your Score" + to_string(getScore()));
+    yourScore.setString("Your Score: " + std::to_string(getScore()));
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
     if (event.type == sf::Event::Closed) {
@@ -63,17 +63,20 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
         }
     }
     else if (event.type == sf::Event::TextEntered) {
-        playerInput +=event.text.unicode;
-        playerText.setString(playerInput);
+        if (event.text.unicode < 128 && event.text.unicode >= 32) { // Nur ASCII-Zeichen erlauben
+            playerInput += static_cast<char>(event.text.unicode);
+            playerText.setString(playerInput);
+        }
     }
     else if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::BackSpace && playerInput.end() != playerInput.begin()) {
+        if (event.key.code == sf::Keyboard::BackSpace && playerInput.getSize() > 0) {
             playerInput.erase(playerInput.getSize() - 1, 1);
-            //playerInput = playerInput.substring(0, playerInput.getSize()-1);
+            cout << "PlayerInput: " << playerInput.toAnsiString() << endl;
             playerText.setString(playerInput);
         }
     }
 }
+
 
 
 void SetHighscore::addHighscore() {

@@ -1,5 +1,5 @@
 #ifndef ENGROOM_HPP
-#define ENgROOM_HPP
+#define ENGROOM_HPP
 
 #include "Room.hpp"
 
@@ -14,4 +14,4 @@ public:
     void loadAssets() override;
 };
 
-#endif // ENgROOM_HPP
+#endif // ENGROOM_HPP
