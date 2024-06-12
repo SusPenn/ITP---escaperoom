@@ -88,7 +88,7 @@ void Highscore::showHighscore() {
         text.setFont(font);
         text.setCharacterSize(40);
         text.setStyle(sf::Text::Bold);
-        text.setFillColor(sf::Color::Black);
+        text.setFillColor(sf::Color::White);
         text.setPosition(314.f, y);
         text.setString(std::to_string(rank) + ". " + highscore.first + " : " + std::to_string(highscore.second));
         highscoreTexts.push_back(text);
