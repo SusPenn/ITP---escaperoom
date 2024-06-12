@@ -1,7 +1,9 @@
+Sorry, but that was the wrong answer!
+Here is another article, concentrate!
 The inception of artificial intelligence marked 
 the start of a new era of technology, offering 
 an abundance of opportunities for financial markets 
-all over the  world. Nowadays stock exchange for example 
+all over the world. Nowadays stock exchange for example 
 is to a large extent operated by AI rather than humans. 
 By utilizing its unparalleled capacity to process immense 
 amounts of information and derive logical conclusions 
@@ -10,6 +12,9 @@ Having the ability to react to market fluctuations
 almost delay free, AI manages to outperform traditional 
 stock trading conducted by humans.
 
-Do you want to read this article again?.
-**a)** Not really, riddles please.
-**b)** Yes please, it is very interesting.
+
+Why doe AI tower over human capabilities
+in regard of the stock market?
+**a)** It is not, humans have a better feeling for stocks.
+**b)** It can process immense amounts of information.
+**c)** It can count faster.
