@@ -5,12 +5,16 @@ void ProzdRoom::loadAssets() {
     loadTexture(textfieldTexture, "assets/textures/PROZD/PROZD_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/PROZD/PROZD_Judge_Mad.png", "Mad Richter");
     loadTexture(roomCompletedTexture, "assets/textures/PROZD/PROZD_Judge.png", "FinalRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_6.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_7.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/PROZD/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/PROZD/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
 
     setupSprites();
@@ -48,11 +52,6 @@ bool ProzdRoom::isWrongAnswer(const sf::Vector2f& pos) {
 
 void ProzdRoom::handleCorrectAnswer() {
     std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
     game->getGlobalTimer().pause();
     game->setScore();
     exit();

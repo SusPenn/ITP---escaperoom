@@ -47,6 +47,8 @@ void Intro::enter() {
 
 void Intro::exit() {
     AudioManager::getInstance().stopMusic();
+    AudioManager::getInstance().playSoundEffect("Teleport.ogg");
+    sf::sleep(sf::seconds(1));
     game->enterRoom("DocRoom");
 }
 
@@ -64,7 +66,6 @@ void Intro::handleInput(sf::Event& event, sf::RenderWindow& window) {
         }
 
         if (losButtonActive && losButton.isClicked(clickPosition)) {
-            AudioManager::getInstance().playSoundEffect("Teleport.ogg");
             exit();
         }
     }

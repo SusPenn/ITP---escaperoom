@@ -37,6 +37,8 @@ protected:
     sf::Texture madLecturerTexture;
     sf::Texture roomCompletedTexture;
     sf::Texture playerTexture;
+    sf::Texture progressTexture;
+    sf::Texture progressTextureAfter;
 
     sf::Sprite textfieldSprite;
     sf::Sprite madLecturerSprite;
@@ -44,6 +46,8 @@ protected:
     sf::Sprite niceLecturerSprite;
     sf::Sprite roomCompletedSprite;
     sf::Sprite background;
+    sf::Sprite progressSprite;
+    sf::Sprite progressSpriteAfter;
 
     sf::Font font;
     sf::Text questionText;

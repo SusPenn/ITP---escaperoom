@@ -4,13 +4,16 @@ void DocRoom::loadAssets() {
     loadTexture(niceLecturerTexture, "assets/textures/DMNMT/DMNMT_Doc.png", "Doc");
     loadTexture(textfieldTexture, "assets/textures/DMNMT/DMNMT_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/DMNMT/DMNMT_Doc_Mad.png", "Mad Doc");
-    loadTexture(roomCompletedTexture, "assets/textures/DMNMT/DMNMT_Doc.png", "DocRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_empty.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_1.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/DMNMT/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/DMNMT/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
 
     setupSprites();
@@ -47,13 +50,6 @@ bool DocRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void DocRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
-    game->getGlobalTimer().pause();
     game->enterRoom("MathRoom");
 }
 

@@ -9,73 +9,117 @@ Mitglieder:
 
 Thema:
 
-Der Spieler ist ein Student, der an der FH-Technikum im ersten Semester Informatik studiert. Er ist im FH Gebäude eingeschlossen und muss zum Spritzerstand vor der FH gelangen. Um aus dem FH Gebäude rauszukommen, muss er verschiedene Rätsel lösen um so an Teile des Schlüssels zu gelangen. Die Rätsel basieren auf dem Stoff des ersten Semesters (Datenmanagement, Infrastruktur Grundlagen, Prozedurale Sprachen, MACS, Web-Development). Der Spieler trifft dabei auf Personen, die ihn evtl. an einige Lehrpersonen erinnern können. Diese eventuellen Gemeinsamkeiten mit echten Personen sind rein zufällig ;)
+Der Spieler ist ein Student bzw. eine Studentin, der/die an der FH-Technikum im ersten Semester Informatik studiert. Er ist im FH Gebäude eingeschlossen und muss zum Spritzerstand vor der FH gelangen. Um aus dem FH Gebäude rauszukommen, muss er verschiedene Rätsel lösen, um sein Spritzerglas aufzufüllen. Die Rätsel basieren auf dem Stoff des ersten Semesters (Datenmanagement, Infrastruktur Grundlagen, Prozedurale Sprachen, MACS, Web-Development, Englisch und KOKO). Der Spieler trifft dabei auf Personen, die ihn evtl. an einige Lehrpersonen erinnern könnten. Diese eventuellen Gemeinsamkeiten mit echten Personen sind rein zufällig. ;)
+
 
 Tools und Technologie:
 
 	-Programmiersprache: C++
 	-Framework: SFML Library
-	-Versionskontrolle: GitHub
+	-Versionskontrolle: Git/GitHub
 	-Kommunikation: Discord
-	-Projektmanagement: Azure DevOps
+	-Agiles Projektmanagement: Azure DevOps
+	-IDEs: Microsoft Visual Studio 2022 und Jetbrains CLion (CMake)
+	-Grafikprogramm: GIMP
 
 
 GameLoop:
 
-	-Intro
-	-Hauptmenü
-		-Auswahl von "Neues Spiel", "Highscore", "Beenden"
-	-Räume
-		-Besteht aus einem Rätsel
-		-Wird das Rätsel gelöst, bekommt der Spieler einen Teil des Schlüssels und gelangt in den nächsten Raum
-	-Outro
+	Hauptmenü
+	    -Auswahl von "Neues Spiel", "Highscore", "Beenden"
 
-
-Spielablauf:
-
-	-Das Spiel startet mit der Auswahl eines Charakters (Hilarius oder Fortuna) und einem Intro, um dem Spieler die Situation zu erklären.
-	-Während dem Spiel läuft ein Timer, somit hat der Spieler eine limitierte Zeit, das Spiel abzuschließen, je mehr Zeit am Ende übrig bleibt, desto höher ist der Highscore.
-	-Der Raum besteht aus einem Foto (z.B. Computerraum der FH) auf dem sich gezeichnete Objekte befinden und einem jeweiligen Avatar, der dem Spieler das Rätsel erklärt.
-	-Wird das Rätsel im Raum erfolgreich gelöst, erhält der Spieler einen Teil des Schlüssels und kann im nächsten Raum fortfahren.
-	-Wurden alle Rätsel gelöst und somit alle Schllüsselteile gefunden, hat der Spieler gewonnen und kann nun endlich zum Spritzerstand
-	-Das Spiel endet mit einem Outro
+	Highscore
+		-Wählt der Spieler im Hauptmenü den Punkt "Highscore" aus, gelangt er zur Highscore-Liste
+	
+	Charakterauswahl
+	    -Wählt der Spieler "Neues Spiel" aus, gelangt er zur Charakterauswahl
+	    -Der Spieler hat die Wahl zwischen zwei Charakteren ("Fortuna" und "Hilarius").
+	
+	Intro
+	    -Nach der erfolgreichen Auswahl eines Charakters wird das Intro abgespielt
+	    -Einführung in die Spielwelt
+	    -Kann mit einem Skip-Button übersprungen werden
+	
+	Räume
+	    -Besteht aus einem Rätsel, welches mit Anklicken der richtigen Antwort gelöst wird
+	    -Wird das Rätsel gelöst, wird das Spritzerglas des Spielers weiter aufgefüllt und es erscheint ein Success-Sprite
+	    -Nach erfolgreichem Lösen des Rätsels gelangt der Spieler in den nächsten Raum bzw. nach dem letzten Raum zum Outro
+	
+	Outro
+	    -Schließt die Geschichte des Spiels ab
+	    -Anzeige der erreichten Punkte
+	    -Anzeige der Credits (Mitwirkende bei der Entwicklung des Spiels)
+	    -Button, um zur Highscore zu gelangen
+	
+	Set-Highscore
+	    -Hat der Spieler das Spiel erfolgreich beendet, kann er nach dem Outro seinen Namen eingeben und sich in der Highscore-Liste verewigen
+	
+	Game-Over
+	    -Schafft es der Spieler nicht, alle Rätsel in der vorgegebenen Zeit (Timer = 0) zu lösen, verliert er das Spiel
+	    -Ist der Timer auf 0, kommt der Spieler zum Game-Over-Screen, in dem er die Möglichkeit hat, zurück zum Hauptmenü zu gelangen, oder direkt ein neues Spiel zu starten
+	
 
 Steuerung:
 
--Mittels Maus- und Tastaturinput
+	-Fragenbeantwortung mittels Mausklick
 
 Visueller Stil:
 
--Kombination aus echten Fotos und Comic-Artwork
+	-Selbstangefertigte Sprites im Comic-Stil
 
-Aufbau eines Raumes:
+Aufbau der Räume und der Rätsel:
 
-	-Ein Raum besteht aus einem Foto, auf dem sich gezeichnete Objekte befinden und einem jeweiligen Avatar, der dem Spieler das Rätsel erklärt.
+	-Ein Raum besteht aus einem Hintergrund-Sprite, auf dem der der ausgewählte Charakter und der zum Raum dazugehörige Lektor platziert sind.
+	-Das Rätsels wird in einem Textfeld nach und nach eingeblendet und anschließend werden die Antwortmöglichkeiten angezeigt.
+	-Nachdem die Antworten fertig angezeigt wurden, kann der Spieler eine Antwort auswählen.
+	-Wird eine falsche Antwort ausgewählt, wird ein wütender Lektor-Sprite angezeigt und die Frage nochmal wiederholt.
+	-Wird die richtige Antwort ausgewählt, wird ein Success-Sprite angezeigt, das Spritzerglass wird weiter aufgefüllt und der Spieler gelangt in den nächsten Raum.
 	-Die Rätsel sind auf die Lehrinhalte des ersten Semesters abgestimmt.
-	-Jeder Raum besteht aus ein Rätsel, das gelöst werden muss, um den Raum zu verlassen.
+	-Jeder Raum besteht aus ein Rätsel, das gelöst werden muss, um in den nächsten Raum zu gelangen.
 
 
-Übersicht über die Rätsel:
+Übersicht der Räume und der dazugehörigen Rätsel:
 
--1.Raum: INFRA
--2.Raum: Datenmanagement
--3.Raum: MACS
--4.Raum: Web-Development
--5.Raum: PROGR
-	-Um das Rätsel lösen zu können, muss der Spieler ein kleines Programm schreiben, um die 123. Primzahl zu finden.
+	1.Raum: Datenmanagement
+		-Frage zu Kardinalitäten
+
+	2.Raum: Mathematic für Computer Science 1
+        -Frage zu Primzahlen
+
+	3.Raum: Web-Development
+		-Frage zu GET/POST-Requests
+
+	4.Raum: Infrastruktur Grundlagen
+		-Frage zu Netzwerkprotokollen
+
+	5.Raum: Kompetenz und Kooperation
+		- ;)
+
+	6.Raum: English
+		-Textverständnisfrage
+
+	7.Raum: Prozedurale Sprachen
+		-Programm schreiben, um die 123.Primzahl zu berechnen
 
 
 Klassenübersicht:
 
-	-AudioManager: Verwaltung von Spielsounds.
-	-Button: Interaktive Elemente im UI.
-	-GameLoop: Zentrale Spielsteuerung und -logik.
-	-Inventory: Verwaltung der vom Spieler gesammelten Gegenstände.
-	-Item: Darstellung der Objekte im Inventar.
-	-MainMenu: Initialisierung und Verwaltung des Hauptmenüs.
-	-Player: Repräsentation des Spielers und seiner Aktionen.
-	-Riddle: Rätsel-Logik und -darstellung.
-	-Room: Struktur und Logik der einzelnen Räume.
-	-Scene: Allgemeine Verwaltung der Spiel-Szenen.
-	-Timer: Überwachung der Spielzeit.
-	-Visuals: Verwaltung der grafischen Darstellung des Spiels.
+	-AudioManager: Apspielen von Musik und Spielsounds.
+	-Button: Erstellung von Buttons.
+	-CharacterSelection: Auswahl des Charakters.
+	-DocRoom: Implementierung des Datenmanagement Raumes.
+	-EngRoom: Implementierung des Englisch Raumes.
+	-Game: Hauptklasse, die den GameLoop steuert.
+	-GameOver: Implementierung des GameOver-Screens.
+	-Highscore: Implementierung der Highscore-Liste.
+	-SetHighscore: Implementierung des Set-Highscore-Screens.
+	-Intro: Implementierung des Intros.
+	-KokoRoom: Implementierung des KOKO Raumes.
+	-MainMenu: Implementierung des Hauptmenüs.
+	-MathRoom: Implementierung des MACS Raumes.
+	-Outro: Implementierung des Outros.
+	-ProzdRoom: Implementierung des Prozedurale Sprachen Raumes.
+	-Room: Elternklasse der Räume.
+	-Timer: Implementierung des Timers.
+	-WebRoom: Implementierung des Web-Development Raumes.
+	

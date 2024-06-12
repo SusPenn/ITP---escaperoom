@@ -5,12 +5,16 @@ void InfraRoom::loadAssets() {
     loadTexture(textfieldTexture, "assets/textures/INFRA/INFRA_Textfield.png", "Textfield");
     loadTexture(madLecturerTexture, "assets/textures/INFRA/INFRA_Ballner_Mad.png", "Mad Ballner");
     loadTexture(roomCompletedTexture, "assets/textures/INFRA/INFRA_Ballner.png", "InfraRoomCompleted");
+    loadTexture(progressTexture, "assets/textures/ProgressGlass/glass_5.png", "ProgressBefore");
+    loadTexture(progressTextureAfter, "assets/textures/ProgressGlass/glass_6.png", "ProgressAfter");
 
     if (game->getChosenCharacter() == "Fortuna") {
         loadTexture(playerTexture, "assets/textures/INFRA/Fortuna.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_fortuna.png", "FortunaCompleted");
     }
     else {
         loadTexture(playerTexture, "assets/textures/INFRA/Hilarius.png", "Player");
+        loadTexture(roomCompletedTexture, "assets/textures/Characters/Hurra_hilarius.png", "FortunaCompleted");
     }
   
     setupSprites();
@@ -48,12 +52,5 @@ bool InfraRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void InfraRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
-    background = roomCompletedSprite;  // Change the background
-    draw(game->getWindow());
-    AudioManager::getInstance().playSoundEffect("SuccessSounds/LvlUp.ogg");
-    AudioManager::getInstance().stopMusic();
-    waitingForAnswer = false;
-    game->getGlobalTimer().pause();
     game->enterRoom("ProzdRoom");
 }
