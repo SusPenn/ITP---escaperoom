@@ -43,11 +43,11 @@ void EngRoom::setupQuestionText(const std::string& text) {
 }
 
 bool EngRoom::isCorrectAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 288 && pos.x <= 628 && pos.y >= 212 && pos.y <= 220);
+    return (pos.x >= 287 && pos.x <= 715 && pos.y >= 147 && pos.y <= 164);
 }
 
 bool EngRoom::isWrongAnswer(const sf::Vector2f& pos) {
-    return (pos.x >= 287 && pos.x <= 775 && pos.y >= 178 && pos.y <= 190);
+    return (pos.x >= 287 && pos.x <= 581 && pos.y >= 176 && pos.y <= 252);
 }
 
 void EngRoom::handleCorrectAnswer() {
