@@ -112,6 +112,7 @@ void Outro::handleInput(sf::Event& event, sf::RenderWindow& window) {
 void Outro::update(float dt) {
     if (!outroTextFinished) {
         if (lineDelayActive) {
+            AudioManager::getInstance().stopMusic();
             lineDelayTime += dt;
             if (lineDelayTime >= lineDelayDuration) {
                 lineDelayActive = false;

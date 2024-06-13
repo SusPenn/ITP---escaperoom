@@ -63,9 +63,6 @@ void Game::showHighscore() {
 }
 
 void Game::setNewHighscore() {
-    if (currentRoom) {
-        currentRoom->exit();
-    }
     currentRoom = nullptr;
     currentState = GameState::SetHighscore;
     setHighscore.setScore(score);
