@@ -12,6 +12,8 @@
 
 class Game;
 
+using namespace std;
+
 class SetHighscore {
 public:
     SetHighscore();

@@ -31,7 +31,7 @@ void ProzdRoom::playBackgroundMusic() {
     audioManager.playMusic("Kahoot.ogg", true);
 }
 
-void ProzdRoom::setupQuestionText(const std::string& text) {
+void ProzdRoom::setupQuestionText(const string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);
@@ -51,7 +51,7 @@ bool ProzdRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void ProzdRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
+    cout << "Correct answer!" << endl;
     game->getGlobalTimer().pause();
     game->setScore();
     exit();

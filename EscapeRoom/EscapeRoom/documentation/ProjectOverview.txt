@@ -1,11 +1,14 @@
 2D Escape-Room Projektübersicht:
 
+Titel: "I am not in the Moodle"
+
 Mitglieder:
 	-Susanne Pennatzer
 	-Jennifer Posch
 	-Lukas Kalab
 	-Johannes Mantler
 	-Maximilian Kaltenreiner
+
 
 Thema:
 
@@ -63,9 +66,11 @@ Steuerung:
 
 	-Fragenbeantwortung mittels Mausklick
 
+
 Visueller Stil:
 
 	-Selbstangefertigte Sprites im Comic-Stil
+
 
 Aufbau der Räume und der Rätsel:
 

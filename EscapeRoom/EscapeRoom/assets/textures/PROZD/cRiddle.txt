@@ -2,8 +2,8 @@
 Gratuliere, du bist schon sehr weit gekommen,
 aber sehr weit ist nicht weit genug!
 Als Informatik Student muss man ja hin und
-wieder auch Code schreiben,
-testen wir mal deine Faehigkeiten!
+wieder auch Code schreiben.
+Testen wir mal deine Faehigkeiten!
 Ich brauche dringend die 123. Primzahl,
 kannst du ein kleines Programm dafuer in C schreiben?
 Kleiner Tipp: 0 und 1 zaehlen nicht zu den Primzahlen.

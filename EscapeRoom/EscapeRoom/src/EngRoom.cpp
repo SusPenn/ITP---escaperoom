@@ -31,7 +31,7 @@ void EngRoom::playBackgroundMusic() {
     audioManager.playMusic("National.ogg", true);
 }
 
-void EngRoom::setupQuestionText(const std::string& text) {
+void EngRoom::setupQuestionText(const string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);
@@ -51,6 +51,6 @@ bool EngRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void EngRoom::handleCorrectAnswer() {
-    std::cout << "Correct answer!" << std::endl;
+    cout << "Correct answer!" << endl;
     game->enterRoom("InfraRoom");
 }

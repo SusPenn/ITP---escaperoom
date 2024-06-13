@@ -14,14 +14,14 @@ void GameOver::enter() {
     isEntered = true;
 
     if (!backgroundTexture.loadFromFile("assets/textures/GameOver/GameOver.png")) {
-        std::cerr << "Failed to load game over background texture." << std::endl;
+        cerr << "Failed to load game over background texture." << endl;
     }
     else {
         backgroundSprite.setTexture(backgroundTexture);
     }
 
     AudioManager::getInstance().playMusic("GameOverMusic.ogg", true);
-    std::cout << "Playing GameOver music." << std::endl;
+    cout << "Playing GameOver music." << endl;
 }
 
 void GameOver::exit() {

@@ -30,7 +30,7 @@ void DocRoom::playBackgroundMusic() {
     audioManager.playMusic("InspirationalLoop.ogg", true);
 }
 
-void DocRoom::setupQuestionText(const std::string& text) {
+void DocRoom::setupQuestionText(const string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);

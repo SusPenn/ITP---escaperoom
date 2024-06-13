@@ -10,13 +10,13 @@ SetHighscore::SetHighscore() :
         returnToHighscoreButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 650.f),
                            sf::Color(0, 100, 156), "Add your Highscore", 20) {
     if (!backgroundTexture.loadFromFile("assets/textures/Highscore/Highscore.png")) {
-        std::cerr << "Failed to load game over background texture." << std::endl;
+        cerr << "Failed to load game over background texture." << endl;
     }
     else {
         backgroundSprite.setTexture(backgroundTexture);
     }
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
-        std::cerr << "Failed to load font." << std::endl;
+        cerr << "Failed to load font." << endl;
     }
 
     headlineText.setString("Enter your name:");
@@ -37,11 +37,11 @@ SetHighscore::SetHighscore() :
 
 
     AudioManager::getInstance().playMusic("synthwave1.ogg", true);
-    std::cout << "Playing GameOver music." << std::endl;
+    cout << "Playing GameOver music." << endl;
 }
 
 void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
-    yourScore.setString("Your Score: " + std::to_string(getScore()));
+    yourScore.setString("Your Score: " + to_string(getScore()));
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
     if (event.type == sf::Event::Closed) {
@@ -80,9 +80,9 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
 
 
 void SetHighscore::addHighscore() {
-    std::ofstream highscoreFile("assets/highscore/highscore.txt", std::ios_base::app);
+    ofstream highscoreFile("assets/highscore/highscore.txt", ios_base::app);
     if (!highscoreFile) {
-        std::cerr << "Failed to open highscore file for writing." << std::endl;
+        cerr << "Failed to open highscore file for writing." << endl;
         return;
     }
 

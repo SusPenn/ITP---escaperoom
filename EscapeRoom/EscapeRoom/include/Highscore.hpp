@@ -12,6 +12,8 @@
 // Forward declaration
 class Game;
 
+using namespace std;
+
 class Highscore {
 public:
     Highscore();
@@ -23,9 +25,19 @@ public:
     void draw(sf::RenderWindow& window);
 
 private:
+    void loadAssets();
+
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-    Button returnToMenuButton;
+    sf::Texture highscoreTexture;
+    sf::Sprite highscoreSprite;
+    sf::Texture highscoreButtonTexture;
+    sf::Sprite highscoreButtonSprite;
+    sf::Texture newGameButtonTexture;
+    sf::Sprite newGameButtonSprite;
+    sf::Texture exitButtonTexture;
+    sf::Sprite exitButtonSprite;
+
     vector<sf::Text> highscoreTexts;
     sf::Font font;
     vector<pair<string, int>> highscoreList;

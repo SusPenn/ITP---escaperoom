@@ -9,15 +9,14 @@
 #include "CharacterSelection.hpp"
 
 Game::Game()
-    : window(sf::VideoMode(1280, 720), "Game Title"),
+    : window(sf::VideoMode(1280, 720), "I am not in the Moodle"),
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
     globalTimer(1500.0f),
-   // globalTimer(10.0f),  // TEST TIME
     currentState(GameState::MainMenu) {
     initializeRooms();
-    gameOver = std::make_unique<GameOver>(this); // NEW
+    gameOver = make_unique<GameOver>(this);
 }
 
 void Game::initializeRooms() {
@@ -58,14 +57,9 @@ void Game::setChosenCharacter(const string& character) {
 } 
 
 void Game::showHighscore() {
-    if (currentRoom) {
-        currentRoom->exit();
-    }
-    currentRoom = nullptr;
     currentState = GameState::Highscore;
     highscore.resetHighscores();
     highscore.loadHighscores();
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
 void Game::setNewHighscore() {
@@ -75,7 +69,6 @@ void Game::setNewHighscore() {
     currentRoom = nullptr;
     currentState = GameState::SetHighscore;
     setHighscore.setScore(score);
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
 void Game::enterRoom(const string& roomName) {
@@ -89,7 +82,7 @@ void Game::enterRoom(const string& roomName) {
         currentState = GameState::InGame;
     }
     else {
-        std::cerr << "Room " << roomName << " not found!" << std::endl;
+        cerr << "Room " << roomName << " not found!" << endl;
     }
 }
 

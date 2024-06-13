@@ -1,22 +1,46 @@
 #include "Highscore.hpp"
 #include "Game.hpp"
 
-Highscore::Highscore() :
-    returnToMenuButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 650.f),
-                       sf::Color(0, 100, 156), "Hauptmenue", 20)
-   {
-    if (!backgroundTexture.loadFromFile("assets/textures/Highscore/Highscore.png")) {
-        std::cerr << "Failed to load game over background texture." << std::endl;
+Highscore::Highscore() {
+    loadAssets();
+}
+
+void Highscore::loadAssets() {
+    if (!backgroundTexture.loadFromFile("assets/textures/MainMenu/MainMenu.png")) {
+        cerr << "Failed to load game over background texture." << endl;
     }
     else {
         backgroundSprite.setTexture(backgroundTexture);
     }
 
+    if (!highscoreTexture.loadFromFile("assets/textures/Highscore/Highscore.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        highscoreSprite.setTexture(highscoreTexture);
+    }
 
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
-    std::cout << "Playing GameOver music." << std::endl;
+    if (!highscoreButtonTexture.loadFromFile("assets/textures/MainMenu/Highscore.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        highscoreButtonSprite.setTexture(highscoreButtonTexture);
+    }
+
+    if (!exitButtonTexture.loadFromFile("assets/textures/MainMenu/Quit.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        exitButtonSprite.setTexture(exitButtonTexture);
+    }
+
+    if (!newGameButtonTexture.loadFromFile("assets/textures/MainMenu/New_Game.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        newGameButtonSprite.setTexture(newGameButtonTexture);
+    }
 }
-
 
 void Highscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
@@ -29,46 +53,45 @@ void Highscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& ga
             cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
             sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
 
-            if (returnToMenuButton.isClicked(clickPosition)) {
+            if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
-                game.returnToMainMenu();
-
+                game.setCurrentState(GameState::MainMenu);
             }
         }
     }
 }
 
 void Highscore::loadHighscores() {
-    std::ifstream highscoreFile("assets/highscore/highscore.txt");
+    ifstream highscoreFile("assets/highscore/highscore.txt");
     if(!highscoreFile) {
-        std::cerr << "Failed to open highscore file." << std::endl;
+        cerr << "Failed to open highscore file." << endl;
         return;
     }
 
-    std::string line;
-    std::getline(highscoreFile, line);
-    std::istringstream iss(line);
-    std::string entry;
+    string line;
+    getline(highscoreFile, line);
+    istringstream iss(line);
+    string entry;
 
-    while (std::getline(iss, entry, '|')) {
-        std::istringstream entryStream(entry);
-        std::string name;
-        std::string score;
+    while (getline(iss, entry, '|')) {
+        istringstream entryStream(entry);
+        string name;
+        string score;
 
-        std::getline(entryStream, name, ',');
-        std::getline(entryStream, score);
+        getline(entryStream, name, ',');
+        getline(entryStream, score);
 
         // Remove any leading/trailing whitespace
         name.erase(name.find_last_not_of(" \n\r\t") + 1);
         score.erase(score.find_last_not_of(" \n\r\t") + 1);
 
-        int points = std::stoi(score);
-        highscoreList.push_back(std::make_pair(name, points));
+        int points = stoi(score);
+        highscoreList.push_back(make_pair(name, points));
     }
     highscoreFile.close();
 
     // Sort the highscores in descending order
-    std::sort(highscoreList.begin(), highscoreList.end(), []
+    sort(highscoreList.begin(), highscoreList.end(), []
             (const auto& a, const auto& b) {
         return a.second > b.second;
     });
@@ -78,10 +101,10 @@ void Highscore::loadHighscores() {
 void Highscore::showHighscore() {
     highscoreTexts.clear();
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
-        std::cerr << "Failed to load font." << std::endl;
+        cerr << "Failed to load font." << endl;
     }
 
-    float y = 80.0f; // Starting position
+    float y = 130.0f; // Starting position
     int rank = 1;
     for (const auto& highscore : highscoreList) {
         sf::Text text;
@@ -89,7 +112,7 @@ void Highscore::showHighscore() {
         text.setCharacterSize(40);
         text.setStyle(sf::Text::Bold);
         text.setFillColor(sf::Color::White);
-        text.setPosition(314.f, y);
+        text.setPosition(460.f, y);
         text.setString(std::to_string(rank) + ". " + highscore.first + " : " + std::to_string(highscore.second));
         highscoreTexts.push_back(text);
 
@@ -102,16 +125,17 @@ void Highscore::resetHighscores() {
     highscoreList.clear();
 }
 
-
 void Highscore::update(float dt) {
     // Update logic if needed
 }
 
-
 void Highscore::draw(sf::RenderWindow& window) {
     window.clear();
     window.draw(backgroundSprite);
-    returnToMenuButton.draw(window);
+    window.draw(newGameButtonSprite);
+    window.draw(exitButtonSprite);
+    window.draw(highscoreSprite);
+    window.draw(highscoreButtonSprite);
     for (const auto& text : highscoreTexts) {
         window.draw(text);
     }

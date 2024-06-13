@@ -31,7 +31,7 @@ void InfraRoom::playBackgroundMusic() {
     audioManager.playMusic("InspiringDaysLoop.ogg", true);
 }
 
-void InfraRoom::setupQuestionText(const std::string& text) {
+void InfraRoom::setupQuestionText(const string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);

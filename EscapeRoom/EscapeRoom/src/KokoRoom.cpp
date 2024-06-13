@@ -32,7 +32,7 @@ void KokoRoom::playBackgroundMusic() {
     audioManager.playMusic("Wonderful.ogg", true);
 }
 
-void KokoRoom::setupQuestionText(const std::string& text) {
+void KokoRoom::setupQuestionText(const string& text) {
     questionText.setFont(font);
     questionText.setCharacterSize(24);
     questionText.setFillColor(sf::Color::White);
