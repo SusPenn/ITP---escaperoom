@@ -3,6 +3,7 @@
 Titel: "I am not in the Moodle"
 
 Mitglieder:
+
 	-Susanne Pennatzer
 	-Jennifer Posch
 	-Lukas Kalab
@@ -24,6 +25,7 @@ Tools und Technologie:
 	-Agiles Projektmanagement: Azure DevOps
 	-IDEs: Microsoft Visual Studio 2022 und Jetbrains CLion (CMake)
 	-Grafikprogramm: GIMP
+	-DAW (Digital Audio Workstation): Reaper
 
 
 GameLoop:
