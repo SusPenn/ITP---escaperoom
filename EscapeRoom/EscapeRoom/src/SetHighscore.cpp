@@ -24,7 +24,7 @@ SetHighscore::SetHighscore() :
     headlineText.setCharacterSize(50);
     headlineText.setPosition(500, 400);
     headlineText.setStyle(sf::Text::Bold);
-    headlineText.setFillColor(sf::Color::Black);
+    headlineText.setFillColor(sf::Color::White);
 
     playerText.setPosition(500, 500);
     playerText.setFont(font);
