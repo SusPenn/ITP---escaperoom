@@ -54,6 +54,7 @@ void DocRoom::handleCorrectAnswer() {
 }
 
 void DocRoom::update(float dt) {
+    // If the line delay is active, wait for the line delay to finish
     if (lineDelayActive) {
         lineDelayTime += dt;
         if (lineDelayTime >= lineDelayDuration) {
@@ -65,7 +66,7 @@ void DocRoom::update(float dt) {
         }
         return;
     }
-
+    // If the line delay is not active, display the text line by line
     if (displayTextLineByLineActive) {
         displayTextLineByLineTime += dt;
         if (displayTextLineByLineTime >= 0.05f) {
@@ -75,6 +76,7 @@ void DocRoom::update(float dt) {
                 currentText += c;
                 if (c == '\n') {
                     lineCount++;
+                    // If the line count is 6, 12, or 18, stop displaying the text line by line
                     if (lineCount == 6 || lineCount == 12 || lineCount == 18) {
                         displayTextLineByLineActive = false;
                         lineDelayActive = true;

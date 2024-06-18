@@ -80,6 +80,7 @@ void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
 }
 
 void Room::update(float dt) {
+    // If the line delay is active, wait for the line delay to finish
     if (lineDelayActive) {
         lineDelayTime += dt;
         if (lineDelayTime >= lineDelayDuration) {
@@ -91,7 +92,7 @@ void Room::update(float dt) {
         }
         return;
     }
-
+    // If the line delay is not active, display the text line by line
     if (displayTextLineByLineActive) {
         displayTextLineByLineTime += dt;
         if (displayTextLineByLineTime >= 0.05f) {
@@ -101,6 +102,7 @@ void Room::update(float dt) {
                 currentText += c;
                 if (c == '\n') {
                     lineCount++;
+                    // If the line count is 5, 10, or 15, stop displaying the text line by line
                     if (lineCount == 5 || lineCount == 10 || lineCount == 15) {
                         displayTextLineByLineActive = false;
                         lineDelayActive = true;

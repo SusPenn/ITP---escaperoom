@@ -27,12 +27,14 @@ public:
 private:
     static int score;
     sf::Texture backgroundTexture;
+    sf::Texture highscoreTexture;
+    sf::Texture highscoreTextfieldTexture;
     sf::Sprite backgroundSprite;
-    Button returnToHighscoreButton;
+    sf::Sprite highscoreSprite;
+    sf::Sprite highscoreTextfieldSprite;
     sf::Font font;
     sf::String playerInput;
     sf::Text playerText;
-    sf::Text headlineText;
     sf::Text yourScore;
 };
 

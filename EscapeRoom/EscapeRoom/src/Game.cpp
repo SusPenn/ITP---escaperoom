@@ -23,7 +23,7 @@ void Game::initializeRooms() {
     characterSelection = make_unique<CharacterSelection>(this);
     intro = make_unique<Intro>(this);
     outro = make_unique<Outro>(this);
-    // Die anderen Raeume hier initialisieren
+    // Initialize all rooms here
     rooms["DocRoom"] = make_unique<DocRoom>(this);
     rooms["MathRoom"] = make_unique<MathRoom>(this);
     rooms["WebRoom"] = make_unique<WebRoom>(this);

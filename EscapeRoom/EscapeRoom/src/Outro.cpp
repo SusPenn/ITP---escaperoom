@@ -145,7 +145,7 @@ void Outro::displayText(float dt) {
 
         if (c == '\n') {
             lineCount++;
-            if (lineCount == 13) {  // Delay nach 13 Zeilen
+            if (lineCount == 13) {  // delay after 13 line
                 lineDelayActive = true;
                 lineDelayTime = 0.0f;
                 return;
@@ -156,7 +156,7 @@ void Outro::displayText(float dt) {
     }
     else if (currentIndex >= entireText.length() && !lineDelayActive) {
         sf::sleep(sf::seconds(3));
-        displayTextFinished(); // Wenn der Text fertig ist, wird die Funktion aufgerufen
+        displayTextFinished(); // when text is finished displaying
     }
 }
 

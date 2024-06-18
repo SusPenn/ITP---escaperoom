@@ -14,12 +14,11 @@ Timer::Timer(float initialTime)
     background.setFillColor(sf::Color(128, 128, 128));
     background.setPosition(610, 25);
 
-    // den Hintergrund an den Text anpassen
     adjustBackgroundToText();
 }
 
 Timer::~Timer() {
-    // Bereinigung kann hier behandelt werden, falls notwendig
+    // use if needed
 }
 
 void Timer::start() {
@@ -41,22 +40,21 @@ void Timer::update() {
         float currentTime = countdownTime - (elapsedTime + clock.getElapsedTime().asSeconds());
         if (currentTime < 0) {
             currentTime = 0;
-            pause(); // Pausiere automatisch, wenn der Countdown null erreicht
+            pause(); // pause when timer hits 0
         }
 
-        // Konvertiere die aktuelle Zeit in Sekunden zu Minuten und Sekunden
+        // convert time to MM:SS
         int totalSeconds = static_cast<int>(currentTime);
         int minutes = totalSeconds / 60;
         int seconds = totalSeconds % 60;
 
-        // Formatieren der Zeit als MM:SS
+        // format time as MM:SS
         std::ostringstream timeStream;
         timeStream << std::setw(2) << std::setfill('0') << minutes << ":"
             << std::setw(2) << std::setfill('0') << seconds;
 
-        // Aktualisiere den Timer-Text
+        // update the timer
         timerText.setString(timeStream.str());
-        // Passe die Größe und Position des Hintergrunds basierend auf dem neuen Text an
         adjustBackgroundToText();
     }
 }
@@ -81,13 +79,12 @@ bool Timer::getIsTimeUp() const {
 }
 
 void Timer::adjustBackgroundToText() {
-    // Hole das umgebende Rechteck des Textes
+    // get the bounding rectangle of the text
     sf::FloatRect textBounds = timerText.getLocalBounds();
-
-    // Setze die Größe des Hintergrunds mit etwas Abstand um den Text
+    // set the size of the background with some padding around the text
     background.setSize(sf::Vector2f(textBounds.width + 20, textBounds.height + 20));
 
-    // Zentriere den Text innerhalb des Hintergrunds
+    //center the text inside the background
     timerText.setPosition(
         background.getPosition().x + (background.getSize().x - textBounds.width) / 2.0f - textBounds.left,
         background.getPosition().y + (background.getSize().y - textBounds.height) / 2.0f - textBounds.top
@@ -95,15 +92,15 @@ void Timer::adjustBackgroundToText() {
 }
 
 int Timer::getScore() const {
-    // Berechne die verbleibende Zeit in Sekunden
+    //calculate remaining Time in seconds
     float remainingTime = countdownTime - (elapsedTime + clock.getElapsedTime().asSeconds());
 
-    // Verhindere negative Werte
+    // prevent negative values
     if (remainingTime < 0) {
         remainingTime = 0;
     }
 
-    // Konvertiere die verbleibende Zeit zu einer Ganzzahl in Sekunden
+    // convert remaining time to score
     return static_cast<int>(remainingTime);
 }
 

@@ -6,34 +6,37 @@
 
 int SetHighscore::score = 0;
 
-SetHighscore::SetHighscore() :
-        returnToHighscoreButton(sf::Vector2f(200.f, 50.f), sf::Vector2f(1040.f, 650.f),
-                           sf::Color(0, 100, 156), "Add your Highscore", 20) {
-    if (!backgroundTexture.loadFromFile("assets/textures/Highscore/Highscore.png")) {
+SetHighscore::SetHighscore() {
+    if (!backgroundTexture.loadFromFile("assets/textures/MainMenu/MainMenu.png")) {
         cerr << "Failed to load game over background texture." << endl;
     }
     else {
         backgroundSprite.setTexture(backgroundTexture);
     }
+    if (!highscoreTexture.loadFromFile("assets/textures/Highscore/Highscore.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        highscoreSprite.setTexture(highscoreTexture);
+    }
+    if (!highscoreTextfieldTexture.loadFromFile("assets/textures/Highscore/SetHighscore.png")) {
+        cerr << "Failed to load game over background texture." << endl;
+    }
+    else {
+        highscoreTextfieldSprite.setTexture(highscoreTextfieldTexture);
+    }
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         cerr << "Failed to load font." << endl;
     }
 
-    headlineText.setString("Enter your name:");
-    headlineText.setFont(font);
-    headlineText.setCharacterSize(50);
-    headlineText.setPosition(500, 400);
-    headlineText.setStyle(sf::Text::Bold);
-    headlineText.setFillColor(sf::Color::White);
-
-    playerText.setPosition(500, 500);
+    playerText.setPosition(475, 280);
     playerText.setFont(font);
     playerText.setCharacterSize(30);
-    playerText.setFillColor(sf::Color::Green);
+    playerText.setFillColor(sf::Color::Black);
 
     yourScore.setFont(font);
-    yourScore.setCharacterSize(60);
-    yourScore.setPosition(500, 300);
+    yourScore.setCharacterSize(30);
+    yourScore.setPosition(610, 180);
 
 
     AudioManager::getInstance().playMusic("synthwave1.ogg", true);
@@ -41,7 +44,7 @@ SetHighscore::SetHighscore() :
 }
 
 void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
-    yourScore.setString("Your Score: " + to_string(getScore()));
+    yourScore.setString(to_string(getScore()));
     sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
     sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
     if (event.type == sf::Event::Closed) {
@@ -50,10 +53,10 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
     else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
-            sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
 
-            if (returnToHighscoreButton.isClicked(clickPosition) && !playerInput.isEmpty()) {
-                cout << "Your Score: " << getScore() << endl;
+            if (translated_pos.x >= 562 && translated_pos.x <= 700
+            && translated_pos.y >= 340 && translated_pos.y <= 388
+            && playerInput.getSize() > 0) {
                 addHighscore();
                 playerInput.clear();
                 playerText.setString(playerInput);
@@ -63,15 +66,16 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
         }
     }
     else if (event.type == sf::Event::TextEntered) {
-        if (event.text.unicode < 128 && event.text.unicode >= 32) { // Nur ASCII-Zeichen erlauben
+        // Only allow ASCII characters and limit the input to 15 characters
+        if (event.text.unicode < 128 && event.text.unicode >= 32 && playerInput.getSize() < 15) {
             playerInput += static_cast<char>(event.text.unicode);
             playerText.setString(playerInput);
         }
     }
     else if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::BackSpace && playerInput.getSize() > 0) {
+            //delete last character
             playerInput.erase(playerInput.getSize() - 1, 1);
-            cout << "PlayerInput: " << playerInput.toAnsiString() << endl;
             playerText.setString(playerInput);
         }
     }
@@ -104,11 +108,10 @@ int SetHighscore::getScore() {
 }
 
 void SetHighscore::draw(sf::RenderWindow& window) {
-
     window.clear();
     window.draw(backgroundSprite);
-    returnToHighscoreButton.draw(window);
-    window.draw(headlineText);
+    window.draw(highscoreSprite);
+    window.draw(highscoreTextfieldSprite);
     window.draw(yourScore);
     window.draw(playerText);
     window.display();

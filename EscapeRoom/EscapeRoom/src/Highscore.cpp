@@ -95,6 +95,12 @@ void Highscore::loadHighscores() {
             (const auto& a, const auto& b) {
         return a.second > b.second;
     });
+
+    // Only keep the top 10 highscores
+    if (highscoreList.size() > 10) {
+        highscoreList.resize(10);
+    }
+
     showHighscore();
 }
 
@@ -104,7 +110,7 @@ void Highscore::showHighscore() {
         cerr << "Failed to load font." << endl;
     }
 
-    float y = 130.0f; // Starting position
+    float y = 105.0f; // Starting position
     int rank = 1;
     for (const auto& highscore : highscoreList) {
         sf::Text text;
@@ -112,7 +118,7 @@ void Highscore::showHighscore() {
         text.setCharacterSize(40);
         text.setStyle(sf::Text::Bold);
         text.setFillColor(sf::Color::White);
-        text.setPosition(460.f, y);
+        text.setPosition(455.f, y);
         text.setString(std::to_string(rank) + ". " + highscore.first + " : " + std::to_string(highscore.second));
         highscoreTexts.push_back(text);
 
