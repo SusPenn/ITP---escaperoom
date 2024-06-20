@@ -63,15 +63,6 @@ void Timer::draw(sf::RenderWindow& window) const {
     window.draw(background);
     window.draw(timerText);
 }
-/*
-bool Timer::getIsTimeUp() const {
-    if (countdownTime == 0.0f) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}*/
 
 bool Timer::getIsTimeUp() const {
     float remainingTime = countdownTime - (elapsedTime + clock.getElapsedTime().asSeconds());
