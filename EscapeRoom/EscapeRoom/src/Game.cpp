@@ -13,10 +13,11 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(1500.0f),
+    globalTimer(10.0f),
     currentState(GameState::MainMenu) {
     initializeRooms();
     gameOver = make_unique<GameOver>(this);
+    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
 }
 
 void Game::initializeRooms() {
@@ -48,6 +49,7 @@ void Game::run() {
 }
 
 void Game::startNewGame() {
+    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
     currentState = GameState::CharacterSelection;
 }
 

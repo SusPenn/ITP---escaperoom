@@ -37,10 +37,6 @@ SetHighscore::SetHighscore() {
     yourScore.setFont(font);
     yourScore.setCharacterSize(30);
     yourScore.setPosition(610, 180);
-
-
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
-    cout << "Playing GameOver music." << endl;
 }
 
 void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& game) {
@@ -52,8 +48,6 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
     }
     else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
-
             if (translated_pos.x >= 562 && translated_pos.x <= 700
             && translated_pos.y >= 340 && translated_pos.y <= 388
             && playerInput.getSize() > 0) {
@@ -80,8 +74,6 @@ void SetHighscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game&
         }
     }
 }
-
-
 
 void SetHighscore::addHighscore() {
     ofstream highscoreFile("assets/highscore/highscore.txt", ios_base::app);

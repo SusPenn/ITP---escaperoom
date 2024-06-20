@@ -9,23 +9,16 @@ GameOver::GameOver(Game* gameInstance) :
 }
 
 void GameOver::enter() {
-    static bool isEntered = false;
-    if (isEntered) return;
-    isEntered = true;
-
     if (!backgroundTexture.loadFromFile("assets/textures/GameOver/GameOver.png")) {
         cerr << "Failed to load game over background texture." << endl;
     }
     else {
         backgroundSprite.setTexture(backgroundTexture);
     }
-
     AudioManager::getInstance().playMusic("GameOverMusic.ogg", true);
-    cout << "Playing GameOver music." << endl;
 }
 
 void GameOver::exit() {
-    static bool isEntered = false; // Reset the flag
 }
 
 void GameOver::handleInput(sf::Event& event, sf::RenderWindow& window) {

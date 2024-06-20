@@ -50,7 +50,6 @@ void Highscore::handleInput(sf::Event& event, sf::RenderWindow& window, Game& ga
     }
     else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
             sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
 
             if (translated_pos.x >= 39 && translated_pos.x <= 361 && translated_pos.y >= 525 && translated_pos.y <= 575) {

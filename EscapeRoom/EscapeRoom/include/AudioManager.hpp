@@ -19,26 +19,26 @@ public:
     AudioManager(AudioManager const&) = delete;
     void operator=(AudioManager const&) = delete;
 
-    void playSoundEffect(const std::string& filename);
-    void playMusic(const std::string& filename, bool loop);
+    void playSoundEffect(const string& filename);
+    void playMusic(const string& filename, bool loop);
     void stopMusic();
     void pauseMusic();
     void resumeMusic();
     void setMusicVolume(float volume);
     void setSoundEffectVolume(float volume);
     void fadeOutMusic(float duration);
-    void fadeInMusic(const std::string& filename, bool loop, float duration);
+    void fadeInMusic(const string& filename, bool loop, float duration);
 
 private:
-    AudioManager(const std::string& soundEffectPath, const std::string& musicPath);
+    AudioManager(const string& soundEffectPath, const string& musicPath);
     ~AudioManager();
 
-    std::unordered_map<std::string, sf::SoundBuffer> soundBuffers;
+    unordered_map<string, sf::SoundBuffer> soundBuffers;
     sf::Sound sound;
     sf::Music music;
-    std::string soundEffectPath;
-    std::string musicPath;
-    std::string currentMusicFilename;
+    string soundEffectPath;
+    string musicPath;
+    string currentMusicFilename;
 };
 
 #endif // AUDIOMANAGER_HPP

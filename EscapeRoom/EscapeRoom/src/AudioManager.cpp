@@ -1,7 +1,7 @@
 #include "AudioManager.hpp"
 #include <SFML/Audio.hpp>
 
-AudioManager::AudioManager(const std::string& soundEffectPath, const std::string& musicPath)
+AudioManager::AudioManager(const string& soundEffectPath, const string& musicPath)
     : soundEffectPath(soundEffectPath), musicPath(musicPath) {}
 
 AudioManager::~AudioManager() {
@@ -9,12 +9,12 @@ AudioManager::~AudioManager() {
     music.stop();
 }
 
-void AudioManager::playSoundEffect(const std::string& filename) {
-    std::string fullPath = soundEffectPath + filename;
+void AudioManager::playSoundEffect(const string& filename) {
+    string fullPath = soundEffectPath + filename;
     if (soundBuffers.find(fullPath) == soundBuffers.end()) {
         sf::SoundBuffer buffer;
         if (!buffer.loadFromFile(fullPath)) {
-            std::cerr << "Failed to load sound effect: " << fullPath << std::endl;
+            cerr << "Failed to load sound effect: " << fullPath << endl;
             return;
         }
         soundBuffers[fullPath] = buffer;
@@ -23,22 +23,21 @@ void AudioManager::playSoundEffect(const std::string& filename) {
     sound.play();
 }
 
-void AudioManager::playMusic(const std::string& filename, bool loop) {
+void AudioManager::playMusic(const string& filename, bool loop) {
     // Stop any currently playing music first
     if (music.getStatus() != sf::Music::Stopped) {
         music.stop();
     }
 
-    std::string fullPath = musicPath + filename;
+    string fullPath = musicPath + filename;
     if (!music.openFromFile(fullPath)) {
-        std::cerr << "Failed to load music: " << fullPath << std::endl;
+        cerr << "Failed to load music: " << fullPath << endl;
         return;
     }
 
     currentMusicFilename = filename;
     music.setLoop(loop);
     music.play();
-    cout << "Playing music: " << filename << endl;
 }
 
 void AudioManager::stopMusic() {
@@ -58,20 +57,20 @@ void AudioManager::resumeMusic() {
             fadeInMusic(currentMusicFilename, music.getLoop(), 1); // Fade in over 1 second
         }
         else {
-            std::cerr << "Failed to resume music: No music track is loaded or file is missing." << std::endl;
+            cerr << "Failed to resume music: No music track is loaded or file is missing." << endl;
         }
     }
 }
 
 void AudioManager::setMusicVolume(float volume) {
     // Clamp the volume between 0 and 100
-    volume = std::max(0.0f, std::min(100.0f, volume));
+    volume = max(0.0f, min(100.0f, volume));
     music.setVolume(volume);
 }
 
 void AudioManager::setSoundEffectVolume(float volume) {
     // Clamp the volume between 0 and 100
-    volume = std::max(0.0f, std::min(100.0f, volume));
+    volume = max(0.0f, min(100.0f, volume));
     sound.setVolume(volume);
 }
 
@@ -80,7 +79,7 @@ void AudioManager::fadeOutMusic(float duration) {
     sf::Clock clock;
     while (clock.getElapsedTime().asSeconds() < duration) {
         float elapsed = clock.getElapsedTime().asSeconds();
-        float newVolume = std::max(0.0f, startVolume * (1 - elapsed / duration));
+        float newVolume = max(0.0f, startVolume * (1 - elapsed / duration));
         music.setVolume(newVolume);
         sf::sleep(sf::milliseconds(10));
     }
@@ -88,9 +87,9 @@ void AudioManager::fadeOutMusic(float duration) {
     music.stop();
 }
 
-void AudioManager::fadeInMusic(const std::string& filename, bool loop, float duration) {
+void AudioManager::fadeInMusic(const string& filename, bool loop, float duration) {
     if (!music.openFromFile(musicPath + filename)) {
-        std::cerr << "Failed to load music: " << (musicPath + filename) << std::endl;
+        cerr << "Failed to load music: " << (musicPath + filename) << endl;
         return;
     }
 

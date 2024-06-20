@@ -51,7 +51,6 @@ bool ProzdRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void ProzdRoom::handleCorrectAnswer() {
-    cout << "Correct answer!" << endl;
     game->getGlobalTimer().pause();
     game->setScore();
     exit();

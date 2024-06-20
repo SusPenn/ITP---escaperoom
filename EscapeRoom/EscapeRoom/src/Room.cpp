@@ -62,15 +62,6 @@ void Room::exit() {
 }
 
 void Room::handleInput(sf::Event& event, sf::RenderWindow& window) {
-    //Show position of mouse in console on left mouse button click
-    sf::Vector2i mouse_pos = sf::Mouse::getPosition(window);
-    sf::Vector2f translated_pos = window.mapPixelToCoords(mouse_pos);
-    if (event.type == sf::Event::MouseButtonPressed) {
-        if (event.mouseButton.button == sf::Mouse::Left) {
-            cout << "Mouse x: " << translated_pos.x << " Mouse y: " << translated_pos.y << endl;
-        }
-    }
-
     if (event.type == sf::Event::Closed) {
         window.close();
     }

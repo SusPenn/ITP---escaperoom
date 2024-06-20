@@ -51,6 +51,5 @@ bool EngRoom::isWrongAnswer(const sf::Vector2f& pos) {
 }
 
 void EngRoom::handleCorrectAnswer() {
-    cout << "Correct answer!" << endl;
     game->enterRoom("InfraRoom");
 }
