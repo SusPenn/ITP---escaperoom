@@ -13,7 +13,7 @@ Game::Game()
     currentRoom(nullptr),
     chosenCharacter(""),
     score(0),
-    globalTimer(10.0f),
+    globalTimer(1500.0f),
     currentState(GameState::MainMenu) {
     initializeRooms();
     gameOver = make_unique<GameOver>(this);

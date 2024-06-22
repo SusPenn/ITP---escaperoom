@@ -13,7 +13,7 @@ CharacterSelection::CharacterSelection(Game* game)
 
     // define click area
     float halfWidth = game->getWindow().getSize().x / 2.0f;
-    float height = game->getWindow().getSize().y;
+    float height = static_cast<float>(game->getWindow().getSize().y);
 
     // left side -> fortuna
     fortunaRect = sf::FloatRect(0, 0, halfWidth, height);
@@ -24,7 +24,7 @@ CharacterSelection::CharacterSelection(Game* game)
 void CharacterSelection::handleInput(sf::Event& event, sf::RenderWindow& window) {
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
+            sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
             if (fortunaRect.contains(mousePos)) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 game->setChosenCharacter("Fortuna");

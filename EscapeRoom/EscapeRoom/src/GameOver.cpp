@@ -27,7 +27,7 @@ void GameOver::handleInput(sf::Event& event, sf::RenderWindow& window) {
     }
     else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            sf::Vector2f clickPosition(event.mouseButton.x, event.mouseButton.y);
+            sf::Vector2f clickPosition(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
 
             if (returnToMenuButton.isClicked(clickPosition)) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");

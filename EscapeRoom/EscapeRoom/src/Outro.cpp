@@ -91,16 +91,16 @@ void Outro::handleInput(sf::Event& event, sf::RenderWindow& window) {
     }
     else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
-            if (skipButton.getIsButtonVisible() && skipButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+            if (skipButton.getIsButtonVisible() && skipButton.isClicked(sf::Vector2f(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y)))) {
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 displayTextFinished();
             }
-            else if (doorButton.getIsButtonVisible() && doorButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+            else if (doorButton.getIsButtonVisible() && doorButton.isClicked(sf::Vector2f(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y)))) {
                 doorButton.setVisibility(false);
                 AudioManager::getInstance().playSoundEffect("DoorOpen.ogg");
                 toTheSpritzer();
             }
-            else if (returnToMainMenuButton.getIsButtonVisible() && returnToMainMenuButton.isClicked(sf::Vector2f(event.mouseButton.x, event.mouseButton.y))) {
+            else if (returnToMainMenuButton.getIsButtonVisible() && returnToMainMenuButton.isClicked(sf::Vector2f(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y)))) {
                 returnToMainMenuButton.setVisibility(false);
                 AudioManager::getInstance().playSoundEffect("Click.ogg");
                 exit();
@@ -130,7 +130,7 @@ void Outro::update(float dt) {
 
     if (showCredits) {
         if(creditsPositionY > 0.f) {
-			creditsPositionY -= 0.2;
+			creditsPositionY -= 0.2f;
 			outroCreditsSprite.setPosition(0.f, creditsPositionY);
 		}
     }
