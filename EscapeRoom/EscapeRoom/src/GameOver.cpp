@@ -41,6 +41,7 @@ void GameOver::handleInput(sf::Event& event, sf::RenderWindow& window) {
                 game->resetGame();
                 AudioManager::getInstance().stopMusic();
                 AudioManager::getInstance().setMusicVolume(100);
+                AudioManager::getInstance().playMusic("synthwave1.ogg", true);
                 game->startNewGame();
                 exit(); 
             }

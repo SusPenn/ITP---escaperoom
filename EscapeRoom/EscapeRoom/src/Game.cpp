@@ -49,7 +49,6 @@ void Game::run() {
 }
 
 void Game::startNewGame() {
-    AudioManager::getInstance().playMusic("synthwave1.ogg", true);
     currentState = GameState::CharacterSelection;
 }
 
